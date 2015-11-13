@@ -7,22 +7,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
     Button btn;
+    TextView tUsername;
+    TextView tPassword;
+    DatabaseConnection db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseConnection(this.getFilesDir().toString());
+        db.Open();
+        db.InitData();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         btn = (Button) findViewById(R.id.signIn);
+        tUsername = (TextView) findViewById(R.id.textUsername);
+        tPassword = (TextView) findViewById(R.id.textPassword);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Home.class));
+                int value = db.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
+                if (value == 1) startActivity(new Intent(MainActivity.this, Home.class));
+                else if(value == 2) startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
+                     else System.out.println("Value login is: " + String.valueOf(value));
+
             }
         });
     }
