@@ -1,25 +1,20 @@
 package com.example.huynhthanhnha.myapplication;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by NguyenThanh on 12/11/2015.
  */
 public class Product {
     String ProductName;
-    float Price;
     String Unit;
+    Set<ListPrice> listPrice;
 
-    public Product(String productName, float price, String unit) {
+    public Product(String productName, String unit) {
         ProductName = productName;
-        Price = price;
         Unit = unit;
-    }
-
-    public float getPrice() {
-        return Price;
-    }
-
-    public void setPrice(float price) {
-        Price = price;
+        this.listPrice = new HashSet<ListPrice>();
     }
 
     public String getUnit() {
@@ -36,5 +31,17 @@ public class Product {
 
     public void setProductName(String productName) {
         ProductName = productName;
+    }
+
+    public Set<ListPrice> getListPrice() {
+        return listPrice;
+    }
+
+    public void setListPrice(Set<ListPrice> listPrice) {
+        this.listPrice = listPrice;
+    }
+
+    public void addPrice(ListPrice listPrice){
+        this.listPrice.add(listPrice);
     }
 }
