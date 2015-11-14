@@ -5,6 +5,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +15,19 @@ import java.util.List;
 public class DatabaseConnection {
     String filePath;
     ObjectContainer db;
+    boolean flag;
     public DatabaseConnection(String filePath) {
         this.filePath = filePath + "/coffee_db.db4o";
     }
 
     public void Open(){
+        if(new File(filePath).exists()) flag = true;
         db = Db4oEmbedded.openFile(filePath);
+        if(!flag) InitData();
+        else System.out.println("File exist");
     }
 
-    public void InitData(){
+    private void InitData(){
         List<Permission> listPer = new ArrayList<Permission>();
         Permission per1 = new Permission(1, "Toàn quyền hệ thống");
         Permission per2 = new Permission(2, "Nhân viên");
@@ -41,6 +46,7 @@ public class DatabaseConnection {
 
         db.store(listPer);
         db.store(listUsr);
+        db.commit();
     }
 
     public int CheckLogin(final String username, final String password){

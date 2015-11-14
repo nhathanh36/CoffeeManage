@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         db = new DatabaseConnection(this.getFilesDir().toString());
         db.Open();
-        db.InitData();
+        //db.InitData();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -32,6 +32,9 @@ public class MainActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Manager usr1 = new Manager("tri", "tri", "Nguyễn Minh Tri","367555213");
+                db.db.store(usr1);
+
                 int value = db.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
                 if (value == 1) startActivity(new Intent(MainActivity.this, Home.class));
                 else if(value == 2) startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
