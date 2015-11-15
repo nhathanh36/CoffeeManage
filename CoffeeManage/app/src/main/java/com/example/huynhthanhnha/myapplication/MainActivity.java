@@ -32,12 +32,10 @@ public class MainActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Manager usr1 = new Manager("tri", "tri", "Nguyễn Minh Tri","367555213");
-                db.db.store(usr1);
-
+                db.test();
                 int value = db.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
                 if (value == 1) startActivity(new Intent(MainActivity.this, Home.class));
-                else if(value == 2) startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
+                else if(value == 2) startActivity(new Intent(MainActivity.this, HomeOfficer.class));
                      else System.out.println("Value login is: " + String.valueOf(value));
 
             }

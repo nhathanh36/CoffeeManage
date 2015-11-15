@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/iconapp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearListTable"
+                android:orientation="vertical"
+                android:layout_width="110dp"
+                android:layout_height="150dp">
+                <ImageView
+                    android:layout_width="103dp"
+                    android:layout_height="103dp"
+                    android:src="@drawable/cafe_icon"
+                    android:id="@+id/imgListTable"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Danh sách bàn"
+                    android:id="@+id/textDanhsachban" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginLeft="80dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="103dp"
+                    android:layout_height="103dp"
+                    android:src="@drawable/ready"
+                    android:id="@+id/imageView2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Danh sách thức uống"
+                    android:id="@+id/textView35" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="103dp"
+                android:layout_height="103dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/cafe_icon"
+                android:id="@+id/imageView11"
+                android:layout_gravity="center_horizontal" />
+            <ImageView
+                android:layout_width="103dp"
+                android:layout_height="103dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ready"
+                android:id="@+id/imageView22"
+                android:layout_gravity="center_horizontal" />
+            <ImageView
+                android:layout_width="103dp"
+                android:layout_height="103dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/nhanvien"
+                android:id="@+id/imageView33" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

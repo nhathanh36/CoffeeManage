@@ -1,5 +1,6 @@
 package com.example.huynhthanhnha.myapplication;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -7,20 +8,13 @@ import java.util.Date;
  */
 public class ListPrice {
     long price;
-    String details;
     DateClass dateClass;
     Product product;
 
-    public ListPrice(long price) {
+    public ListPrice(Calendar cal, Product prod, long price) {
         this.price = price;
-        this.dateClass = new DateClass(new Date());
-        //this.product = new Product();
-    }
-
-    public ListPrice(String details, long price) {
-        this.details = details;
-        this.price = price;
-        this.dateClass = new DateClass(new Date());
+        this.dateClass = new DateClass(cal);
+        this.product = prod;
     }
 
     public long getPrice() {
@@ -31,11 +25,4 @@ public class ListPrice {
         this.price = price;
     }
 
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
 }

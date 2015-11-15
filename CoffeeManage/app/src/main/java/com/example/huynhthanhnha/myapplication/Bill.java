@@ -1,5 +1,6 @@
 package com.example.huynhthanhnha.myapplication;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -9,11 +10,13 @@ public class Bill {
     String date;
     Set<ProductDetails> listDetailProduct;
     Table table;
+    boolean state;
     Officer officer;
 
-    public Bill(String date, Set<ProductDetails> listDetailProduct) {
+    public Bill(String date) {
         this.date = date;
-        this.listDetailProduct = listDetailProduct;
+        this.listDetailProduct = new HashSet<ProductDetails>();
+        this.state = false;
     }
 
     public String getDate() {
@@ -46,5 +49,17 @@ public class Bill {
 
     public void setOfficer(Officer officer) {
         this.officer = officer;
+    }
+
+    public void addListDetailProduct (ProductDetails productDetails) {
+        this.listDetailProduct.add(productDetails);
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

@@ -7,18 +7,31 @@ import java.util.Set;
  * Created by NguyenThanh on 12/11/2015.
  */
 public class GroupProduct {
+    int GroupID;
     String GroupProductName;
     String Details;
     Set<Product> listProduct;
 
-    public GroupProduct(String groupProductName) {
+    public GroupProduct(int groupID, String groupProductName) {
+        GroupID = groupID;
         GroupProductName = groupProductName;
+        this.listProduct = new HashSet<Product>();
     }
 
-    public GroupProduct(String groupProductName, String details) {
+    public GroupProduct(int groupID, String groupProductName, String details) {
+        GroupID = groupID;
         GroupProductName = groupProductName;
         Details = details;
         this.listProduct = new HashSet<Product>();
+    }
+
+
+    public int getGroupID() {
+        return GroupID;
+    }
+
+    public void setGroupID(int groupID) {
+        GroupID = groupID;
     }
 
     public String getProductName() {
