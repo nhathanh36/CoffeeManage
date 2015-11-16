@@ -63,6 +63,15 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg">
 
+        <GridView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/gvListTable"
+            android:numColumns="3">
+
+        </GridView>
     </LinearLayout>
 
 </LinearLayout>

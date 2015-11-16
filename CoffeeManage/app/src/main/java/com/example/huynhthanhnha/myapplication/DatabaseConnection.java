@@ -19,6 +19,7 @@ public class DatabaseConnection {
     String filePath;
     ObjectContainer db;
     boolean flag;
+
     public DatabaseConnection(String filePath) {
         this.filePath = filePath + "/coffee_db.db4o";
     }
