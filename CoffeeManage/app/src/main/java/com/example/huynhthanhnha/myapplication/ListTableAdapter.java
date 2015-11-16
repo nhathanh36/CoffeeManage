@@ -41,7 +41,7 @@ public class ListTableAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Table vocabulary = listTable.get(position);
+        Table table = listTable.get(position);
         LayoutInflater inflater = context.getLayoutInflater();
 
         View rowView = inflater.inflate(R.layout.gv_element_list_table, null);
@@ -50,7 +50,7 @@ public class ListTableAdapter extends BaseAdapter {
         /*ImageView imageView = (ImageView) rowView.findViewById(R.id.imageTable);
         imageView.setImageResource(table.getImage());*/
         TextView textView = (TextView) rowView.findViewById(R.id.tvTable);
-        textView.setText(vocabulary.getIdTable());
+        textView.setText("Bàn " + String.valueOf(table.getIdTable()));
 
         return rowView;
     }

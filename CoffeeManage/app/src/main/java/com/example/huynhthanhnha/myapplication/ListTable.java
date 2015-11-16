@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ListTable extends Activity {
     List<Table> listTable = new ArrayList<Table>();
-    DatabaseConnection connection;
+    DatabaseConnection conn = new DatabaseConnection();
     ObjectSet<Table> obsTable;
 
     @Override
@@ -37,14 +37,11 @@ public class ListTable extends Activity {
         GridView gridView = (GridView) findViewById(R.id.gvListTable);
 
         // get table in database
-        connection = new DatabaseConnection(this.getFilesDir().toString());
-        connection.Open();
-        obsTable = connection.db.queryByExample(Table.class);
-        for (Table t: obsTable) {
-            listTable.add(t);
-        }
 
-        connection.db.close();
+        conn.Open();
+        listTable = conn.getTable();
+        conn.Close();
+
         gridView.setAdapter(new ListTableAdapter(this, listTable));
 
         // Handle when user click on item in grid view

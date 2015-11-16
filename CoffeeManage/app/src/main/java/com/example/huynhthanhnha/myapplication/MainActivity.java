@@ -14,16 +14,16 @@ public class MainActivity extends Activity {
     Button btn;
     TextView tUsername;
     TextView tPassword;
-    DatabaseConnection db;
+    DatabaseConnection conn = new DatabaseConnection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        db = new DatabaseConnection(this.getFilesDir().toString());
-        db.Open();
-        //db.InitData();
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startActivity(new Intent(MainActivity.this, HomeOfficer.class));
 
         btn = (Button) findViewById(R.id.signIn);
         tUsername = (TextView) findViewById(R.id.textUsername);
@@ -32,14 +32,18 @@ public class MainActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.test();
-                int value = db.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
+                conn.Open();
+                int value = conn.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
+                conn.Close();
                 if (value == 1) startActivity(new Intent(MainActivity.this, Home.class));
-                else if(value == 2) startActivity(new Intent(MainActivity.this, HomeOfficer.class));
-                     else System.out.println("Value login is: " + String.valueOf(value));
+                else if (value == 2)
+                    startActivity(new Intent(MainActivity.this, HomeOfficer.class));
+                else System.out.println("Value login is: " + String.valueOf(value));
 
             }
         });
+
+
     }
 
 

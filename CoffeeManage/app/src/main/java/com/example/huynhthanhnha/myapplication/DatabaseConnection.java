@@ -16,23 +16,26 @@ import java.util.List;
  * Created by NguyenThanh on 13/11/2015.
  */
 public class DatabaseConnection {
-    String filePath;
+    //String filePath;
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
     ObjectContainer db;
     boolean flag;
 
+    public DatabaseConnection(){
+        if(new File(filePath).exists()) flag = true;
+    }
+
     public DatabaseConnection(String filePath) {
-        this.filePath = filePath + "/coffee_db.db4o";
+        //this.filePath = filePath + "/coffee_db.db4o";
+        //System.out.println(this.filePath);
     }
 
     public void Open(){
-        if(new File(filePath).exists()) flag = true;
         db = Db4oEmbedded.openFile(filePath);
         if(!flag) InitData();
-        InitData();
     }
 
     private void InitData(){
-
         //==============================PERMISSION AND USER================================================
         List<Permission> listPer = new ArrayList<Permission>();
         Permission per1 = new Permission(1, "Toàn quyền hệ thống");
@@ -183,14 +186,25 @@ public class DatabaseConnection {
     }
 
     public int CheckLogin(final String username, final String password){
-        ObjectSet<User> users = db.query(new Predicate<User>(){
-            public boolean match(User user){
+        ObjectSet<User> users = db.query(new Predicate<User>() {
+            public boolean match(User user) {
                 return user.getUsername().equals(username) && user.getPassword().equals(password);
             }
         });
         if(users.size() == 0) return -1;                        //Username and pass incorrect
         else return users.next().getPer().getPermissionId();    //Return number of permission of users
     }
+
+    public List<Table> getTable() {
+        List<Table> listTable = new ArrayList<Table>();
+        ObjectSet<Table> obsTable = db.queryByExample(Table.class);
+        for (Table t: obsTable) {
+            listTable.add(t);
+            System.out.println("Id table: " + t.getIdTable());
+        }
+        return listTable;
+    }
+
 
     public void Close(){
         db.close();
