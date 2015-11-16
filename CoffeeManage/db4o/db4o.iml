@@ -9,7 +9,6 @@
     <facet type="java-gradle" name="Java-Gradle">
       <configuration>
         <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" />
-        <option name="BUILDABLE" value="false" />
       </configuration>
     </facet>
   </component>
@@ -24,3 +23,4 @@
     <orderEntry type="library" exported="" name="db4o.db4o-8.0.249.16098-all-java5" level="project" />
   </component>
 </module>
+
