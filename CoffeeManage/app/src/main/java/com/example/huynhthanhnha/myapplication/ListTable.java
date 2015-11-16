@@ -37,7 +37,7 @@ public class ListTable extends Activity {
         GridView gridView = (GridView) findViewById(R.id.gvListTable);
 
         // get table in database
-
+        //System.out.println("FILE: " + this.getFilesDir().toString());
         conn.Open();
         listTable = conn.getTable();
         conn.Close();

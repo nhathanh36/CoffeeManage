@@ -6,19 +6,19 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical">
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
         android:id="@+id/imageTable"
         android:gravity="center_horizontal"
         android:src="@drawable/table"/>
 
     <TextView
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:textSize="8pt"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
+        android:textSize="7pt"
         android:textColor="@android:color/black"
         android:gravity="center_horizontal"
         android:id="@+id/tvTable"/>

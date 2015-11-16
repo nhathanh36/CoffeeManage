@@ -23,6 +23,7 @@ public class DatabaseConnection {
 
     public DatabaseConnection(){
         if(new File(filePath).exists()) flag = true;
+        else flag = false;
     }
 
     public DatabaseConnection(String filePath) {

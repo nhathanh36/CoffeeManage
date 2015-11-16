@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="400dp"
         android:layout_height="100dp"
-        android:background="@drawable/bg_blue">
+        android:background="#e7a0a0a0">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -16,8 +17,8 @@
             <ImageView
                 android:layout_width="98dp"
                 android:layout_height="98dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/onlocation_icon"/>
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/cf1"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -25,19 +26,29 @@
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="283dp"
-                    android:textSize="10pt"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:layout_height="44dp"
+                    android:layout_width="257dp"
+                    android:textSize="11pt"
+                    android:textColor="#ffffff"
+                    android:layout_height="36dp"
                     android:gravity="center_vertical"
-                    android:text="Cafe Nha Phi"/>
+                    android:text="Cafe Quán Phố"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="8pt"
+                    android:layout_width="261dp"
+                    android:layout_height="30dp"
+                    android:textSize="7pt"
+                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:text="Huynh Thanh Nha"/>
+                    android:text="Tên: Nguyễn Thanh Phi"/>
+
+                <TextView
+                    android:layout_width="261dp"
+                    android:layout_height="30dp"
+                    android:textSize="7pt"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:text="Cấp: Nhân viên"
+                    android:id="@+id/textView6" />
             </LinearLayout>
         </LinearLayout>
 
@@ -48,30 +59,80 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/bg"
-        android:layout_gravity="center">
+        android:background="#d8187eb9"
+        android:layout_gravity="center"
+        android:baselineAligned="false"
+        android:clickable="false">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="354dp"
             android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffffff"
             android:layout_height="match_parent"
-            android:text="Ngay 20/11/2015 8:30 PM"/>
+            android:text="Ngày 20/11/2015 8:30 PM"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg">
-
+        android:layout_height="300dp"
+        android:background="#ffffff"
+        android:layout_weight="0.69">
         <GridView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:id="@+id/gvListTable"
-            android:numColumns="3">
-
+            android:numColumns="4">
         </GridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="#d8a6a6a6"
+        android:layout_gravity="center"
+        android:baselineAligned="false"
+        android:clickable="false">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Chuyển"
+                android:id="@+id/button"
+                android:layout_weight="0.06"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Nhập"
+                android:id="@+id/button2"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.08"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Tách"
+                android:id="@+id/button3"
+                android:layout_weight="0.11" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/iconapp"
+    android:background="@drawable/bg4"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="400dp"
+            android:layout_height="40dp"
+            android:background="#e7a0a0a0"
+            android:weightSum="1">
+                    <TextView
+                        android:layout_width="257dp"
+                        android:textSize="10pt"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:layout_height="36dp"
+                        android:paddingLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Danh mục chức năng"
+                        android:layout_weight="0.74" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -17,11 +33,13 @@
             <LinearLayout
                 android:id="@+id/linearListTable"
                 android:orientation="vertical"
-                android:layout_width="110dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="60dp"
+                android:layout_width="120dp"
                 android:layout_height="150dp">
                 <ImageView
-                    android:layout_width="103dp"
-                    android:layout_height="103dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:src="@drawable/cafe_icon"
                     android:id="@+id/imgListTable"/>
                 <TextView
@@ -34,61 +52,47 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_marginLeft="80dp"
-                android:layout_width="180dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="103dp"
-                    android:layout_height="103dp"
-                    android:src="@drawable/ready"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/thongtinsanpham"
                     android:id="@+id/imageView2" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="5dp"
+                    android:textAlignment="center"
                     android:text="Danh sách thức uống"
                     android:id="@+id/textView35" />
             </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
+        android:layout_marginLeft="60dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="103dp"
                 android:layout_height="103dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/cafe_icon"
+                android:src="@drawable/cf5"
                 android:id="@+id/imageView11"
                 android:layout_gravity="center_horizontal" />
-            <ImageView
-                android:layout_width="103dp"
-                android:layout_height="103dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ready"
-                android:id="@+id/imageView22"
-                android:layout_gravity="center_horizontal" />
-            <ImageView
-                android:layout_width="103dp"
-                android:layout_height="103dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/nhanvien"
-                android:id="@+id/imageView33" />
+
         </LinearLayout>
 
     </LinearLayout>
