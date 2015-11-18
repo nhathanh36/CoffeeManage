@@ -1,8 +1,6 @@
 package com.example.huynhthanhnha.myapplication.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +9,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 
-import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.huynhthanhnha.myapplication.ListTable;
 import com.example.huynhthanhnha.myapplication.R;
 
 /**
@@ -23,7 +19,8 @@ import com.example.huynhthanhnha.myapplication.R;
 public class HomeOfficer extends AppCompatActivity {
     private Toolbar toolbar;
     LinearLayout linearLayout;
-    private LinearLayout img;
+    LinearLayout img;
+    LinearLayout product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +30,7 @@ public class HomeOfficer extends AppCompatActivity {
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        img = (LinearLayout) findViewById(R.id.linearListProduct);
+        img = (LinearLayout) findViewById(R.id.demo);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +50,13 @@ public class HomeOfficer extends AppCompatActivity {
             }
         });
 
+        product = (LinearLayout) findViewById(R.id.linearListProduct);
+        product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeOfficer.this, ProductActivity.class));
+            }
+        });
 
     }
 

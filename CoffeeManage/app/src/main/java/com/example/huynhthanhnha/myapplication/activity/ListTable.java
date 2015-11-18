@@ -1,11 +1,14 @@
-package com.example.huynhthanhnha.myapplication;
+package com.example.huynhthanhnha.myapplication.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.GridView;
 
 import com.db4o.ObjectSet;
-import com.example.huynhthanhnha.myapplication.activity.ListTableAdapter;
+import com.example.huynhthanhnha.myapplication.DatabaseConnection;
+import com.example.huynhthanhnha.myapplication.R;
+import com.example.huynhthanhnha.myapplication.Table;
+
 
 import java.util.ArrayList;
 import java.util.List;
