@@ -9,7 +9,6 @@ import java.util.Set;
 public class GroupProduct {
     int GroupID;
     String GroupProductName;
-    String Details;
     Set<Product> listProduct;
 
     public GroupProduct(int groupID, String groupProductName) {
@@ -18,36 +17,12 @@ public class GroupProduct {
         this.listProduct = new HashSet<Product>();
     }
 
-    public GroupProduct(int groupID, String groupProductName, String details) {
-        GroupID = groupID;
-        GroupProductName = groupProductName;
-        Details = details;
-        this.listProduct = new HashSet<Product>();
-    }
-
-
     public int getGroupID() {
         return GroupID;
     }
 
     public void setGroupID(int groupID) {
         GroupID = groupID;
-    }
-
-    public String getProductName() {
-        return GroupProductName;
-    }
-
-    public void setProductName(String productName) {
-        GroupProductName = productName;
-    }
-
-    public String getDetails() {
-        return Details;
-    }
-
-    public void setDetails(String details) {
-        Details = details;
     }
 
     public String getGroupProductName() {
