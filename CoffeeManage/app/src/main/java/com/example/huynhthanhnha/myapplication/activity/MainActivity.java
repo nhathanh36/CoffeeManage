@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.huynhthanhnha.myapplication.DatabaseConnection;
+import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.R;
 
 
@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(MainActivity.this, HomeOfficer.class));
+        startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
 
         btn = (Button) findViewById(R.id.signIn);
         tUsername = (TextView) findViewById(R.id.textUsername);
@@ -38,9 +38,9 @@ public class MainActivity extends Activity {
                 conn.Open();
                 int value = conn.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
                 conn.Close();
-                if (value == 1) startActivity(new Intent(MainActivity.this, Home.class));
+                if (value == 1) startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 else if (value == 2)
-                    startActivity(new Intent(MainActivity.this, HomeOfficer.class));
+                    startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
                 else System.out.println("Value login is: " + String.valueOf(value));
 
             }

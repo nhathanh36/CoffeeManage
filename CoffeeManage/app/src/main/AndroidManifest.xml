@@ -16,17 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Home" />
+        <activity android:name=".activity.HomeActivity" />
         <activity
             android:name=".activity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".activity.HomeOfficer">
+        <activity android:name=".activity.HomeOfficerActivity">
         </activity>
-        <activity android:name=".activity.ListTable"></activity>
+        <activity android:name=".activity.GridTableActivity"></activity>
         <activity android:name=".activity.CustomViewIconTextTabsActivity"></activity>
-        <activity android:name=".activity.ProductActivity"></activity>
+        <activity android:name=".activity.ListProductActivity"/>
 
     </application>
 
