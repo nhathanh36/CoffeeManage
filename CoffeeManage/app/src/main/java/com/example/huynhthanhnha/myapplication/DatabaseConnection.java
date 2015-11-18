@@ -207,6 +207,36 @@ public class DatabaseConnection {
         return listTable;
     }
 
+    //Get list product PRODUCT ACTIVITY
+    public List<Product> getListProduct(){
+        List<Product> listProduct = new ArrayList<Product>();
+        ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
+        for (Product pd: lsProduct) {
+            listProduct.add(pd);
+            System.out.println("Product Name: " + pd.getProductName() + " Unit: " + pd.getUnit());
+        }
+        return listProduct;
+    }
+
+    public void InsertProduct(String nameOfProduct, String unitOfProduct, long price){
+        Calendar cal = Calendar.getInstance();
+
+        //Get max id for product
+        int maxID = 0;
+
+        //Insert product object
+        Product prod = new Product(maxID, nameOfProduct, unitOfProduct);
+
+        //Insert ListPrice object
+        ListPrice listPrice = new ListPrice(cal, prod, price); //added ref
+
+        //Insert DateClass object //Chua xu ly trung ngay khi insert
+        DateClass dateClass = new DateClass(cal);
+        dateClass.addListPrices(listPrice);
+
+        prod.addPrice(listPrice);
+    }
+
 
     public void Close(){
         db.close();
