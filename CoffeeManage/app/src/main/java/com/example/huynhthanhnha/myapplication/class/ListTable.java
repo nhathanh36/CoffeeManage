@@ -2,18 +2,10 @@ package com.example.huynhthanhnha.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.example.huynhthanhnha.myapplication.activity.ListTableAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

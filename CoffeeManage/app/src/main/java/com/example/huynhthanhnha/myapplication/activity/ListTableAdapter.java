@@ -1,4 +1,4 @@
-package com.example.huynhthanhnha.myapplication;
+package com.example.huynhthanhnha.myapplication.activity;
 
 import android.widget.BaseAdapter;
 import android.app.Activity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.huynhthanhnha.myapplication.R;
+import com.example.huynhthanhnha.myapplication.Table;
 
 import java.util.ArrayList;
 import java.util.List;

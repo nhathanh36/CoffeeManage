@@ -1,4 +1,4 @@
-package com.example.huynhthanhnha.myapplication;
+package com.example.huynhthanhnha.myapplication.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.huynhthanhnha.myapplication.DatabaseConnection;
+import com.example.huynhthanhnha.myapplication.R;
 
 
 public class MainActivity extends Activity {

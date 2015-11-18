@@ -13,7 +13,7 @@
         android:layout_height="63dp"
         android:id="@+id/imageTable"
         android:gravity="center_horizontal"
-        android:src="@drawable/table"/>
+        android:src="@drawable/table1"/>
 
     <TextView
         android:layout_width="67dp"
