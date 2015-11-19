@@ -68,10 +68,6 @@ public class DatabaseConnection {
         per2.addUser(usr6); usr6.setPer(per2);
         per2.addUser(usr7); usr7.setPer(per2);
 
-        db.store(listPer);
-        db.store(listUsr);
-        db.commit();
-
         //==============================PRODUCT AND GROUP PRODUCT================================================
         // Group Product
         List<GroupProduct> listGroupProduct = new ArrayList<GroupProduct>();
@@ -119,28 +115,23 @@ public class DatabaseConnection {
         gp4.addProduct(pd6); pd6.setGroupProduct(gp4);
         gp4.addProduct(pd7); pd7.setGroupProduct(gp4);
 
-        db.store(listProduct);
-        db.store(listGroupProduct);
-        db.commit();
-
         //==============================DATE AND LIST PRICE================================================
         Calendar cal = Calendar.getInstance();
         cal.set(2015, 11, 15);
         DateClass date = new DateClass(cal);
-        db.store(date);
 
         List<ListPrice> listPrices = new ArrayList<ListPrice>();
-        ListPrice price1 = new ListPrice(cal, pd1, 7000);
-        ListPrice price2 = new ListPrice(cal, pd2, 8000);
-        ListPrice price3 = new ListPrice(cal, pd3, 9000);
-        ListPrice price4 = new ListPrice(cal, pd4, 10000);
-        ListPrice price5 = new ListPrice(cal, pd5, 11000);
-        ListPrice price6 = new ListPrice(cal, pd6, 12000);
-        ListPrice price7 = new ListPrice(cal, pd7, 13000);
-        ListPrice price8 = new ListPrice(cal, pd8, 14000);
-        ListPrice price9 = new ListPrice(cal, pd9, 15000);
-        ListPrice price10 = new ListPrice(cal, pd10, 16000);
-        ListPrice price11 = new ListPrice(cal, pd11, 17000);
+        ListPrice price1 = new ListPrice(date, pd1, 7000);
+        ListPrice price2 = new ListPrice(date, pd2, 8000);
+        ListPrice price3 = new ListPrice(date, pd3, 9000);
+        ListPrice price4 = new ListPrice(date, pd4, 10000);
+        ListPrice price5 = new ListPrice(date, pd5, 11000);
+        ListPrice price6 = new ListPrice(date, pd6, 12000);
+        ListPrice price7 = new ListPrice(date, pd7, 13000);
+        ListPrice price8 = new ListPrice(date, pd8, 14000);
+        ListPrice price9 = new ListPrice(date, pd9, 15000);
+        ListPrice price10 = new ListPrice(date, pd10, 16000);
+        ListPrice price11 = new ListPrice(date, pd11, 17000);
 
         listPrices.add(price1); listPrices.add(price2); listPrices.add(price3);
         listPrices.add(price4); listPrices.add(price5); listPrices.add(price6);
@@ -150,9 +141,6 @@ public class DatabaseConnection {
         pd1.addPrice(price1); pd2.addPrice(price2); pd3.addPrice(price3); pd4.addPrice(price4);
         pd5.addPrice(price5); pd6.addPrice(price6); pd7.addPrice(price7); pd8.addPrice(price8);
         pd9.addPrice(price9); pd10.addPrice(price10); pd11.addPrice(price11);
-
-        db.store(listPrices);
-        db.commit();
 
         //==============================TABLE================================================
         List<Table> listTable = new ArrayList<Table>();
@@ -165,6 +153,15 @@ public class DatabaseConnection {
         listTable.add(tb1); listTable.add(tb2); listTable.add(tb3);
         listTable.add(tb4); listTable.add(tb5); listTable.add(tb6);
 
+        db.store(listPer);
+        db.store(listUsr);
+
+        db.store(listProduct);
+        db.store(listGroupProduct);
+
+        db.store(date);
+        db.store(listPrices);
+
         db.store(listTable);
         db.commit();
 
@@ -173,15 +170,36 @@ public class DatabaseConnection {
 
     }
 
-    public void test(){
+    public void TestDB(){
+
+        //GROUP
         ObjectSet<GroupProduct> groupProducts = db.queryByExample(GroupProduct.class);
         for (GroupProduct gd : groupProducts){
-            System.out.println("Name gro: " + gd.getGroupProductName());
+            System.out.println("GROUP Name gro: " + gd.getGroupProductName());
         }
 
+        //PRODUCT
         ObjectSet<Product> Products = db.queryByExample(Product.class);
         for (Product gd : Products){
             System.out.println("Name pro: " + gd.getProductName());
+        }
+
+
+        //PRICE
+        ObjectSet<ListPrice> prices = db.queryByExample(ListPrice.class);
+        for (ListPrice p : prices){
+            System.out.println("Name: "+ p.getProduct().getProductName() +
+                    " | Date: " + p.getDateClass().getDate().get(Calendar.DATE)+ "/" + p.getDateClass().getDate().get(Calendar.MONTH)+"/"+ p.getDateClass().getDate().get(Calendar.YEAR) +
+                    "List price: " + p.getPrice());
+        }
+
+
+    }
+
+    public void PrintProductPrice(){
+        ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
+        for (Product pd: lsProduct) {
+            System.out.println("Product Name: " + pd.getProductName() + " Size: " + pd.getListPrice().size());
         }
     }
 
@@ -216,9 +234,22 @@ public class DatabaseConnection {
         return listProduct;
     }
 
+    public List<Product> getListProduct1(){
+        List<Product> listProduct = new ArrayList<Product>();
+        ObjectSet<Product> users = db.query(new Predicate<Product>() {
+            public boolean match(Product product) {
+                return product.getProductId() == 3;
+            }
+        });
+        for (Product pd: listProduct) {
+            listProduct.add(pd);
+        }
+        return listProduct;
+    }
+
     public void InsertProduct(int idGroupProduct, String nameOfProduct, String unitOfProduct, long price){
         Calendar cal = Calendar.getInstance();
-
+        DateClass dateClass = new DateClass(cal);
         //Get max id for product
         int maxID = 0;
 
@@ -234,10 +265,10 @@ public class DatabaseConnection {
         GroupProduct groupProduct = gro.next();
 
         //Insert ListPrice object
-        ListPrice listPrice = new ListPrice(cal, prod, price); //added ref
+        ListPrice listPrice = new ListPrice(dateClass, prod, price); //added ref
 
         //Insert DateClass object //Chua xu ly trung ngay khi insert
-        DateClass dateClass = new DateClass(cal);
+
         dateClass.addListPrices(listPrice);
 
         groupProduct.addProduct(prod);

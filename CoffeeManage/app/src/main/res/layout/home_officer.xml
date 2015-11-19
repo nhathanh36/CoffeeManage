@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/bg4"
+    android:background="@drawable/bg1"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -12,7 +12,7 @@
             android:orientation="horizontal"
             android:layout_width="400dp"
             android:layout_height="40dp"
-            android:background="#e7a0a0a0"
+            android:background="#ffffff"
             android:weightSum="1">
                     <TextView
                         android:layout_width="257dp"
@@ -103,7 +103,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginLeft="30dp"
                 android:layout_width="130dp"
-                android:id="@+id/linearListPr1oduct"
+                android:id="@+id/test"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -116,7 +116,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
                     android:textAlignment="center"
-                    android:text="Danh sách thức uống"
+                    android:text="Test Database"
                     android:id="@+id/a1111" />
             </LinearLayout>
         </LinearLayout>
