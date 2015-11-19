@@ -32,6 +32,8 @@ public class ListProductActivity extends Activity {
         conn.Open();
         listProduct = conn.getListProduct();
         conn.Close();
+
+        System.out.println("List price: " + listProduct.get(0).getListPrice().size());
         listView.setAdapter(new ListProductAdapter(this, listProduct));
 
         // Handle when user click on item in list view

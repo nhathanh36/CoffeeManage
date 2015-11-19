@@ -41,7 +41,7 @@ public class ListProductAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Product table = listProduct.get(position);
+        Product product = listProduct.get(position);
         LayoutInflater inflater = context.getLayoutInflater();
 
         View rowView = inflater.inflate(R.layout.list_item_product, null);
@@ -49,8 +49,10 @@ public class ListProductAdapter extends BaseAdapter {
         /*get image in database and set to view*/
         /*ImageView imageView = (ImageView) rowView.findViewById(R.id.imageTable);
         imageView.setImageResource(table.getImage());*/
-        TextView textView = (TextView) rowView.findViewById(R.id.tvProductName);
-        textView.setText(String.valueOf(table.getProductName()));
+        TextView tvProduct = (TextView) rowView.findViewById(R.id.tvProductName);
+        tvProduct.setText(String.valueOf(product.getProductName()));
+        TextView tvPrice = (TextView) rowView.findViewById(R.id.tvPrice);
+        tvPrice.setText(String.valueOf(product.getListPrice()));
 
         return rowView;
     }

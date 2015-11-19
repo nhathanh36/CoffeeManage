@@ -45,7 +45,8 @@ public class GridTableActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // get table user clicked
-                Table entry = (Table) adapterView.getItemAtPosition(position);
+                khong co lay id ma no lay doi tuong ak, getItemPosition(tai vi tri nao)
+                dong nay nek a: Table entry = (Table) adapterView.getItemAtPosition(position);
             }
         });*/
     }
