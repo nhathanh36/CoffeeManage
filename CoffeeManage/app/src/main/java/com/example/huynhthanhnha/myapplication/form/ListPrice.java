@@ -10,9 +10,9 @@ public class ListPrice {
     DateClass dateClass;
     Product product;
 
-    public ListPrice(Calendar cal, Product prod, long price) {
+    public ListPrice(DateClass date, Product prod, long price) {
         this.price = price;
-        this.dateClass = new DateClass(cal);
+        this.dateClass = date;
         this.product = prod;
     }
 
@@ -24,4 +24,19 @@ public class ListPrice {
         this.price = price;
     }
 
+    public DateClass getDateClass() {
+        return dateClass;
+    }
+
+    public void setDateClass(DateClass dateClass) {
+        this.dateClass = dateClass;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

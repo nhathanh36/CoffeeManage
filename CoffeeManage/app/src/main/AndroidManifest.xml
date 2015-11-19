@@ -22,11 +22,14 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".activity.HomeOfficerActivity">
+        <activity
+            android:name=".activity.HomeOfficerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".activity.GridTableActivity"></activity>
         <activity android:name=".activity.CustomViewIconTextTabsActivity"></activity>
         <activity android:name=".activity.ListProductActivity"/>
+        <activity android:name=".activity.ListTableDetails"></activity>
 
     </application>
 

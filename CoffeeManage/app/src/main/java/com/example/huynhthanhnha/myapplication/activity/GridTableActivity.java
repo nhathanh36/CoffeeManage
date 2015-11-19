@@ -1,7 +1,10 @@
 package com.example.huynhthanhnha.myapplication.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.db4o.ObjectSet;
@@ -41,13 +44,21 @@ public class GridTableActivity extends Activity {
         gridView.setAdapter(new ListTableAdapter(this, listTable));
 
         // Handle when user click on item in grid view
-        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // get table user clicked
+<<<<<<< HEAD
                 khong co lay id ma no lay doi tuong ak, getItemPosition(tai vi tri nao)
                 dong nay nek a: Table entry = (Table) adapterView.getItemAtPosition(position);
+=======
+                Table entry = (Table) adapterView.getItemAtPosition(position);
+                System.out.println("ID ban: " + entry.getIdTable());
+                Intent intent = new Intent(GridTableActivity.this, ListTableDetails.class);
+                intent.putExtra("IdTable", entry.getIdTable());
+                startActivity(intent);
+>>>>>>> origin/master
             }
-        });*/
+        });
     }
 }
