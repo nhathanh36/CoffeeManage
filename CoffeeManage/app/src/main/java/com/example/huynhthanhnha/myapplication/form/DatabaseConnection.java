@@ -215,7 +215,7 @@ public class DatabaseConnection {
         return listProduct;
     }
 
-    public void InsertProduct(String nameOfProduct, String unitOfProduct, long price){
+    public void InsertProduct(int idGroupProduct, String nameOfProduct, String unitOfProduct, long price){
         Calendar cal = Calendar.getInstance();
 
         //Get max id for product
@@ -224,6 +224,14 @@ public class DatabaseConnection {
         //Insert product object
         Product prod = new Product(maxID, nameOfProduct, unitOfProduct);
 
+        //Select group product
+        ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
+            public boolean match(GroupProduct group) {
+                return group.getGroupID() == 1;
+            }
+        });
+        GroupProduct groupProduct = gro.next();
+
         //Insert ListPrice object
         ListPrice listPrice = new ListPrice(cal, prod, price); //added ref
 
@@ -231,9 +239,24 @@ public class DatabaseConnection {
         DateClass dateClass = new DateClass(cal);
         dateClass.addListPrices(listPrice);
 
+        groupProduct.addProduct(prod);
+        prod.setGroupProduct(groupProduct);
         prod.addPrice(listPrice);
+
+        db.store(prod);
+        db.commit();
     }
 
+    //Get list product PRODUCT ACTIVITY
+    public List<GroupProduct> getListGroupProduct(){
+        List<GroupProduct> listProduct = new ArrayList<GroupProduct>();
+        ObjectSet<GroupProduct> lsProduct = db.queryByExample(GroupProduct.class);
+        for (GroupProduct pd: lsProduct) {
+            listProduct.add(pd);
+            System.out.println("Group Product Name: " + pd.getGroupProductName() + " ID: " + pd.getGroupID());
+        }
+        return listProduct;
+    }
 
     public void Close(){
         db.close();
