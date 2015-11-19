@@ -20,6 +20,7 @@ public class DatabaseConnection {
     boolean flag;
 
     public DatabaseConnection(){
+        //new File(filePath).delete();
         if(new File(filePath).exists()) flag = true;
         else flag = false;
     }
