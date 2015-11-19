@@ -12,6 +12,9 @@ public class GroupProduct {
     String Details;
     Set<Product> listProduct;
 
+    public GroupProduct() {
+    }
+
     public GroupProduct(int groupID, String groupProductName) {
         GroupID = groupID;
         GroupProductName = groupProductName;
@@ -52,6 +55,14 @@ public class GroupProduct {
 
     public String getGroupProductName() {
         return GroupProductName;
+    }
+
+    public Set<Product> getListProduct() {
+        return listProduct;
+    }
+
+    public void setListProduct(Set<Product> listProduct) {
+        this.listProduct = listProduct;
     }
 
     public void setGroupProductName(String groupProductName) {

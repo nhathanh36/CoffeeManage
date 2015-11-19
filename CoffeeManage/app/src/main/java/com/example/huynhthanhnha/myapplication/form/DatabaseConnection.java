@@ -8,6 +8,7 @@ import com.db4o.query.Predicate;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -232,6 +233,27 @@ public class DatabaseConnection {
             System.out.println("Product Name: " + pd.getProductName() + " Unit: " + pd.getUnit());
         }
         return listProduct;
+    }
+
+
+    //Get List product by group product
+    public List<Product> getListProductByGroup(String group){
+        List<Product> listProductInGroup = new ArrayList<Product>();
+        List<Product> listProduct = new ArrayList<Product>();
+        ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
+        for (Product pd: lsProduct) {
+            listProduct.add(pd);
+            System.out.println("Product Name: " + pd.getProductName() + " Unit: " + pd.getUnit());
+        }
+
+        Iterator iterator = listProduct.iterator();
+        while (iterator.hasNext()) {
+            Product pro = (Product) iterator.next();
+            if (pro.getGroupProduct().getGroupProductName().equals(group)) {
+                listProductInGroup.add(pro);
+            }
+        }
+        return listProductInGroup;
     }
 
     public List<Product> getListProduct1(){

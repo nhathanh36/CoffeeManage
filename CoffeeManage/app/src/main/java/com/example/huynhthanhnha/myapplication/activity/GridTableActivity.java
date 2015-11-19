@@ -48,16 +48,13 @@ public class GridTableActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // get table user clicked
-<<<<<<< HEAD
-                khong co lay id ma no lay doi tuong ak, getItemPosition(tai vi tri nao)
-                dong nay nek a: Table entry = (Table) adapterView.getItemAtPosition(position);
-=======
+                //khong co lay id ma no lay doi tuong ak, getItemPosition(tai vi tri nao)
+               // dong nay nek a: Table entry = (Table) adapterView.getItemAtPosition(position);
                 Table entry = (Table) adapterView.getItemAtPosition(position);
                 System.out.println("ID ban: " + entry.getIdTable());
                 Intent intent = new Intent(GridTableActivity.this, ListTableDetails.class);
                 intent.putExtra("IdTable", entry.getIdTable());
                 startActivity(intent);
->>>>>>> origin/master
             }
         });
     }
