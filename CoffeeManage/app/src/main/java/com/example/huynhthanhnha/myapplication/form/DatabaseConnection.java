@@ -33,7 +33,7 @@ public class DatabaseConnection {
     boolean flag;
 
     public DatabaseConnection(){
-        new File(filePath).delete();
+        //new File(filePath).delete();
         if(new File(filePath).exists()) flag = true;
         else flag = false;
     }
@@ -409,7 +409,8 @@ public class DatabaseConnection {
         }else{
             System.out.println("InsertProductForBill => THEM BILL MOI (CHUA CO THUC UONG NAO)");
             //Get max bill id
-            idBill = getMaxIDBill() + 1; System.out.println("ID Bill moi: " + idBill);
+            idBill = getMaxBillID() + 1;
+            //System.out.println("ID Bill moi: " + idBill);
 
             //Insert bill
             bill = new Bill(idBill, calendar);
@@ -479,32 +480,17 @@ public class DatabaseConnection {
         return details.next();
     }
 
-    public int getMaxIDBill(){
-        int maxID = 0;
-        //Compare bill
-        Comparator<Bill> billComparator = new Comparator<Bill>() {
-            public int compare(Bill b1, Bill b2){
-                return String.valueOf(b1.getBillID()).compareTo(String.valueOf(b2.getBillID()));
-            }
-        };
+    public int getMaxBillID(){
+        int MaxIDBill = 0;
+        ObjectSet<Bill> bills = db.queryByExample(Bill.class);
+        if(bills.size() != 0)
+        for (Bill b : bills){
+            if(b.getBillID() > MaxIDBill)
+                MaxIDBill = b.getBillID();
 
-        ObjectSet<Bill> details = db.query(new Predicate<Bill>() {
-            public boolean match(Bill dt) {
-                return dt.getBillID() > 0;
-            }
-        }, billComparator);
-
-        System.out.println("Size bill: " + details.size());
-
-        //Get first bill
-        if(details.size() == 0){
-            maxID = 1;
-        }else{
-            maxID = Integer.valueOf(details.next().getBillID());
         }
-        System.out.println("MAX BILL ID: " + maxID);
-
-        return maxID;
+        System.out.println("ID trong ham getIDBill => " + MaxIDBill);
+        return MaxIDBill;
     }
 
     public ProductDetails getProductDetails(final int BillID){
