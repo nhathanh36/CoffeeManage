@@ -1,7 +1,10 @@
 package com.example.huynhthanhnha.myapplication.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class ListTableDetails extends Activity {
     DatabaseConnection conn = new DatabaseConnection();
     List<ProductDetails> listProductDetails = new ArrayList<ProductDetails>();
     int IdTable;
+    Button btnAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +35,30 @@ public class ListTableDetails extends Activity {
         numTable.setText("Bàn " + String.valueOf(IdTable));
 
         createListProduct();
+
+        btnAdd = (Button) findViewById(R.id.btnMonmoi);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                conn.Open();
+                System.out.println("=====THEM SAN PHAM CAFE CHO BAN====");
+                Product product = new Product(1,"Cafe đá", "Ly");
+                System.out.println("=====TEN BAN=======================" + IdTable);
+                conn.InsertProductForBill(product, 2, IdTable);
+                conn.Close();
+
+                //Refresh data
+                createListProduct();
+            }
+        });
     }
 
     public void createListProduct() {
         ListView listView = (ListView) findViewById(R.id.listProductDetails);
         conn.Open();
         listProductDetails = conn.getListProductOfTable(IdTable);
-        conn.getListProductOfGroup(1);
+        conn.TestUpdate();
+        conn.TestBill();
         conn.Close();
         listView.setAdapter(new ListProductDetailsAdapter(this, listProductDetails));
 
