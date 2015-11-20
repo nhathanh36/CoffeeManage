@@ -6,10 +6,19 @@ package com.example.huynhthanhnha.myapplication.form;
 public class ProductDetails {
     int unitSales;
     Product product;
+    Bill bill;
 
-    public ProductDetails(int unitSales, Product product) {
+    public ProductDetails(Product product, int unitSales) {
         this.unitSales = unitSales;
         this.product = product;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public int getUnitSales() {

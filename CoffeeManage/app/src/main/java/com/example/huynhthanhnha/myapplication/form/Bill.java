@@ -1,5 +1,6 @@
 package com.example.huynhthanhnha.myapplication.form;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,24 +8,28 @@ import java.util.Set;
  * Created by NguyenThanh on 14/11/2015.
  */
 public class Bill {
-    String date;
+    int billID;
+    Calendar calendar;
     Set<ProductDetails> listDetailProduct;
     Table table;
     boolean state;
     Officer officer;
 
-    public Bill(String date) {
-        this.date = date;
+    public Bill(int billID, Calendar calendar, Table table, boolean state, Officer officer) {
+        this.billID = billID;
+        this.calendar = calendar;
+        this.table = table;
+        this.state = state;
+        this.officer = officer;
         this.listDetailProduct = new HashSet<ProductDetails>();
-        this.state = false;
     }
 
-    public String getDate() {
-        return date;
+    public Calendar getCalendar() {
+        return calendar;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     public Set<ProductDetails> getListDetailProduct() {
@@ -61,5 +66,13 @@ public class Bill {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public int getBillID() {
+        return billID;
+    }
+
+    public void setBillID(int billID) {
+        this.billID = billID;
     }
 }

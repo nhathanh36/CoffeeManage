@@ -6,9 +6,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.huynhthanhnha.myapplication.R;
-import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
+import com.example.huynhthanhnha.myapplication.adapter.ListProductDetailsAdapter;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.Product;
+import com.example.huynhthanhnha.myapplication.form.ProductDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class ListTableDetails extends Activity {
     DatabaseConnection conn = new DatabaseConnection();
-    List<Product> listProductDetails = new ArrayList<Product>();
+    List<ProductDetails> listProductDetails = new ArrayList<ProductDetails>();
     int IdTable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,10 @@ public class ListTableDetails extends Activity {
     public void createListProduct() {
         ListView listView = (ListView) findViewById(R.id.listProductDetails);
         conn.Open();
-        listProductDetails = conn.getListProduct();
+        listProductDetails = conn.getListProductOfTable(IdTable);
+        conn.getListProductOfGroup(1);
         conn.Close();
-        listView.setAdapter(new ListProductAdapter(this, listProductDetails));
+        listView.setAdapter(new ListProductDetailsAdapter(this, listProductDetails));
 
         // Handle when user click on item in list view
         /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

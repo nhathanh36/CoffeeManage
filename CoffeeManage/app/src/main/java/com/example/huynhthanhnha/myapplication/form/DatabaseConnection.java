@@ -1,5 +1,7 @@
 package com.example.huynhthanhnha.myapplication.form;
 
+import android.support.design.widget.TabLayout;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -310,6 +312,105 @@ public class DatabaseConnection {
             System.out.println("Group Product Name: " + pd.getGroupProductName() + " ID: " + pd.getGroupID());
         }
         return listProduct;
+    }
+
+
+    //Get list product by ID group
+    public List<Product> getListProductOfGroup(final int groupID){
+        List<Product> listProduct = new ArrayList<Product>();
+        //Get group product has ID Return 1 result
+        ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
+            public boolean match(GroupProduct groupProduct) {
+                return groupProduct.getGroupID() == groupID;
+            }
+        });
+        if(gro.size() != 1) {
+            System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
+        }
+        else
+        //Set values for list product
+        for(Product pro : gro.next().getListProduct()){
+            listProduct.add(pro);
+            System.out.println("TEN THUC UONG: " + pro.getProductName());
+        }
+
+        return listProduct;
+    }
+
+    //Get list product by ID table
+    public List<ProductDetails> getListProductOfTable(final int tableID){
+        List<ProductDetails> listDetailProduct = new ArrayList<ProductDetails>();
+        //Get group product has ID Return 1 result
+        ObjectSet<Bill> bills = db.query(new Predicate<Bill>() {
+            public boolean match(Bill bill) {
+                return bill.getTable().getIdTable() == tableID && bill.isState() == true;
+            }
+        });
+        if(bills.size() != 1){
+            System.out.println("KHONG CO HOA DON!!");
+        }
+        else
+        for(ProductDetails details : bills.next().getListDetailProduct()){
+            listDetailProduct.add(details);
+            System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
+        }
+
+        return listDetailProduct;
+    }
+
+    public Bill checkBillExist(final  int tableID){
+        ObjectSet<Bill> bills = db.query(new Predicate<Bill>() {
+            public boolean match(Bill bill) {
+                return bill.getTable().getIdTable() == tableID && bill.isState() == true;
+            }
+        });
+        if(bills.size() != 1){
+            System.out.println("KHONG CO HOA DON!!");
+        }
+        return bills.next();
+    }
+    public void InsertProductForBill(Product product, int unitSales, final int tableID){
+        Calendar calendar = Calendar.getInstance();
+
+        //Get table for bill
+        ObjectSet<Table> tables = db.query(new Predicate<Table>() {
+            public boolean match(Table tb) {
+                return tb.getIdTable() == tableID;
+            }
+        });
+        if(tables.size() != 1){
+            System.out.println("KHONG LAY DUOC TABLE (InsertProductForBill)!!");
+        }
+        else{
+            Table newTable = tables.next();
+            //Check bill is existed or not
+            Bill bill = checkBillExist(tableID);
+            if(bill != null){ //Has bill and has list details product
+                ProductDetails productDetailsOld = getProductDetails(bill.getBillID()); ////////******************
+                //Insert product into bill
+                bill.addListDetailProduct(productDetailsOld);
+            } else{
+                ProductDetails productDetailsNew = new ProductDetails(product, unitSales);
+                bill.addListDetailProduct(productDetailsNew);
+                productDetailsNew.setBill(bill);
+                db.store(productDetailsNew);
+                db.store(bill);
+                db.commit();
+            }
+
+        }
+    }
+
+    public ProductDetails getProductDetails(final int BillID){
+        ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getBill().getBillID() == BillID;
+            }
+        });
+        if(details.size() != 1){
+            System.out.println("KHONG CO CHI TIET THUC UONG!!");
+        }
+        return details.next();
     }
 
     public void Close(){
