@@ -28,11 +28,11 @@ public class NuocKhoangFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View rootView = inflater.inflate(R.layout.fragment_nuoc_khoang, null);
-        listWate = (ListView) rootView.findViewById(R.id.nuocKhoangListView);
+        View rootView = inflater.inflate(R.layout.fragment_group, null);
+        listWate = (ListView) rootView.findViewById(R.id.groupListView);
 
         conn.Open();
-        listProduct = conn.getListProductByGroup("Nước khoáng");
+        //listProduct = conn.getListProductByGroup("Nước khoáng");
         conn.Close();
 
         if (listProduct.size() == 0) {

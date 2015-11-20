@@ -91,7 +91,7 @@
                 android:layout_gravity="start"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp"
-                android:background="@android:color/white" />
+                android:background="@android:color/darker_gray" />
         </android.support.v4.widget.DrawerLayout>
     </LinearLayout>
 

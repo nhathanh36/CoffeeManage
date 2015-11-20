@@ -10,8 +10,10 @@ import com.db4o.query.Predicate;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenThanh on 13/11/2015.
@@ -23,7 +25,7 @@ public class DatabaseConnection {
     boolean flag;
 
     public DatabaseConnection(){
-        //new File(filePath).delete();
+        new File(filePath).delete();
         if(new File(filePath).exists()) flag = true;
         else flag = false;
     }
@@ -81,7 +83,7 @@ public class DatabaseConnection {
         GroupProduct gp5 = new GroupProduct(5,"Kem chuối");
 
         // List Product
-        List<Product> listProduct = new ArrayList<Product>();
+        Set<Product> listProduct = new HashSet<Product>();
         Product pd1 = new Product(1,"Cafe đá", "Ly");
         Product pd2 = new Product(2,"Cafe sữa", "Ly");
         Product pd3 = new Product(3,"Cafe nóng", "Tách");
@@ -117,6 +119,7 @@ public class DatabaseConnection {
 
         gp4.addProduct(pd6); pd6.setGroupProduct(gp4);
         gp4.addProduct(pd7); pd7.setGroupProduct(gp4);
+
 
         //==============================DATE AND LIST PRICE================================================
         Calendar cal = Calendar.getInstance();
@@ -238,24 +241,15 @@ public class DatabaseConnection {
     }
 
 
-    //Get List product by group product
-    public List<Product> getListProductByGroup(String group){
-        List<Product> listProductInGroup = new ArrayList<Product>();
-        List<Product> listProduct = new ArrayList<Product>();
-        ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
-        for (Product pd: lsProduct) {
-            listProduct.add(pd);
-            System.out.println("Product Name: " + pd.getProductName() + " Unit: " + pd.getUnit());
+    //Get list group product
+    public List<GroupProduct> getListGroup(){
+        List<GroupProduct> listGroup = new ArrayList<GroupProduct>();
+        ObjectSet<GroupProduct> lsGroup = db.queryByExample(GroupProduct.class);
+        for (GroupProduct pd: lsGroup) {
+            listGroup.add(pd);
+            System.out.println("Group Name: " + pd.getGroupProductName());
         }
-
-        Iterator iterator = listProduct.iterator();
-        while (iterator.hasNext()) {
-            Product pro = (Product) iterator.next();
-            if (pro.getGroupProduct().getGroupProductName().equals(group)) {
-                listProductInGroup.add(pro);
-            }
-        }
-        return listProductInGroup;
+        return listGroup;
     }
 
     public List<Product> getListProduct1(){
@@ -305,13 +299,16 @@ public class DatabaseConnection {
 
     //Get list product PRODUCT ACTIVITY
     public List<GroupProduct> getListGroupProduct(){
-        List<GroupProduct> listProduct = new ArrayList<GroupProduct>();
-        ObjectSet<GroupProduct> lsProduct = db.queryByExample(GroupProduct.class);
-        for (GroupProduct pd: lsProduct) {
-            listProduct.add(pd);
+        List<GroupProduct> listGroup = new ArrayList<GroupProduct>();
+        ObjectSet<GroupProduct> lsGroup = db.queryByExample(GroupProduct.class);
+        for (GroupProduct pd: lsGroup) {
+            listGroup.add(pd);
             System.out.println("Group Product Name: " + pd.getGroupProductName() + " ID: " + pd.getGroupID());
+            for(Product p : pd.getListProduct()){
+                System.out.println("List: "+p.getProductName());
+            }
         }
-        return listProduct;
+        return listGroup;
     }
 
 

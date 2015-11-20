@@ -28,11 +28,11 @@ public class KemChuoiFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View rootView = inflater.inflate(R.layout.fragment_kem_chuoi, null);
-        listKem = (ListView) rootView.findViewById(R.id.kemChuoiListView);
+        View rootView = inflater.inflate(R.layout.fragment_group, null);
+        listKem = (ListView) rootView.findViewById(R.id.groupListView);
 
         conn.Open();
-        listProduct = conn.getListProductByGroup("Kem chuối");
+        //listProduct = conn.getListProductByGroup("Kem chuối");
         conn.Close();
 
         if(listProduct.size() == 0) {

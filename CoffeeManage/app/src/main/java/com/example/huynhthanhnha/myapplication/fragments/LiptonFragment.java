@@ -28,11 +28,11 @@ public class LiptonFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View rootView = inflater.inflate(R.layout.fragment_lipton, null);
-        listLipton = (ListView) rootView.findViewById(R.id.liptonListView);
+        View rootView = inflater.inflate(R.layout.fragment_group, null);
+        listLipton = (ListView) rootView.findViewById(R.id.groupListView);
 
         conn.Open();
-        listProduct = conn.getListProductByGroup("Trà-Lipton");
+        //listProduct = conn.getListProductByGroup("Trà-Lipton");
         conn.Close();
 
         if(listProduct.size() == 0) {
