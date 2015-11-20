@@ -67,34 +67,37 @@ public class ListProductActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
                 String getGroup = formain.get(arg2);
-                Iterator iterator = listGroupProduct.iterator();
-                switch (getGroup) {
-                    case "Cafe":
-                        fragment = new CafeFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                        mDrawerLayout.closeDrawer(mainlist);
-                        break;
-                    case "Sinh tố":
-                        fragment = new SinhToFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                        mDrawerLayout.closeDrawer(mainlist);
-                        break;
-                    case "Nước khoáng":
-                        fragment = new NuocKhoangFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                        mDrawerLayout.closeDrawer(mainlist);
-                        break;
-                    case "Trà-Lipton":
-                        fragment = new LiptonFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                        mDrawerLayout.closeDrawer(mainlist);
-                        break;
-                    case "Kem chuối":
-                        fragment = new KemChuoiFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                        mDrawerLayout.closeDrawer(mainlist);
-                        break;
-                }
+
+                fragment = new CafeFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                mDrawerLayout.closeDrawer(mainlist);
+//                switch (getGroup) {
+//                    case "Cafe":
+//                        fragment = new CafeFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+//                        mDrawerLayout.closeDrawer(mainlist);
+//                        break;
+//                    case "Sinh tố":
+//                        fragment = new SinhToFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+//                        mDrawerLayout.closeDrawer(mainlist);
+//                        break;
+//                    case "Nước khoáng":
+//                        fragment = new NuocKhoangFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+//                        mDrawerLayout.closeDrawer(mainlist);
+//                        break;
+//                    case "Trà-Lipton":
+//                        fragment = new LiptonFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+//                        mDrawerLayout.closeDrawer(mainlist);
+//                        break;
+//                    case "Kem chuối":
+//                        fragment = new KemChuoiFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+//                        mDrawerLayout.closeDrawer(mainlist);
+//                        break;
+//                }
             }
         });
 

@@ -28,11 +28,11 @@ public class SinhToFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View rootView = inflater.inflate(R.layout.fragment_sinh_to, null);
-        listSinhTo = (ListView) rootView.findViewById(R.id.sinhToListView);
+        View rootView = inflater.inflate(R.layout.fragment_group, null);
+        listSinhTo = (ListView) rootView.findViewById(R.id.groupListView);
 
         conn.Open();
-        listProduct = conn.getListProductByGroup("Sinh tố");
+        //listProduct = conn.getListProductByGroup("Sinh tố");
         conn.Close();
 
         System.out.print("SINH TO: " + listProduct.get(0));
