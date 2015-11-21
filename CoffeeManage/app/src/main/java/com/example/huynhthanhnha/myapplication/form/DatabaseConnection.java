@@ -279,6 +279,27 @@ public class DatabaseConnection {
         return listProduct;
     }
 
+    //Get list product by name group
+    public List<Product> getListProductGroupByName(final String name){
+        List<Product> listProduct = new ArrayList<Product>();
+        //Get group product has Name result
+        ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
+            public boolean match(GroupProduct groupProduct) {
+                return groupProduct.getGroupProductName().equals(name);
+            }
+        });
+        if(gro.size() != 1) {
+            System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
+        } else
+            //Set values for list product
+            for (Product pro : gro.next().getListProduct()) {
+                listProduct.add(pro);
+                System.out.println("TEN THUC UONG: " + pro.getProductName());
+            }
+
+        return listProduct;
+    }
+
 
     //Get list group product
     public List<GroupProduct> getListGroup(){
@@ -925,25 +946,4 @@ public class DatabaseConnection {
         gp6.addProduct(pd12); pd6.setGroupProduct(gp6);
         gp6.addProduct(pd13); pd6.setGroupProduct(gp6);
         gp6.addProduct(pd14); pd6.setGroupProduct(gp6);
-
-        //Get list product by name group
-        public List<Product> getListProductGroupByName(final String name){
-        List<Product> listProduct = new ArrayList<Product>();
-        //Get group product has Name result
-        ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
-            public boolean match(GroupProduct groupProduct) {
-                return groupProduct.getGroupProductName().equals(name);
-            }
-        });
-        if(gro.size() != 1) {
-            System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
-        }
-        else
-            //Set values for list product
-            for(Product pro : gro.next().getListProduct()){
-                listProduct.add(pro);
-                System.out.println("TEN THUC UONG: " + pro.getProductName());
-            }
-
-        return listProduct;
-    }*/
+*/

@@ -39,7 +39,7 @@ public class ListProductGroupFragment extends Fragment{
         System.out.println("ARGU: " + group);
 
         conn.Open();
-        //listProduct = conn.getListProductGroupByName(group);
+        listProduct = conn.getListProductGroupByName(group);
         conn.Close();
 
          if(listProduct.size() == 0) {
