@@ -14,6 +14,26 @@ package com.example.huynhthanhnha.myapplication.form;
         import java.util.Iterator;
         import java.util.List;
         import java.util.Set;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.config.CacheConfiguration;
+import com.db4o.config.CommonConfiguration;
+import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.config.EmbeddedConfigurationItem;
+import com.db4o.config.FileConfiguration;
+import com.db4o.config.IdSystemConfiguration;
+import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenThanh on 13/11/2015.
@@ -25,7 +45,7 @@ public class DatabaseConnection {
     boolean flag;
 
     public DatabaseConnection(){
-        new File(filePath).delete();
+        //new File(filePath).delete();
         if(new File(filePath).exists()) flag = true;
         else flag = false;
     }
@@ -36,7 +56,9 @@ public class DatabaseConnection {
     }
 
     public void Open(){
-        db = Db4oEmbedded.openFile(filePath);
+        EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
+        conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
+        db = Db4oEmbedded.openFile(conf, filePath);
         if(!flag) InitData();
     }
 
@@ -172,6 +194,25 @@ public class DatabaseConnection {
         db.store(listTable);
         db.commit();
 
+    }
+
+    public void TestUpdate(){
+        ObjectSet<ProductDetails> details = db.queryByExample(ProductDetails.class);
+        for (ProductDetails dt : details){
+            System.out.println("Details THUC UONG: " + dt.getProduct().getProductName() +
+                    " So luong => " + dt.getUnitSales() +
+                    " Ban: " + dt.getBill().getTable().getIdTable());
+        }
+    }
+
+    public void TestBill(){
+        ObjectSet<Bill> details = db.queryByExample(Bill.class);
+        for (Bill dt : details){
+            System.out.println("Bill => " + dt.getBillID());
+            for(ProductDetails pro : dt.getListDetailProduct()){
+                System.out.println("Ten details thuoc uong: " + pro.getProduct().getProductName() + " SL: " + pro.getUnitSales());
+            }
+        }
     }
 
     public void TestDB(){
@@ -340,7 +381,7 @@ public class DatabaseConnection {
                 return bill.getTable().getIdTable() == tableID && bill.isState() == true;
             }
         });
-        if(bills.size() != 1){
+        if(bills.size() == 0){
             System.out.println("KHONG CO HOA DON!!");
         }
         else
@@ -348,6 +389,11 @@ public class DatabaseConnection {
                 listDetailProduct.add(details);
                 System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
             }
+
+        for(ProductDetails details : bills.next().getListDetailProduct()){
+            listDetailProduct.add(details);
+            System.out.println(" TEN THUC UONG: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
+        }
 
         return listDetailProduct;
     }
@@ -360,39 +406,105 @@ public class DatabaseConnection {
         });
         if(bills.size() != 1){
             System.out.println("KHONG CO HOA DON!!");
+            return null;
         }
         return bills.next();
     }
+
     public void InsertProductForBill(Product product, int unitSales, final int tableID){
         Calendar calendar = Calendar.getInstance();
+        int idBill = 0;
+        Table tb;
+        //Check bill is existed or not
+        Bill bill = checkBillExist(tableID);
+        if(bill != null){ //Has bill and has list details product
+            System.out.println("InsertProductForBill => UPDATE BILL => TON TAI 1 THUC UONG");
+            insertProductDetailForBill(bill, product, unitSales, tableID);
+        }else{
+            System.out.println("InsertProductForBill => THEM BILL MOI (CHUA CO THUC UONG NAO)");
+            //Get max bill id
+            idBill = getMaxBillID() + 1;
+            //System.out.println("ID Bill moi: " + idBill);
 
-        //Get table for bill
-        ObjectSet<Table> tables = db.query(new Predicate<Table>() {
-            public boolean match(Table tb) {
-                return tb.getIdTable() == tableID;
+            //Insert bill
+            bill = new Bill(idBill, calendar);
+
+            //Insert details product
+            ProductDetails productDetailsNew = new ProductDetails(product, unitSales);
+            System.out.println("Produc details: " + productDetailsNew.getProduct().getProductName());
+
+            //Get table and set for bill
+            tb = getTableByID(tableID);
+
+            bill.setTable(tb);                              //Set table for bill
+            bill.setState(true);                            //Set state for bill //true is not pay
+            bill.addListDetailProduct(productDetailsNew);   //Set details product for bill
+
+            tb.addBill(bill);                   //Set bill for table
+            productDetailsNew.setBill(bill);    //Set bill for Detais product
+
+
+            db.store(productDetailsNew);
+            db.store(bill);
+            db.commit();
+        }
+    }
+    public void insertProductDetailForBill(final Bill bill, final Product product, final int numSales, final int tableId){
+        ProductDetails productOld;
+        ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getBill().getBillID() == bill.getBillID() &&
+                        dt.getProduct().getProductId() == product.getProductId() &&
+                        dt.getBill().getTable().getIdTable() == tableId;
             }
         });
-        if(tables.size() != 1){
-            System.out.println("KHONG LAY DUOC TABLE (InsertProductForBill)!!");
+        productOld = details.next();
+        if(details.size() == 0){
+            System.out.println("PRODUCT DETAIL KHONG CO GIA TRI TRUNG LAP THUC UONG!!");
+            ProductDetails productDetails = new ProductDetails(product, numSales);  //Auto save product
+            bill.addListDetailProduct(productDetails);                              //Add list product details for bill
+            productDetails.setBill(bill);                                           //Add bill for product details
+            db.store(productDetails);
+            db.commit();
         }
         else{
-            Table newTable = tables.next();
-            //Check bill is existed or not
-            Bill bill = checkBillExist(tableID);
-            if(bill != null){ //Has bill and has list details product
-                ProductDetails productDetailsOld = getProductDetails(bill.getBillID()); ////////******************
-                //Insert product into bill
-                bill.addListDetailProduct(productDetailsOld);
-            } else{
-                ProductDetails productDetailsNew = new ProductDetails(product, unitSales);
-                bill.addListDetailProduct(productDetailsNew);
-                productDetailsNew.setBill(bill);
-                db.store(productDetailsNew);
-                db.store(bill);
-                db.commit();
+            System.out.println("TRUNG THUC UONG TRONG DETAILS!!");
+            //get current Unit of product
+            int currentUnit = productOld.getUnitSales();
+            System.out.println("UNIT CURRENT = " + currentUnit);
+            //Update unit sales for this product
+            productOld.setUnitSales((numSales + currentUnit));
+            System.out.println("AFTER CURRENT = " + (numSales + currentUnit));
+            System.out.println("GET UNIT SALES: " + productOld.getUnitSales());
+            db.store(productOld);
+            db.commit();
+        }
+    }
+    //Get table by ID
+    public Table getTableByID(final int id){
+        ObjectSet<Table> details = db.query(new Predicate<Table>() {
+            public boolean match(Table dt) {
+                return dt.getIdTable() == id;
             }
+        });
+        if(details.size() == 0){
+            System.out.println("LAY TABLE KHONG CO GIA TRI!!");
+            return null;
+        }
+        return details.next();
+    }
+
+    public int getMaxBillID(){
+        int MaxIDBill = 0;
+        ObjectSet<Bill> bills = db.queryByExample(Bill.class);
+        if(bills.size() != 0)
+        for (Bill b : bills){
+            if(b.getBillID() > MaxIDBill)
+                MaxIDBill = b.getBillID();
 
         }
+        System.out.println("ID trong ham getIDBill => " + MaxIDBill);
+        return MaxIDBill;
     }
 
     public ProductDetails getProductDetails(final int BillID){
@@ -401,7 +513,7 @@ public class DatabaseConnection {
                 return dt.getBill().getBillID() == BillID;
             }
         });
-        if(details.size() != 1){
+        if(details.size() == 0){
             System.out.println("KHONG CO CHI TIET THUC UONG!!");
         }
         return details.next();

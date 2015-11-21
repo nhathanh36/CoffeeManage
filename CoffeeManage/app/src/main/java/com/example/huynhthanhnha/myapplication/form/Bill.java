@@ -24,6 +24,12 @@ public class Bill {
         this.listDetailProduct = new HashSet<ProductDetails>();
     }
 
+    public Bill(int billID, Calendar calendar) {
+        this.billID = billID;
+        this.calendar = calendar;
+        this.listDetailProduct = new HashSet<ProductDetails>();
+    }
+
     public Calendar getCalendar() {
         return calendar;
     }
