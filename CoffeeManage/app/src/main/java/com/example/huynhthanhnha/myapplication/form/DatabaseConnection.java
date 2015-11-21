@@ -1,19 +1,19 @@
 package com.example.huynhthanhnha.myapplication.form;
 
-import android.support.design.widget.TabLayout;
+        import android.support.design.widget.TabLayout;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-import com.db4o.ObjectSet;
-import com.db4o.query.Predicate;
+        import com.db4o.Db4oEmbedded;
+        import com.db4o.ObjectContainer;
+        import com.db4o.ObjectSet;
+        import com.db4o.query.Predicate;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+        import java.io.File;
+        import java.util.ArrayList;
+        import java.util.Calendar;
+        import java.util.HashSet;
+        import java.util.Iterator;
+        import java.util.List;
+        import java.util.Set;
 
 /**
  * Created by NguyenThanh on 13/11/2015.
@@ -76,11 +76,12 @@ public class DatabaseConnection {
         //==============================PRODUCT AND GROUP PRODUCT================================================
         // Group Product
         List<GroupProduct> listGroupProduct = new ArrayList<GroupProduct>();
-        GroupProduct gp1 = new GroupProduct(1,"Cafe");
+        GroupProduct gp1 = new GroupProduct(1, "Cafe");
         GroupProduct gp2 = new GroupProduct(2,"Sinh tố");
         GroupProduct gp3 = new GroupProduct(3,"Nước khoáng");
         GroupProduct gp4 = new GroupProduct(4,"Trà-Lipton");
         GroupProduct gp5 = new GroupProduct(5,"Kem chuối");
+        GroupProduct gp6 = new GroupProduct(6,"Trà sữa");
 
         // List Product
         Set<Product> listProduct = new HashSet<Product>();
@@ -96,8 +97,8 @@ public class DatabaseConnection {
         Product pd10 = new Product(10,"Sinh tố đu đủ", "Ly");
         Product pd11 = new Product(11,"Sinh tố cà rốt", "Ly");
 
-        listGroupProduct.add(gp1); listGroupProduct.add(gp2);
-        listGroupProduct.add(gp3); listGroupProduct.add(gp4); listGroupProduct.add(gp5);
+        listGroupProduct.add(gp1); listGroupProduct.add(gp2); listGroupProduct.add(gp3);
+        listGroupProduct.add(gp4); listGroupProduct.add(gp5); listGroupProduct.add(gp6);
 
         listProduct.add(pd1); listProduct.add(pd2); listProduct.add(pd3);
         listProduct.add(pd4); listProduct.add(pd5); listProduct.add(pd6);
@@ -170,9 +171,6 @@ public class DatabaseConnection {
 
         db.store(listTable);
         db.commit();
-
-
-
 
     }
 
@@ -303,14 +301,13 @@ public class DatabaseConnection {
         ObjectSet<GroupProduct> lsGroup = db.queryByExample(GroupProduct.class);
         for (GroupProduct pd: lsGroup) {
             listGroup.add(pd);
-            System.out.println("Group Product Name: " + pd.getGroupProductName() + " ID: " + pd.getGroupID());
-            for(Product p : pd.getListProduct()){
-                System.out.println("List: "+p.getProductName());
-            }
+            //System.out.println("Group Product Name: " + pd.getGroupProductName() + " ID: " + pd.getGroupID());
+//            for(Product p : pd.getListProduct()){
+//                System.out.println("List: "+p.getProductName());
+//            }
         }
         return listGroup;
     }
-
 
     //Get list product by ID group
     public List<Product> getListProductOfGroup(final int groupID){
@@ -325,11 +322,11 @@ public class DatabaseConnection {
             System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
         }
         else
-        //Set values for list product
-        for(Product pro : gro.next().getListProduct()){
-            listProduct.add(pro);
-            System.out.println("TEN THUC UONG: " + pro.getProductName());
-        }
+            //Set values for list product
+            for(Product pro : gro.next().getListProduct()){
+                listProduct.add(pro);
+                System.out.println("TEN THUC UONG: " + pro.getProductName());
+            }
 
         return listProduct;
     }
@@ -347,10 +344,10 @@ public class DatabaseConnection {
             System.out.println("KHONG CO HOA DON!!");
         }
         else
-        for(ProductDetails details : bills.next().getListDetailProduct()){
-            listDetailProduct.add(details);
-            System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
-        }
+            for(ProductDetails details : bills.next().getListDetailProduct()){
+                listDetailProduct.add(details);
+                System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
+            }
 
         return listDetailProduct;
     }
@@ -414,3 +411,427 @@ public class DatabaseConnection {
         db.close();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+        GroupProduct gp7 = new GroupProduct(7, "Rễ tranh");
+        GroupProduct gp8= new GroupProduct(8,"Trà chanh");
+        GroupProduct gp9 = new GroupProduct(9, "Cocktail");
+        GroupProduct gp10 = new GroupProduct(10,"Soda");
+        GroupProduct gp11 = new GroupProduct(11,"Nước ép");
+        GroupProduct gp12 = new GroupProduct(12,"Sâm");
+
+        listGroupProduct.add(gp7); listGroupProduct.add(gp8); listGroupProduct.add(gp9);
+        listGroupProduct.add(gp10); listGroupProduct.add(gp11); listGroupProduct.add(gp12);
+
+        listProduct.add(pd12);
+        listProduct.add(pd13); listProduct.add(pd14); listProduct.add(pd14);
+
+        Product pd12 = new Product(12,"Trà sữa kiwi", "Ly");
+        Product pd13 = new Product(13,"Trà sữa Capcha", "Ly");
+        Product pd14 = new Product(14,"Trà sữa khoai môn", "Ly");
+        gp6.addProduct(pd12); pd6.setGroupProduct(gp6);
+        gp6.addProduct(pd13); pd6.setGroupProduct(gp6);
+        gp6.addProduct(pd14); pd6.setGroupProduct(gp6);
+
+        //Get list product by name group
+        public List<Product> getListProductGroupByName(final String name){
+        List<Product> listProduct = new ArrayList<Product>();
+        //Get group product has Name result
+        ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
+            public boolean match(GroupProduct groupProduct) {
+                return groupProduct.getGroupProductName().equals(name);
+            }
+        });
+        if(gro.size() != 1) {
+            System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
+        }
+        else
+            //Set values for list product
+            for(Product pro : gro.next().getListProduct()){
+                listProduct.add(pro);
+                System.out.println("TEN THUC UONG: " + pro.getProductName());
+            }
+
+        return listProduct;
+    }*/

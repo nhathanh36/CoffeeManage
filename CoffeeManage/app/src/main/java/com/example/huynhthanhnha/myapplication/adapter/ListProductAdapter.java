@@ -44,12 +44,12 @@ public class ListProductAdapter extends BaseAdapter {
         Product product = listProduct.get(position);
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View rowView = inflater.inflate(R.layout.table_item_details, null);
+        View rowView = inflater.inflate(R.layout.list_item_product, null);
 
         /*get image in database and set to view*/
         /*ImageView imageView = (ImageView) rowView.findViewById(R.id.imageTable);
         imageView.setImageResource(table.getImage());*/
-        TextView tvProduct = (TextView) rowView.findViewById(R.id.tvProductName);
+        TextView tvProduct = (TextView) rowView.findViewById(R.id.tvlistProduct);
         tvProduct.setText(String.valueOf(product.getProductName()));
 //        TextView tvPrice = (TextView) rowView.findViewById(R.id.tvPrice);
 //        tvPrice.setText(String.valueOf(product.getListPrice()));

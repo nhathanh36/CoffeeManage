@@ -1,6 +1,5 @@
 package com.example.huynhthanhnha.myapplication.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -14,15 +13,9 @@ import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
 import com.example.huynhthanhnha.myapplication.form.Product;
 import com.example.huynhthanhnha.myapplication.R;
-import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
-import com.example.huynhthanhnha.myapplication.fragments.CafeFragment;
-import com.example.huynhthanhnha.myapplication.fragments.KemChuoiFragment;
-import com.example.huynhthanhnha.myapplication.fragments.LiptonFragment;
-import com.example.huynhthanhnha.myapplication.fragments.NuocKhoangFragment;
-import com.example.huynhthanhnha.myapplication.fragments.SinhToFragment;
+import com.example.huynhthanhnha.myapplication.fragments.ListProductGroupFragment;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -53,10 +46,9 @@ public class ListProductActivity extends AppCompatActivity {
         mDrawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
         mDrawerLayout.setDrawerListener(mDrawerListener);
         //  childlist = (ListView) findViewById(R.id.listView2);
-        Iterator inte = listGroupProduct.iterator();
-        while (inte.hasNext()) {
-            GroupProduct gp = (GroupProduct) inte.next();
-            formain.add(String.valueOf(gp.getProductName()));
+
+        for (GroupProduct gp: listGroupProduct) {
+            formain.add(String.valueOf(gp.getGroupProductName()));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, formain);
         mainlist.setAdapter(adapter);
@@ -68,36 +60,15 @@ public class ListProductActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 String getGroup = formain.get(arg2);
 
-                fragment = new CafeFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("groupActivity", getGroup);
+
+                System.out.println("GROUP IN getGROUP: " + getGroup);
+                fragment = new ListProductGroupFragment();
+                // set Fragmentclass Arguments
+                fragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 mDrawerLayout.closeDrawer(mainlist);
-//                switch (getGroup) {
-//                    case "Cafe":
-//                        fragment = new CafeFragment();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-//                        mDrawerLayout.closeDrawer(mainlist);
-//                        break;
-//                    case "Sinh tố":
-//                        fragment = new SinhToFragment();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-//                        mDrawerLayout.closeDrawer(mainlist);
-//                        break;
-//                    case "Nước khoáng":
-//                        fragment = new NuocKhoangFragment();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-//                        mDrawerLayout.closeDrawer(mainlist);
-//                        break;
-//                    case "Trà-Lipton":
-//                        fragment = new LiptonFragment();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-//                        mDrawerLayout.closeDrawer(mainlist);
-//                        break;
-//                    case "Kem chuối":
-//                        fragment = new KemChuoiFragment();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-//                        mDrawerLayout.closeDrawer(mainlist);
-//                        break;
-//                }
             }
         });
 

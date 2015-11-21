@@ -3,46 +3,21 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:id="@+id/tableLayout">
-
-        <TableRow
-            android:layout_marginLeft="15dp"
-            android:orientation="vertical"
-            android:id="@+id/TRowAB"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/linearVA"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
                 <!-- Answer A -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:id="@+id/tvProductName"
+                    android:id="@+id/tvlistProduct"
                     android:textSize="7pt"
                     android:gravity="center"/>
                 <!-- Answer B -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:id="@+id/tvPrice"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
                     android:textSize="7pt"
                     android:text="price"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </TableRow>
-
-    </TableLayout>
+                    android:gravity="right"/>
 
 </LinearLayout>
