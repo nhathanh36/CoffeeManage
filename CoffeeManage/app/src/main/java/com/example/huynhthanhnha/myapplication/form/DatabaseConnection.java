@@ -411,11 +411,6 @@ public class DatabaseConnection {
                 System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
             }
 
-        for(ProductDetails details : bills.next().getListDetailProduct()){
-            listDetailProduct.add(details);
-            System.out.println(" TEN THUC UONG: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
-        }
-
         return listDetailProduct;
     }
 
@@ -485,7 +480,8 @@ public class DatabaseConnection {
             ProductDetails productDetails = new ProductDetails(product, numSales);  //Auto save product
             bill.addListDetailProduct(productDetails);                              //Add list product details for bill
             productDetails.setBill(bill);                                           //Add bill for product details
-            db.store(productDetails);
+            db.store(productDetails);       //Insert product details
+            db.store(bill);                 //Update bill has the same id
             db.commit();
         }
         else{
@@ -536,7 +532,9 @@ public class DatabaseConnection {
         });
         if(details.size() == 0){
             System.out.println("KHONG CO CHI TIET THUC UONG!!");
+            return null;
         }
+        else
         return details.next();
     }
 

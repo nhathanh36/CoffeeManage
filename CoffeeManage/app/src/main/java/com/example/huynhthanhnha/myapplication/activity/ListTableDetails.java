@@ -59,7 +59,7 @@ public class ListTableDetails extends Activity {
         listProductDetails = conn.getListProductOfTable(IdTable);
         conn.TestUpdate();
         //conn.TestBill();
-        conn.getIDBill();
+        //conn.getIDBill();
         conn.Close();
         listView.setAdapter(new ListProductDetailsAdapter(this, listProductDetails));
 
