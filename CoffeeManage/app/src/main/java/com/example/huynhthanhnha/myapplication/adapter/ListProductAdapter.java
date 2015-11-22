@@ -61,6 +61,7 @@ public class ListProductAdapter extends BaseAdapter {
             dates.add(lp.getDateClass().getDate());
         }
         conn.Open();
+        conn.TestDB();
         closetDate = conn.getNearestDate(dates, new Date());
         conn.Close();
         for (ListPrice lp: product.getListPrice()) {
