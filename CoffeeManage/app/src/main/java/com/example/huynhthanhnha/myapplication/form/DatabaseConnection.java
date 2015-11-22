@@ -60,7 +60,8 @@ public class DatabaseConnection {
 
     public void Open(){
         EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
-        conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
+        //conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
+        //db = Db4oEmbedded.openFile(filePath);
         db = Db4oEmbedded.openFile(conf, filePath);
         if(!flag) InitData();
     }
@@ -418,7 +419,7 @@ public class DatabaseConnection {
                 return groupProduct.getGroupID() == groupID;
             }
         });
-        if(gro.size() != 1) {
+        if(gro.size() == 0) {
             System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
         }
         else
@@ -503,7 +504,7 @@ public class DatabaseConnection {
             db.commit();
         }
     }
-    public void insertProductDetailForBill(final Bill bill, final Product product, final int numSales, final int tableId){
+    protected void insertProductDetailForBill(final Bill bill, final Product product, final int numSales, final int tableId){
         ProductDetails productOld;
         ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
             public boolean match(ProductDetails dt) {
@@ -512,7 +513,7 @@ public class DatabaseConnection {
                         dt.getBill().getTable().getIdTable() == tableId;
             }
         });
-        productOld = details.next();
+
         if(details.size() == 0){
             System.out.println("PRODUCT DETAIL KHONG CO GIA TRI TRUNG LAP THUC UONG!!");
             ProductDetails productDetails = new ProductDetails(product, numSales);  //Auto save product
@@ -523,6 +524,7 @@ public class DatabaseConnection {
             db.commit();
         }
         else{
+            productOld = details.next();
             System.out.println("TRUNG THUC UONG TRONG DETAILS!!");
             //get current Unit of product
             int currentUnit = productOld.getUnitSales();
@@ -594,6 +596,35 @@ public class DatabaseConnection {
         }
         return minDate;
     }
+
+    public float getTotalPriceForBill(final Bill bill){
+        float sumPrice = 0;
+        //Get list product details by bill id
+        ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getBill().getBillID() == bill.getBillID();
+            }
+        });
+        //Check product details is exist
+        if(details.size() != 0){
+            for(ProductDetails p : details){
+                //sumPrice += p.getUnitSales()*p.getProduct() ; //Sum
+            }
+        }
+        return sumPrice;
+    }
+
+    public void updateStateForBill(final int IdTable){
+        Bill bill = checkBillExist(IdTable);
+        if (bill != null) { //Bill is existed
+            bill.setState(false); //Set state for bill was payed
+            db.store(bill);
+            db.commit();
+        } else
+            System.out.println("Khong the thanh toan!");
+    }
+
+
 
     public void Close(){
         db.close();

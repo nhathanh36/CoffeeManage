@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:weightSum="1">
+    <TextView
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvProductName"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#522a2a"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:text="Cà phê đá"
+        android:textSize="13dp"
+        android:textIsSelectable="true"/>
+
+    <EditText
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="0dp"
+        android:inputType="number"
+        android:id="@+id/editSoluong"
+        android:hint="Số lượng"
+        android:textSize="10dp"
+        android:ems="10"/>
+
+    <ImageView
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/add"
+        android:id="@+id/imgAddProduct" />
+
+
+    android:gravity="right"/>
+</LinearLayout>

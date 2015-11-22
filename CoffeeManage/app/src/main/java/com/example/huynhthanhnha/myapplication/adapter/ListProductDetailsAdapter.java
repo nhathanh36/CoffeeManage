@@ -42,13 +42,15 @@ public class ListProductDetailsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ProductDetails table = listProductDetail.get(position);
+        ProductDetails productDetails = listProductDetail.get(position);
         LayoutInflater inflater = context.getLayoutInflater();
-
         View rowView = inflater.inflate(R.layout.table_item_details, null);
 
-        TextView textView = (TextView) rowView.findViewById(R.id.tvProductName);
-        textView.setText(String.valueOf(table.getProduct().getProductName()));
+        TextView productName = (TextView) rowView.findViewById(R.id.tvProductName);
+        productName.setText(String.valueOf(productDetails.getProduct().getProductName()));
+
+        TextView unitSales = (TextView) rowView.findViewById(R.id.tvUnitSales);
+        unitSales.setText(String.valueOf(productDetails.getUnitSales()) + " " + productDetails.getProduct().getUnit());
 
         return rowView;
     }
