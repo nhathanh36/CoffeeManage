@@ -1,6 +1,7 @@
 package com.example.huynhthanhnha.myapplication.form;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,19 +9,19 @@ import java.util.Set;
  * Created by NguyenThanh on 14/11/2015.
  */
 public class DateClass {
-    Calendar date;
+    Date date;
     Set<ListPrice> listPrices;
 
-    public DateClass(Calendar date) {
+    public DateClass(Date date) {
         this.date = date;
         listPrices = new HashSet<ListPrice>();
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
