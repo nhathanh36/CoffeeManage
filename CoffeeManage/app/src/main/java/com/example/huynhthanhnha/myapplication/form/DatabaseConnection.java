@@ -8,8 +8,11 @@ package com.example.huynhthanhnha.myapplication.form;
         import com.db4o.query.Predicate;
 
         import java.io.File;
+        import java.text.ParseException;
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
         import java.util.Calendar;
+        import java.util.Date;
         import java.util.HashSet;
         import java.util.Iterator;
         import java.util.List;
@@ -145,29 +148,47 @@ public class DatabaseConnection {
 
 
         //==============================DATE AND LIST PRICE================================================
-        Calendar cal = Calendar.getInstance();
-        cal.set(2015, 11, 15);
-        DateClass date = new DateClass(cal);
+        Date date = new Date();
+        Date date1 = new Date();
+        Date date2 = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateInString = "15-11-2015";
+        String dateInString1 = "20-10-2014";
+        String dateInString2 = "20-11-2015";
+        try {
+            date  = sdf.parse(dateInString);
+            date1  = sdf.parse(dateInString1);
+            date2  = sdf.parse(dateInString2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateClass dateClass = new DateClass(date);
+        DateClass dateClass1 = new DateClass(date1);
+        DateClass dateClass2 = new DateClass(date2);
 
         List<ListPrice> listPrices = new ArrayList<ListPrice>();
-        ListPrice price1 = new ListPrice(date, pd1, 7000);
-        ListPrice price2 = new ListPrice(date, pd2, 8000);
-        ListPrice price3 = new ListPrice(date, pd3, 9000);
-        ListPrice price4 = new ListPrice(date, pd4, 10000);
-        ListPrice price5 = new ListPrice(date, pd5, 11000);
-        ListPrice price6 = new ListPrice(date, pd6, 12000);
-        ListPrice price7 = new ListPrice(date, pd7, 13000);
-        ListPrice price8 = new ListPrice(date, pd8, 14000);
-        ListPrice price9 = new ListPrice(date, pd9, 15000);
-        ListPrice price10 = new ListPrice(date, pd10, 16000);
-        ListPrice price11 = new ListPrice(date, pd11, 17000);
+        ListPrice price1 = new ListPrice(dateClass, pd1, 7000);
+        ListPrice price1NewPrice = new ListPrice(dateClass1, pd1, 10000);
+        ListPrice price1NewPrice1 = new ListPrice(dateClass2, pd1, 15000);
+        ListPrice price2 = new ListPrice(dateClass, pd2, 8000);
+        ListPrice price3 = new ListPrice(dateClass, pd3, 9000);
+        ListPrice price4 = new ListPrice(dateClass, pd4, 10000);
+        ListPrice price5 = new ListPrice(dateClass, pd5, 11000);
+        ListPrice price6 = new ListPrice(dateClass, pd6, 12000);
+        ListPrice price7 = new ListPrice(dateClass, pd7, 13000);
+        ListPrice price8 = new ListPrice(dateClass, pd8, 14000);
+        ListPrice price9 = new ListPrice(dateClass, pd9, 15000);
+        ListPrice price10 = new ListPrice(dateClass, pd10, 16000);
+        ListPrice price11 = new ListPrice(dateClass, pd11, 17000);
 
         listPrices.add(price1); listPrices.add(price2); listPrices.add(price3);
         listPrices.add(price4); listPrices.add(price5); listPrices.add(price6);
         listPrices.add(price7); listPrices.add(price8); listPrices.add(price9);
-        listPrices.add(price10); listPrices.add(price11);
+        listPrices.add(price10); listPrices.add(price11); listPrices.add(price1NewPrice);
+        listPrices.add(price1NewPrice1);
 
-        pd1.addPrice(price1); pd2.addPrice(price2); pd3.addPrice(price3); pd4.addPrice(price4);
+        pd1.addPrice(price1);   pd1.addPrice(price1NewPrice); pd1.addPrice(price1NewPrice1);
+        pd2.addPrice(price2); pd3.addPrice(price3); pd4.addPrice(price4);
         pd5.addPrice(price5); pd6.addPrice(price6); pd7.addPrice(price7); pd8.addPrice(price8);
         pd9.addPrice(price9); pd10.addPrice(price10); pd11.addPrice(price11);
 
@@ -188,7 +209,9 @@ public class DatabaseConnection {
         db.store(listProduct);
         db.store(listGroupProduct);
 
-        db.store(date);
+        db.store(dateClass);
+        db.store(dateClass1);
+        db.store(dateClass2);
         db.store(listPrices);
 
         db.store(listTable);
@@ -234,13 +257,16 @@ public class DatabaseConnection {
         ObjectSet<ListPrice> prices = db.queryByExample(ListPrice.class);
         for (ListPrice p : prices){
             System.out.println("Name: "+ p.getProduct().getProductName() +
-                    " | Date: " + p.getDateClass().getDate().get(Calendar.DATE)+ "/" + p.getDateClass().getDate().get(Calendar.MONTH)+"/"+ p.getDateClass().getDate().get(Calendar.YEAR) +
+                    " | Date: " + p.getDateClass().getDate() +
                     "List price: " + p.getPrice());
         }
 
 
     }
 
+    /**
+     *
+     */
     public void PrintProductPrice(){
         ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
         for (Product pd: lsProduct) {
@@ -248,6 +274,12 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public int CheckLogin(final String username, final String password){
         ObjectSet<User> users = db.query(new Predicate<User>() {
             public boolean match(User user) {
@@ -326,8 +358,8 @@ public class DatabaseConnection {
     }
 
     public void InsertProduct(int idGroupProduct, String nameOfProduct, String unitOfProduct, long price){
-        Calendar cal = Calendar.getInstance();
-        DateClass dateClass = new DateClass(cal);
+        Date date = new Date();
+        DateClass dateClass = new DateClass(date);
         //Get max id for product
         int maxID = 0;
 
@@ -360,13 +392,19 @@ public class DatabaseConnection {
     //Get list product PRODUCT ACTIVITY
     public List<GroupProduct> getListGroupProduct(){
         List<GroupProduct> listGroup = new ArrayList<GroupProduct>();
-        ObjectSet<GroupProduct> lsGroup = db.queryByExample(GroupProduct.class);
+        // Sort by Group name
+        Comparator<GroupProduct> groupProductComparator = new Comparator<GroupProduct>() {
+
+            @Override
+            public int compare(GroupProduct t, GroupProduct t1) {
+                return t.getGroupProductName().compareTo(t1.getGroupProductName());
+            }
+        };
+        Query query = db.query().sortBy(groupProductComparator);
+        query.constrain(GroupProduct.class);
+        ObjectSet<GroupProduct> lsGroup = query.execute();//db.queryByExample(GroupProduct.class);
         for (GroupProduct pd: lsGroup) {
             listGroup.add(pd);
-            //System.out.println("Group Product Name: " + pd.getGroupProductName() + " ID: " + pd.getGroupID());
-//            for(Product p : pd.getListProduct()){
-//                System.out.println("List: "+p.getProductName());
-//            }
         }
         return listGroup;
     }
@@ -410,11 +448,6 @@ public class DatabaseConnection {
                 listDetailProduct.add(details);
                 System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
             }
-
-        for(ProductDetails details : bills.next().getListDetailProduct()){
-            listDetailProduct.add(details);
-            System.out.println(" TEN THUC UONG: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
-        }
 
         return listDetailProduct;
     }
@@ -538,6 +571,25 @@ public class DatabaseConnection {
             System.out.println("KHONG CO CHI TIET THUC UONG!!");
         }
         return details.next();
+    }
+
+    /**
+     *
+     * @param dates
+     * @param currentDate
+     * @return closet Date
+     */
+    public static Date getNearestDate(List<Date> dates, Date currentDate) {
+        long minDiff = -1, currentTime = currentDate.getTime();
+        Date minDate = null;
+        for (Date date : dates) {
+            long diff = Math.abs(currentTime - date.getTime());
+            if ((minDiff == -1) || (diff < minDiff)) {
+                minDiff = diff;
+                minDate = date;
+            }
+        }
+        return minDate;
     }
 
     public void Close(){

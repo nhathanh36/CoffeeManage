@@ -59,13 +59,13 @@ public class ListProductActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
                 String getGroup = formain.get(arg2);
-
+                // Set param into bundle
                 Bundle bundle = new Bundle();
                 bundle.putString("groupActivity", getGroup);
 
                 System.out.println("GROUP IN getGROUP: " + getGroup);
                 fragment = new ListProductGroupFragment();
-                // set Fragmentclass Arguments
+                // set param into fragment
                 fragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 mDrawerLayout.closeDrawer(mainlist);
