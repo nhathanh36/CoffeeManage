@@ -1,22 +1,22 @@
 package com.example.huynhthanhnha.myapplication.form;
 
-        import android.support.design.widget.TabLayout;
+import android.content.Context;
+import android.support.design.widget.TabLayout;
 
-        import com.db4o.Db4oEmbedded;
-        import com.db4o.ObjectContainer;
-        import com.db4o.ObjectSet;
-        import com.db4o.query.Predicate;
-
-        import java.io.File;
-        import java.text.ParseException;
-        import java.text.SimpleDateFormat;
-        import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.Date;
-        import java.util.HashSet;
-        import java.util.Iterator;
-        import java.util.List;
-        import java.util.Set;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -43,7 +43,8 @@ import java.util.Set;
  */
 public class DatabaseConnection {
     //String filePath;
-    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+   //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
     ObjectContainer db;
     boolean flag;
 
@@ -54,13 +55,14 @@ public class DatabaseConnection {
     }
 
     public DatabaseConnection(String filePath) {
-        //this.filePath = filePath + "/coffee_db.db4o";
-        //System.out.println(this.filePath);
+        //Context;
+        this.filePath = filePath + "/coffee_db.db4o";
+        System.out.println(this.filePath);
     }
 
     public void Open(){
         EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
-        //conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
+        conf.common().objectClass(ProductDetails.class).updateDepth(0);
         //db = Db4oEmbedded.openFile(filePath);
         db = Db4oEmbedded.openFile(conf, filePath);
         if(!flag) InitData();
@@ -271,7 +273,7 @@ public class DatabaseConnection {
     public void PrintProductPrice(){
         ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
         for (Product pd: lsProduct) {
-            System.out.println("Product Name: " + pd.getProductName() + " Size: " + pd.getListPrice().size());
+            System.out.println("Product Name 2: " + pd.getProductName() + " Size: " + pd.getListPrice().size());
         }
     }
 
@@ -307,7 +309,7 @@ public class DatabaseConnection {
         ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
         for (Product pd: lsProduct) {
             listProduct.add(pd);
-            System.out.println("Product Name: " + pd.getProductName() + " Unit: " + pd.getUnit());
+            System.out.println("Product Name 1: " + pd.getProductName() + " Unit: " + pd.getUnit());
         }
         return listProduct;
     }
@@ -327,7 +329,7 @@ public class DatabaseConnection {
             //Set values for list product
             for (Product pro : gro.next().getListProduct()) {
                 listProduct.add(pro);
-                System.out.println("TEN THUC UONG: " + pro.getProductName());
+                System.out.println("TEN THUC UONG 1: " + pro.getProductName());
             }
 
         return listProduct;
@@ -426,7 +428,7 @@ public class DatabaseConnection {
             //Set values for list product
             for(Product pro : gro.next().getListProduct()){
                 listProduct.add(pro);
-                System.out.println("TEN THUC UONG: " + pro.getProductName());
+                System.out.println("TEN THUC UONG 2: " + pro.getProductName());
             }
 
         return listProduct;
@@ -447,7 +449,7 @@ public class DatabaseConnection {
         else
             for(ProductDetails details : bills.next().getListDetailProduct()){
                 listDetailProduct.add(details);
-                System.out.println("TEN THUC UONG: " + details.getProduct().getProductName() + "SO LUONG: " + details.getUnitSales());
+                System.out.println("TEN THUC UONG 3: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
             }
 
         return listDetailProduct;
@@ -468,25 +470,29 @@ public class DatabaseConnection {
 
     public void InsertProductForBill(Product product, int unitSales, final int tableID){
         Calendar calendar = Calendar.getInstance();
+        Product productCm = getProductByID(product.getProductId());
         int idBill = 0;
         Table tb;
         //Check bill is existed or not
         Bill bill = checkBillExist(tableID);
         if(bill != null){ //Has bill and has list details product
             System.out.println("InsertProductForBill => UPDATE BILL => TON TAI 1 THUC UONG");
-            insertProductDetailForBill(bill, product, unitSales, tableID);
+            insertProductDetailForBill(bill, productCm, unitSales, tableID);
         }else{
             System.out.println("InsertProductForBill => THEM BILL MOI (CHUA CO THUC UONG NAO)");
             //Get max bill id
             idBill = getMaxBillID() + 1;
-            //System.out.println("ID Bill moi: " + idBill);
+            System.out.println("ID Bill moi trong ham insert: " + idBill);
 
             //Insert bill
             bill = new Bill(idBill, calendar);
 
             //Insert details product
-            ProductDetails productDetailsNew = new ProductDetails(product, unitSales);
-            System.out.println("Produc details: " + productDetailsNew.getProduct().getProductName());
+            //Find max product details id
+            int idProductDetail = getMaxProductDetailID() + 1;
+            ProductDetails productDetailsNew = new ProductDetails(idProductDetail, unitSales);
+
+            //System.out.println("Produc details trong ham insert: " + productDetailsNew.getProduct().getProductName());
 
             //Get table and set for bill
             tb = getTableByID(tableID);
@@ -495,15 +501,17 @@ public class DatabaseConnection {
             bill.setState(true);                            //Set state for bill //true is not pay
             bill.addListDetailProduct(productDetailsNew);   //Set details product for bill
 
-            tb.addBill(bill);                   //Set bill for table
-            productDetailsNew.setBill(bill);    //Set bill for Detais product
+            tb.addBill(bill);                           //Set bill for table
+            productDetailsNew.setBill(bill);            //Set bill for Details product
+            productDetailsNew.setProduct(productCm);      //Set product for product details
 
-
-            db.store(productDetailsNew);
             db.store(bill);
+            db.store(productDetailsNew);
+
             db.commit();
         }
     }
+
     protected void insertProductDetailForBill(final Bill bill, final Product product, final int numSales, final int tableId){
         ProductDetails productOld;
         ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
@@ -516,9 +524,13 @@ public class DatabaseConnection {
 
         if(details.size() == 0){
             System.out.println("PRODUCT DETAIL KHONG CO GIA TRI TRUNG LAP THUC UONG!!");
-            ProductDetails productDetails = new ProductDetails(product, numSales);  //Auto save product
+            int idProductDetail = getMaxProductDetailID()+1;
+            ProductDetails productDetails = new ProductDetails(idProductDetail, numSales);
+
+            productDetails.setProduct(product);                                     //Auto save product
             bill.addListDetailProduct(productDetails);                              //Add list product details for bill
             productDetails.setBill(bill);                                           //Add bill for product details
+
             db.store(productDetails);       //Insert product details
             db.store(bill);                 //Update bill has the same id
             db.commit();
@@ -624,7 +636,57 @@ public class DatabaseConnection {
             System.out.println("Khong the thanh toan!");
     }
 
+    public int getMaxProductDetailID(){
+        int MaxID = 0;
+        ObjectSet<ProductDetails> dt = db.queryByExample(ProductDetails.class);
+        if(dt.size() != 0)
+            for (ProductDetails p : dt){
+                if(p.getProductDetailID() > MaxID)
+                    MaxID = p.getProductDetailID();
 
+            }
+        System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
+        return MaxID;
+    }
+
+    public void getProductDetails(){
+        ObjectSet<ProductDetails> listProductDetail = db.queryByExample(ProductDetails.class);
+        for(ProductDetails p: listProductDetail){
+            System.out.println(" BILL ID " + p.getBill().getBillID() +
+                    " BAN" + p.getBill().getTable().getIdTable() +
+                    " DS THUC UONG " + p.getProduct().getProductName() +
+                    " SL "+ p.getUnitSales() + "XYX");
+        }
+    }
+
+    public Product getProductByID(final int productID){
+        ObjectSet<Product> details = db.query(new Predicate<Product>() {
+            public boolean match(Product dt) {
+                return dt.getProductId() == productID;
+            }
+        });
+        if(details.size() == 0){
+            System.out.println("KHONG SELECT DC PRODUCT!!");
+            return null;
+        }
+        else
+            return details.next();
+    }
+
+    public void getPriceOfProduct(final int productID){
+        ObjectSet<ListPrice> details = db.query(new Predicate<ListPrice>() {
+            public boolean match(ListPrice lp) {
+                return lp.getProduct().getProductId() == productID;
+            }
+        });
+
+        for (ListPrice lp: details){
+            System.out.println("Ten: " + lp.getProduct().getProductName()
+                + " Price: " + lp.getPrice()
+                + " Date: " + lp.getDateClass().getDate());
+        }
+
+    }
 
     public void Close(){
         db.close();

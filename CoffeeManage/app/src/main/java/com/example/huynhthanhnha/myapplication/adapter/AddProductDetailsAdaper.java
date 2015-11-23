@@ -28,7 +28,7 @@ import java.util.List;
 public class AddProductDetailsAdaper extends BaseAdapter {
     List<Product> listProductGroup = new ArrayList<Product>();
     DatabaseConnection conn = new DatabaseConnection();
-    int TableID = 0;
+    int TableID = 1;
     EditText unitSales;
     Activity context;
 
@@ -69,7 +69,9 @@ public class AddProductDetailsAdaper extends BaseAdapter {
             public void onClick(View v) {
                 conn.Open();
                 unitSales = (EditText) rowView.findViewById(R.id.editSoluong);
-                System.out.println("LAY SO LUONG = " + unitSales.getText().toString());
+                System.out.println("SO LUONG = " + unitSales.getText().toString());
+                System.out.println("PRODUCT adapter: " + product.getProductName() + " Table ID" + String.valueOf(TableID));
+                conn.getTable();
                 conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
                 conn.Close();
             }

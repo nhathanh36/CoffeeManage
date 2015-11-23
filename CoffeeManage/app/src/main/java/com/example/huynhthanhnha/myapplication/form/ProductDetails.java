@@ -4,13 +4,14 @@ package com.example.huynhthanhnha.myapplication.form;
  * Created by NguyenThanh on 14/11/2015.
  */
 public class ProductDetails {
+    int ProductDetailID;
     int unitSales;
     Product product;
     Bill bill;
 
-    public ProductDetails(Product product, int unitSales) {
+    public ProductDetails(int ProductDetailID, int unitSales) {
         this.unitSales = unitSales;
-        this.product = product;
+        this.ProductDetailID = ProductDetailID;
     }
 
     public Bill getBill() {
@@ -35,5 +36,13 @@ public class ProductDetails {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public int getProductDetailID() {
+        return ProductDetailID;
+    }
+
+    public void setProductDetailID(int productDetailID) {
+        ProductDetailID = productDetailID;
     }
 }

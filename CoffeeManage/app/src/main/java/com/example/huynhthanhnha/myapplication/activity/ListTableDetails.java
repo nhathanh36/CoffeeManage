@@ -37,7 +37,6 @@ public class ListTableDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.table_details);
-        createListProductGroup();
         IdTable = getIntent().getExtras().getInt("IdTable");
 
         TextView numTable = (TextView) findViewById(R.id.tableNumber);
@@ -52,18 +51,20 @@ public class ListTableDetails extends Activity {
         btnMonmoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                relativeAdd.setVisibility(View.VISIBLE);
-                relativeDetails.setVisibility(View.GONE);
+                //relativeAdd.setVisibility(View.VISIBLE);
+                //relativeDetails.setVisibility(View.GONE);
                 //Refresh data
                 createListProduct();
-                /*
+
                 conn.Open();
                 System.out.println("=====THEM SAN PHAM CAFE CHO BAN====");
                 Product product = new Product(1, "Cafe đá", "Ly");
+                Product pd2 = new Product(2,"Cafe sữa", "Ly");
                 System.out.println("=====TEN BAN=======================" + IdTable);
                 conn.InsertProductForBill(product, 2, IdTable);
+                conn.InsertProductForBill(pd2, 5, IdTable);
                 conn.Close();
-                 */
+
             }
         });
 
@@ -90,7 +91,7 @@ public class ListTableDetails extends Activity {
             }
         });
 
-
+        createListProductGroup();
 
     }
 
@@ -112,6 +113,7 @@ public class ListTableDetails extends Activity {
         ListView listProductDetailsForAdd = (ListView) findViewById(R.id.listProductDetailsForAdd);
         conn.Open();
         listProductGroup = conn.getListProduct();
+        conn.getProductDetails();
         conn.Close();
         listProductDetailsForAdd.setAdapter(new AddProductDetailsAdaper(this, listProductGroup, IdTable));
 

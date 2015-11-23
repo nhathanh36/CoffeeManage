@@ -3,6 +3,7 @@ package com.example.huynhthanhnha.myapplication.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -29,7 +30,9 @@ public class GridTableActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grid_table);
+        //System.out.println("External" + this.getDir("data", 0) + "Enviroment: " + Environment.getDataDirectory());
         createGridTable();
+
     }
 
     private void createGridTable() {
