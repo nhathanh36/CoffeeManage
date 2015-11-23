@@ -65,6 +65,7 @@
         android:clickable="false">
         <TextView
             android:layout_width="354dp"
+            android:id="@+id/tvDate"
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:textColor="#ffffff"

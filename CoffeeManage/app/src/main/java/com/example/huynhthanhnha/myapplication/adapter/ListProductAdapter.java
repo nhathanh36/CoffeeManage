@@ -46,9 +46,9 @@ public class ListProductAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DatabaseConnection conn = new DatabaseConnection();
-        List<Date> dates = new ArrayList<Date>();
-        Date closetDate = new Date();
+        long price = 0;
         Product product = listProduct.get(position);
+
         LayoutInflater inflater = context.getLayoutInflater();
 
         View rowView = inflater.inflate(R.layout.list_item_product, null);
@@ -56,21 +56,13 @@ public class ListProductAdapter extends BaseAdapter {
         TextView tvProduct = (TextView) rowView.findViewById(R.id.tvlistProduct);
         tvProduct.setText(String.valueOf(product.getProductName()));
         TextView tvPrice = (TextView) rowView.findViewById(R.id.tvPrice);
-        for (ListPrice lp: product.getListPrice()) {
-            System.out.println("DATE IN PRICE: " + lp.getDateClass().getDate());
-            dates.add(lp.getDateClass().getDate());
-        }
         conn.Open();
-        conn.TestDB();
-        closetDate = conn.getNearestDate(dates, new Date());
+        price = conn.getPriceOfProduct(product.getProductId());
         conn.Close();
-        for (ListPrice lp: product.getListPrice()) {
-            if (lp.getDateClass().getDate() == closetDate) {
-                tvPrice.setText(String.valueOf(lp.getPrice()));
-            }
-        }
+
+        tvPrice.setText(String.valueOf(price));
+
         System.out.println("/*********************************/");
-        System.out.println("DATE CLOSET: " + closetDate);
         System.out.println("PRODUCT OF DATE CLOSET: " + tvProduct.getText());
         System.out.println("PRICE OF DATE CLOSET: " + tvPrice.getText());
         System.out.println("/*********************************/");

@@ -43,8 +43,8 @@ import java.util.Set;
  */
 public class DatabaseConnection {
     //String filePath;
-   //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
-    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
+   String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
     ObjectContainer db;
     boolean flag;
 
@@ -440,17 +440,27 @@ public class DatabaseConnection {
         //Get group product has ID Return 1 result
         ObjectSet<Bill> bills = db.query(new Predicate<Bill>() {
             public boolean match(Bill bill) {
-                return bill.getTable().getIdTable() == tableID && bill.isState() == true;
+                return bill.getTable().getIdTable() == tableID &&
+                        bill.isState() == true;
             }
         });
         if(bills.size() == 0){
             System.out.println("KHONG CO HOA DON!!");
         }
-        else
-            for(ProductDetails details : bills.next().getListDetailProduct()){
+        else {
+            final Bill billTemp = bills.next();
+            System.out.println("Bill id: xxx " + billTemp.getBillID());
+            ObjectSet<ProductDetails> lproductdetail = db.query(new Predicate<ProductDetails>() {
+                public boolean match(ProductDetails l) {
+                    return l.getBill().getBillID() == billTemp.getBillID();
+                }
+            });
+
+            for (ProductDetails details : lproductdetail) {
                 listDetailProduct.add(details);
                 System.out.println("TEN THUC UONG 3: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
             }
+        }
 
         return listDetailProduct;
     }
@@ -505,8 +515,8 @@ public class DatabaseConnection {
             productDetailsNew.setBill(bill);            //Set bill for Details product
             productDetailsNew.setProduct(productCm);      //Set product for product details
 
-            db.store(bill);
             db.store(productDetailsNew);
+            db.store(bill);
 
             db.commit();
         }
@@ -655,7 +665,7 @@ public class DatabaseConnection {
             System.out.println(" BILL ID " + p.getBill().getBillID() +
                     " BAN" + p.getBill().getTable().getIdTable() +
                     " DS THUC UONG " + p.getProduct().getProductName() +
-                    " SL "+ p.getUnitSales() + "XYX");
+                    " SL "+ p.getUnitSales() + " XYX");
         }
     }
 
@@ -673,7 +683,9 @@ public class DatabaseConnection {
             return details.next();
     }
 
-    public void getPriceOfProduct(final int productID){
+    public long getPriceOfProduct(final int productID){
+        final List<Date> dates = new ArrayList<Date>();
+        Date closetDate;
         ObjectSet<ListPrice> details = db.query(new Predicate<ListPrice>() {
             public boolean match(ListPrice lp) {
                 return lp.getProduct().getProductId() == productID;
@@ -681,11 +693,21 @@ public class DatabaseConnection {
         });
 
         for (ListPrice lp: details){
-            System.out.println("Ten: " + lp.getProduct().getProductName()
-                + " Price: " + lp.getPrice()
-                + " Date: " + lp.getDateClass().getDate());
+            System.out.println("DATE IN PRICE: " + lp.getDateClass().getDate());
+            dates.add(lp.getDateClass().getDate());
+//            System.out.println("Ten: " + lp.getProduct().getProductName()
+//                + " Price: " + lp.getPrice()
+//                + " Date: " + lp.getDateClass().getDate());
         }
 
+        closetDate = getNearestDate(dates, new Date());
+        for (ListPrice lp: details) {
+            if (lp.getDateClass().getDate() == closetDate) {
+                return lp.getPrice();
+            }
+        }
+
+        return 0;
     }
 
     public void Close(){

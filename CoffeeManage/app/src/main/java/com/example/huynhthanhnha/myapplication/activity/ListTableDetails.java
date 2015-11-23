@@ -51,19 +51,18 @@ public class ListTableDetails extends Activity {
         btnMonmoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //relativeAdd.setVisibility(View.VISIBLE);
-                //relativeDetails.setVisibility(View.GONE);
-                //Refresh data
-                createListProduct();
+                relativeAdd.setVisibility(View.VISIBLE);
+                relativeDetails.setVisibility(View.GONE);
 
-                conn.Open();
-                System.out.println("=====THEM SAN PHAM CAFE CHO BAN====");
-                Product product = new Product(1, "Cafe đá", "Ly");
-                Product pd2 = new Product(2,"Cafe sữa", "Ly");
-                System.out.println("=====TEN BAN=======================" + IdTable);
-                conn.InsertProductForBill(product, 2, IdTable);
-                conn.InsertProductForBill(pd2, 5, IdTable);
-                conn.Close();
+//                conn.Open();
+//                System.out.println("=====THEM SAN PHAM CAFE CHO BAN====");
+//                Product product = new Product(1, "Cafe đá", "Ly");
+//                Product pd2 = new Product(2,"Cafe sữa", "Ly");
+//                System.out.println("=====TEN BAN=======================" + IdTable);
+//                conn.InsertProductForBill(product, 2, IdTable);
+//                conn.InsertProductForBill(pd2, 5, IdTable);
+//                conn.Close();
+                createListProduct();
 
             }
         });
@@ -75,7 +74,6 @@ public class ListTableDetails extends Activity {
                 conn.Open();
                 conn.updateStateForBill(IdTable);
                 conn.Close();
-                //Refresh data
                 createListProduct();
             }
         });
@@ -86,12 +84,12 @@ public class ListTableDetails extends Activity {
             public void onClick(View v) {
                 relativeAdd.setVisibility(View.GONE);
                 relativeDetails.setVisibility(View.VISIBLE);
-                //Refresh data
                 createListProduct();
             }
         });
 
         createListProductGroup();
+        createListProduct();
 
     }
 
@@ -99,9 +97,6 @@ public class ListTableDetails extends Activity {
         ListView listView = (ListView) findViewById(R.id.listProductDetails);
         conn.Open();
         listProductDetails = conn.getListProductOfTable(IdTable);
-        //conn.TestUpdate();
-        //conn.TestBill();
-        //conn.getIDBill();
         conn.Close();
         listView.setAdapter(new ListProductDetailsAdapter(this, listProductDetails));
 

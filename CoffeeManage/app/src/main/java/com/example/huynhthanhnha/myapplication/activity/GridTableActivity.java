@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.db4o.ObjectSet;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
@@ -16,6 +17,7 @@ import com.example.huynhthanhnha.myapplication.adapter.ListTableAdapter;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -23,6 +25,8 @@ import java.util.List;
  */
 public class GridTableActivity extends Activity {
     List<Table> listTable = new ArrayList<Table>();
+    String date = "";
+    TextView tvDate;
     DatabaseConnection conn = new DatabaseConnection();
     ObjectSet<Table> obsTable;
 
@@ -37,7 +41,12 @@ public class GridTableActivity extends Activity {
 
     private void createGridTable() {
         GridView gridView = (GridView) findViewById(R.id.gvListTable);
-
+        Calendar currentDate = Calendar.getInstance();
+        date =  "Ngày " + String.valueOf(currentDate.get(Calendar.DATE))+"/"+
+                String.valueOf(currentDate.get(Calendar.MONTH))+"/"+
+                String.valueOf(currentDate.get(Calendar.YEAR));
+        tvDate = (TextView) findViewById(R.id.tvDate);
+        tvDate.setText(date);
         // get table in database
         //System.out.println("FILE: " + this.getFilesDir().toString());
         conn.Open();
@@ -51,8 +60,6 @@ public class GridTableActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // get table user clicked
-                //khong co lay id ma no lay doi tuong ak, getItemPosition(tai vi tri nao)
-               // dong nay nek a: Table entry = (Table) adapterView.getItemAtPosition(position);
                 Table entry = (Table) adapterView.getItemAtPosition(position);
                 System.out.println("ID ban: " + entry.getIdTable());
                 Intent intent = new Intent(GridTableActivity.this, ListTableDetails.class);

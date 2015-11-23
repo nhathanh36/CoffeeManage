@@ -11,12 +11,15 @@ import android.widget.ListView;
 
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
+import com.example.huynhthanhnha.myapplication.form.ListPrice;
 import com.example.huynhthanhnha.myapplication.form.Product;
 import com.example.huynhthanhnha.myapplication.R;
 import com.example.huynhthanhnha.myapplication.fragments.ListProductGroupFragment;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Huynh Thanh Nha on 18-Nov-15.
@@ -27,7 +30,8 @@ public class ListProductActivity extends AppCompatActivity {
     ListView mainlist;
     ArrayList<String> formain = new ArrayList<String>();
     DatabaseConnection conn = new DatabaseConnection();
-    List<Product> listProduct = new ArrayList<Product>();
+    Set<Product> listProduct = new HashSet<Product>();
+    Set<ListPrice> listPrices = new HashSet<ListPrice>();
     List<GroupProduct> listGroupProduct = new ArrayList<GroupProduct>();
 
     @Override
@@ -41,6 +45,17 @@ public class ListProductActivity extends AppCompatActivity {
         listGroupProduct = conn.getListGroupProduct();
         conn.Close();
 
+        for (GroupProduct g: listGroupProduct) {
+            listProduct = g.getListProduct();
+        }
+
+        for (Product p: listProduct) {
+            listPrices = p.getListPrice();
+        }
+
+        for (ListPrice lp: listPrices) {
+            System.out.println("DATE IN ACTIVITY: " + lp.getDateClass().getDate());
+        }
         mainlist = (ListView) findViewById(R.id.left_drawer_child);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));

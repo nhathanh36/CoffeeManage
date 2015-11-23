@@ -69,10 +69,12 @@ public class AddProductDetailsAdaper extends BaseAdapter {
             public void onClick(View v) {
                 conn.Open();
                 unitSales = (EditText) rowView.findViewById(R.id.editSoluong);
-                System.out.println("SO LUONG = " + unitSales.getText().toString());
-                System.out.println("PRODUCT adapter: " + product.getProductName() + " Table ID" + String.valueOf(TableID));
-                conn.getTable();
-                conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
+                //System.out.println("SO LUONG = " + unitSales.getText().toString());
+                //System.out.println("PRODUCT adapter: " + product.getProductName() + " Table ID" + String.valueOf(TableID));
+                //conn.getTable();
+                if(unitSales.getText().length() != 0 && Integer.valueOf(unitSales.getText().toString()) != 0) {
+                    conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
+                }
                 conn.Close();
             }
         });
