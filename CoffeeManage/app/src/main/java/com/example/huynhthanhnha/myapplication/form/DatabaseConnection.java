@@ -43,8 +43,8 @@ import java.util.Set;
  */
 public class DatabaseConnection {
     //String filePath;
-   String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
-    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
+    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
     ObjectContainer db;
     boolean flag;
 
@@ -62,7 +62,8 @@ public class DatabaseConnection {
 
     public void Open(){
         EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
-        conf.common().objectClass(ProductDetails.class).updateDepth(0);
+        //conf.common().objectClass(ProductDetails.class).updateDepth(0);
+        conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
         //db = Db4oEmbedded.openFile(filePath);
         db = Db4oEmbedded.openFile(conf, filePath);
         if(!flag) InitData();
@@ -710,6 +711,14 @@ public class DatabaseConnection {
         return 0;
     }
 
+    public List<Officer> getListOfficer(){
+        List<Officer> list = new ArrayList<Officer>();
+        ObjectSet<Officer> result = db.queryByExample(Officer.class);
+        for (Officer officer: result){
+            list.add(officer);
+        }
+        return list;
+    }
     public void Close(){
         db.close();
     }

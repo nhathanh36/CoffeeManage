@@ -53,15 +53,6 @@ public class ListTableDetails extends Activity {
             public void onClick(View v) {
                 relativeAdd.setVisibility(View.VISIBLE);
                 relativeDetails.setVisibility(View.GONE);
-
-//                conn.Open();
-//                System.out.println("=====THEM SAN PHAM CAFE CHO BAN====");
-//                Product product = new Product(1, "Cafe đá", "Ly");
-//                Product pd2 = new Product(2,"Cafe sữa", "Ly");
-//                System.out.println("=====TEN BAN=======================" + IdTable);
-//                conn.InsertProductForBill(product, 2, IdTable);
-//                conn.InsertProductForBill(pd2, 5, IdTable);
-//                conn.Close();
                 createListProduct();
 
             }
@@ -77,7 +68,7 @@ public class ListTableDetails extends Activity {
                 createListProduct();
             }
         });
-
+/*
         btnComplete = (Button) findViewById(R.id.btnComplete);
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +78,7 @@ public class ListTableDetails extends Activity {
                 createListProduct();
             }
         });
-
+*/
         createListProductGroup();
         createListProduct();
 
@@ -98,7 +89,8 @@ public class ListTableDetails extends Activity {
         conn.Open();
         listProductDetails = conn.getListProductOfTable(IdTable);
         conn.Close();
-        listView.setAdapter(new ListProductDetailsAdapter(this, listProductDetails));
+        ListProductDetailsAdapter adapter = new ListProductDetailsAdapter(this, listProductDetails);
+        listView.setAdapter(adapter);
 
         TextView countProduct = (TextView) findViewById(R.id.textTongsomon);
         countProduct.setText("Tổng số món: " + String.valueOf(listProductDetails.size()));
@@ -110,7 +102,7 @@ public class ListTableDetails extends Activity {
         listProductGroup = conn.getListProduct();
         conn.getProductDetails();
         conn.Close();
-        listProductDetailsForAdd.setAdapter(new AddProductDetailsAdaper(this, listProductGroup, IdTable));
-
+        AddProductDetailsAdaper adaper = new AddProductDetailsAdaper(this, listProductGroup, IdTable, relativeDetails, relativeAdd);
+        listProductDetailsForAdd.setAdapter(adaper);
     }
 }

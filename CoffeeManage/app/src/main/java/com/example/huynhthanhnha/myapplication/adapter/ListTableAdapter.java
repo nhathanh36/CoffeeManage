@@ -57,10 +57,12 @@ public class ListTableAdapter extends BaseAdapter {
         ImageView img = (ImageView) rowView.findViewById(R.id.imageTable);
 
         //Image
+        /*
         conn.Open();
         if (conn.checkBillExist(table.getIdTable())!= null)
             img.setImageResource(R.drawable.table2);
         conn.Close();
+        */
 
         return rowView;
     }

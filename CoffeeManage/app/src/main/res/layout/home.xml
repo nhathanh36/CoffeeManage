@@ -58,7 +58,7 @@
             android:layout_height="103dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/nhanvien"
-            android:id="@+id/imageView"
+            android:id="@+id/imgOfficer"
             android:layout_gravity="center_horizontal" />
 
         <TextView

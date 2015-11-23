@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 
 
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.huynhthanhnha.myapplication.R;
 
@@ -18,9 +19,9 @@ import com.example.huynhthanhnha.myapplication.R;
  */
 public class HomeOfficerActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    LinearLayout linearLayout;
-    LinearLayout img;
-    LinearLayout product;
+    RelativeLayout linearLayout;
+    RelativeLayout img;
+    RelativeLayout product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class HomeOfficerActivity extends AppCompatActivity {
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        img = (LinearLayout) findViewById(R.id.demo);
+        img = (RelativeLayout) findViewById(R.id.demo);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +42,7 @@ public class HomeOfficerActivity extends AppCompatActivity {
 
         final Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
-        linearLayout = (LinearLayout) findViewById(R.id.linearListTable);
+        linearLayout = (RelativeLayout) findViewById(R.id.linearListTable);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +51,7 @@ public class HomeOfficerActivity extends AppCompatActivity {
             }
         });
 
-        product = (LinearLayout) findViewById(R.id.linearListProduct);
+        product = (RelativeLayout) findViewById(R.id.linearListProduct);
         product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

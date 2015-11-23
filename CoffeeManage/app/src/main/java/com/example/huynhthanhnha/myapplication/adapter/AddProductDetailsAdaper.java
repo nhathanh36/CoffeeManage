@@ -1,6 +1,7 @@
 package com.example.huynhthanhnha.myapplication.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.Image;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +33,15 @@ public class AddProductDetailsAdaper extends BaseAdapter {
     int TableID = 1;
     EditText unitSales;
     Activity context;
+    RelativeLayout relativeDetails;
+    RelativeLayout relativeAdd;
 
-    public AddProductDetailsAdaper(Activity context, List<Product> listProductGroup, int TableID) {
+    public AddProductDetailsAdaper(Activity context, List<Product> listProductGroup, int TableID, RelativeLayout relativeDetails, RelativeLayout relativeAdd) {
         this.listProductGroup = listProductGroup;
         this.context = context;
         this.TableID = TableID;
+        this.relativeAdd = relativeAdd;
+        this.relativeDetails = relativeDetails;
     }
 
     @Override
@@ -76,6 +82,9 @@ public class AddProductDetailsAdaper extends BaseAdapter {
                     conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
                 }
                 conn.Close();
+
+                relativeAdd.setVisibility(View.GONE);
+                relativeDetails.setVisibility(View.VISIBLE);
             }
         });
 
