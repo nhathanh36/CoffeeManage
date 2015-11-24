@@ -9,22 +9,32 @@
         android:layout_height="35dp"
         android:id="@+id/tvProductName"
         android:layout_gravity="center_horizontal"
-        android:textColor="#522a2a"
+        android:textColor="#B71C1C"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:text="Cà phê đá"
         android:textSize="14dp"
-        android:textIsSelectable="true"/>
+        android:textIsSelectable="true"
+        android:allowUndo="false" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="30dp"
         android:layout_height="35dp"
         android:id="@+id/tvUnitSales"
-        android:paddingTop="10dp"
+        android:paddingTop="8dp"
+        android:textColor="#1B5E20"
+        android:gravity="right"
+        android:text="200"
+        android:shadowColor="@color/colorPrimary"
+        android:textSize="17dp"/>
+    <TextView
+        android:layout_width="32dp"
+        android:layout_height="35dp"
+        android:id="@+id/tvDonviban"
+        android:paddingTop="5dp"
         android:textColor="@android:color/black"
-        android:text="2 Ly"
+        android:text="Tách"
         android:layout_marginRight="30dp"
         android:textSize="13dp"
-
-        android:gravity="right"/>
+        android:gravity="left"/>
 </LinearLayout>

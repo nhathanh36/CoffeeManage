@@ -7,7 +7,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="400dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:background="#e7a0a0a0">
 
         <LinearLayout
@@ -15,8 +15,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="98dp"
-                android:layout_height="98dp"
+                android:layout_width="85dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="85dp"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/cf1"/>
 
@@ -27,15 +28,15 @@
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="257dp"
-                    android:textSize="11pt"
+                    android:textSize="10pt"
                     android:textColor="#ffffff"
-                    android:layout_height="36dp"
+                    android:layout_height="33dp"
                     android:gravity="center_vertical"
                     android:text="Cafe Quán Phố"/>
 
                 <TextView
                     android:layout_width="261dp"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:textSize="7pt"
                     android:textColor="@android:color/black"
                     android:gravity="center_vertical"
@@ -58,7 +59,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="32dp"
         android:background="#d8187eb9"
         android:layout_gravity="center"
         android:baselineAligned="false"

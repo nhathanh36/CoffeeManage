@@ -43,7 +43,7 @@ public class GridTableActivity extends Activity {
         GridView gridView = (GridView) findViewById(R.id.gvListTable);
         Calendar currentDate = Calendar.getInstance();
         date =  "Ngày " + String.valueOf(currentDate.get(Calendar.DATE))+"/"+
-                String.valueOf(currentDate.get(Calendar.MONTH))+"/"+
+                String.valueOf(currentDate.get(Calendar.MONTH)+1)+"/"+
                 String.valueOf(currentDate.get(Calendar.YEAR));
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvDate.setText(date);
@@ -61,7 +61,7 @@ public class GridTableActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // get table user clicked
                 Table entry = (Table) adapterView.getItemAtPosition(position);
-                System.out.println("ID ban: " + entry.getIdTable());
+                //System.out.println("ID ban: " + entry.getIdTable());
                 Intent intent = new Intent(GridTableActivity.this, ListTableDetails.class);
                 intent.putExtra("IdTable", entry.getIdTable());
                 startActivity(intent);

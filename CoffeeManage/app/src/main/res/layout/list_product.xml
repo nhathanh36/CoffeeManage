@@ -7,14 +7,14 @@
         android:orientation="horizontal"
         android:layout_width="400dp"
         android:background="#d8187eb9"
-        android:layout_height="80dp">
+        android:layout_height="65dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="98dp"
-                android:layout_height="78dp"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/tea"/>
             <LinearLayout
@@ -24,15 +24,15 @@
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="257dp"
-                    android:textSize="10pt"
+                    android:textSize="9pt"
                     android:textColor="#ffffff"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:text="Danh sách thức uống"/>
                 <TextView
                     android:layout_width="261dp"
-                    android:layout_height="40dp"
-                    android:textSize="7pt"
+                    android:layout_height="25dp"
+                    android:textSize="6pt"
                     android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:text="Tổng sản phẩm: 30"/>
@@ -43,15 +43,16 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="#d74f3d"
+        android:background="#BDBDBD"
         android:layout_gravity="center"
         android:baselineAligned="false"
         android:clickable="false">
         <TextView
             android:layout_width="354dp"
             android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:textColor="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:textSize="10dp"
+            android:textColor="#000000"
             android:layout_height="match_parent"
             android:text="Tổng sản phẩm: 30"/>
     </LinearLayout>

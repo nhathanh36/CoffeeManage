@@ -24,7 +24,7 @@ import java.util.Set;
 /**
  * Created by Huynh Thanh Nha on 18-Nov-15.
  */
-public class ListProductActivity extends AppCompatActivity {
+public class ListProductActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     Fragment fragment = null;
     ListView mainlist;

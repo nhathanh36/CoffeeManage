@@ -3,24 +3,36 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="8dp"
         android:orientation="vertical">
-    <ImageView
-        android:layout_width="63dp"
-        android:layout_height="63dp"
-        android:id="@+id/imageTable"
-        android:gravity="center_horizontal"
-        android:src="@drawable/table1"/>
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:id="@+id/imageTable"
+            android:gravity="center_horizontal"
+            android:src="@drawable/table1"/>
+        <TextView
+            android:layout_width="67dp"
+            android:layout_height="20dp"
+            android:textSize="8pt"
+            android:layout_marginTop="21dp"
+            android:layout_marginLeft="-2dp"
+            android:text="1"
+            android:textColor="@android:color/black"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvIDTable"/>
 
-    <TextView
-        android:layout_width="67dp"
-        android:layout_height="wrap_content"
-        android:textSize="7pt"
-        android:textColor="@android:color/black"
-        android:gravity="center_horizontal"
-        android:id="@+id/tvTable"/>
-    </LinearLayout>
+        <TextView
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:textSize="7pt"
+            android:text="01"
+            android:layout_marginTop="65dp"
+            android:textColor="@android:color/black"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvTable"/>
+    </RelativeLayout>
 </LinearLayout>

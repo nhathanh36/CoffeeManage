@@ -8,9 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.R;
+
+import EDU.purdue.cs.bloat.decorate.Main;
 
 
 public class MainActivity extends Activity {
@@ -38,11 +42,16 @@ public class MainActivity extends Activity {
                 conn.Open();
                 int value = conn.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
                 conn.Close();
-                if (value == 1) startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                else if (value == 2)
+                if (value == 1) {
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                }
+                else if (value == 2) {
                     startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
-                else System.out.println("Value login is: " + String.valueOf(value));
-
+                }
+                else {
+                    Toast toast = Toast.makeText(MainActivity.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 

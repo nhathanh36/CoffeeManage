@@ -1,5 +1,6 @@
 package com.example.huynhthanhnha.myapplication.adapter;
 
+import android.content.res.ColorStateList;
 import android.widget.BaseAdapter;
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -53,6 +54,9 @@ public class ListTableAdapter extends BaseAdapter {
 
         TextView textView = (TextView) rowView.findViewById(R.id.tvTable);
         textView.setText("Bàn " + String.valueOf(table.getIdTable()));
+
+        TextView textID = (TextView) rowView.findViewById(R.id.tvIDTable);
+        textID.setText(String.valueOf(position+1));
 
         ImageView img = (ImageView) rowView.findViewById(R.id.imageTable);
 

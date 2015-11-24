@@ -47,10 +47,13 @@ public class ListProductDetailsAdapter extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.table_item_details, null);
 
         TextView productName = (TextView) rowView.findViewById(R.id.tvProductName);
-        productName.setText(String.valueOf(productDetails.getProduct().getProductName()));
+        productName.setText(String.valueOf(position+1) + ". " + String.valueOf(productDetails.getProduct().getProductName()));
 
         TextView unitSales = (TextView) rowView.findViewById(R.id.tvUnitSales);
-        unitSales.setText(String.valueOf(productDetails.getUnitSales()) + " " + productDetails.getProduct().getUnit());
+        unitSales.setText(String.valueOf(productDetails.getUnitSales()));
+
+        TextView donviBan = (TextView) rowView.findViewById(R.id.tvDonviban);
+        donviBan.setText( productDetails.getProduct().getUnit());
 
         return rowView;
     }
