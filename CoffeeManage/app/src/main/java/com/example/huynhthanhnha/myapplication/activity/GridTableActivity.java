@@ -55,6 +55,7 @@ public class GridTableActivity extends Activity {
 
         gridView.setAdapter(new ListTableAdapter(this, listTable));
 
+
         // Handle when user click on item in grid view
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

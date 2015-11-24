@@ -1,6 +1,8 @@
 package com.example.huynhthanhnha.myapplication.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -67,10 +69,30 @@ public class ListTableDetails extends Activity {
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                conn.Open();
-                conn.updateStateForBill(IdTable);
-                conn.Close();
-                createListProduct();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListTableDetails.this);
+                // Get the layout inflater
+                LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.dialog_confirm, null))
+                        .setTitle("Bạn muốn thanh toán?")
+                                // Add action buttons
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                conn.Open();
+                                conn.updateStateForBill(IdTable);
+                                conn.Close();
+                                createListProduct();
+                            }
+                        })
+                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                builder.create();
+                builder.show();
             }
         });
 
