@@ -56,17 +56,16 @@ public class ListTableAdapter extends BaseAdapter {
         textView.setText("Bàn " + String.valueOf(table.getIdTable()));
 
         TextView textID = (TextView) rowView.findViewById(R.id.tvIDTable);
-        textID.setText(String.valueOf(position+1));
+        textID.setText(String.valueOf(position + 1));
 
         ImageView img = (ImageView) rowView.findViewById(R.id.imageTable);
 
-        //Image
-        /*
+
         conn.Open();
-        if (conn.checkBillExist(table.getIdTable())!= null)
+        if (!conn.checkTableHasExist(table.getIdTable()))
             img.setImageResource(R.drawable.table2);
         conn.Close();
-        */
+
 
         return rowView;
     }

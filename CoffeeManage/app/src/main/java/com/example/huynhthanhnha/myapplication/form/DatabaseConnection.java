@@ -9,12 +9,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
+import com.example.huynhthanhnha.myapplication.MyObject;
 
 import java.util.Comparator;
 
@@ -701,6 +703,7 @@ public class DatabaseConnection {
         ObjectSet<Officer> result = db.queryByExample(Officer.class);
         for (Officer officer: result){
             list.add(officer);
+            //System.out.println("Ten: " + officer.getName() + " CMND: " + officer.getCMND() + " Username" + officer.getPassword());
         }
         return list;
     }
@@ -734,13 +737,45 @@ public class DatabaseConnection {
         db.commit();
      }
 
+    public boolean checkTableHasExist(final  int tableID){
+        ObjectSet<Bill> bills = db.query(new Predicate<Bill>() {
+            public boolean match(Bill bill) {
+                return bill.getTable().getIdTable() == tableID && bill.isState() == true;
+            }
+        });
+        if(bills.size() != 1) return true;
+        else return false;
+    }
+
+    public long getPriceInCurrentBill(Bill bill, final int pro){
+        long price = 0;
+        List<Date> listDate = new ArrayList<Date>();
+        //Get date of bill
+        Calendar cal = bill.getCalendar();
+        ObjectSet<ListPrice> result = db.query(new Predicate<ListPrice>() {
+            @Override
+            public boolean match(ListPrice l) {
+                return l.getProduct().getProductId() == pro;
+            }
+        });
+
+        //Get price and date of product
+        for (ListPrice lp : result){
+            listDate.add(lp.getDateClass().getDate());
+            System.out.println("VIC Date : " + lp.getDateClass().getDate().toString());
+        }
+
+        //Sort date
+        Collections.sort(listDate);
+
+
+        return price;
+    }
+
     public void Close(){
         db.close();
     }
 }
-
-
-
 
 
 

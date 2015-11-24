@@ -7,7 +7,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#558B2F"
+        android:background="#B0BEC5"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -24,17 +24,58 @@
             android:layout_width="wrap_content"
             android:paddingTop="15dp"
             android:paddingLeft="10dp"
-            android:textColor="#ffffff"
+            android:textColor="#000000"
             android:layout_height="wrap_content"
             android:text="Danh sách nhân viên"
             android:textSize="16dp"
             android:id="@+id/textView7" />
-    </LinearLayout>
 
+        <EditText android:id="@+id/inputSearch"
+            android:layout_marginLeft="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:hint="Tìm nhân viên..."
+            android:inputType="textVisiblePassword"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="#3F51B5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="Tên nhân viên"
+            android:textSize="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:paddingLeft="50dp"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="CMND"
+            android:textSize="10dp"
+            android:layout_weight="0.23" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:paddingLeft="10dp"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="Ngày vào làm"
+            android:textSize="10dp"/>
+    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="380dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -48,6 +89,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#EEEEEE"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -56,6 +98,19 @@
             android:layout_height="wrap_content"
             android:text="Tổng số"
             android:id="@+id/textView" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm"
+            android:id="@+id/button8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button7"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </LinearLayout>

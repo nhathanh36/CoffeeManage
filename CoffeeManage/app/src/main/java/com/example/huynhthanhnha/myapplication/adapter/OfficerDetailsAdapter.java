@@ -49,19 +49,19 @@ public class OfficerDetailsAdapter extends BaseAdapter {
 
         View rowView = inflater.inflate(R.layout.list_officer_details, null);
         TextView textName = (TextView) rowView.findViewById(R.id.tvNameOfficer);
-        textName.setText(officer.getName());
+        textName.setText(String.valueOf(position+1) + ". " + officer.getName());
 
         TextView textCMND = (TextView) rowView.findViewById(R.id.tvCMND);
-        textName.setText(officer.getCMND());
+        textCMND.setText(officer.getCMND());
 
         TextView textDate = (TextView) rowView.findViewById(R.id.tvDate);
-        //textName.setText(String.valueOf(officer.getWorkDate().getTime()));
+        //textDate.setText(String.valueOf(officer.getWorkDate().getTime()));
 
         TextView textUsername = (TextView) rowView.findViewById(R.id.tvUsername);
-        textName.setText(officer.getUsername());
+        textUsername.setText(officer.getUsername());
 
         TextView textPass = (TextView) rowView.findViewById(R.id.tvPasswork);
-        textName.setText(officer.getPassword());
+        textPass.setText(officer.getPassword());
 
         return rowView;
     }
