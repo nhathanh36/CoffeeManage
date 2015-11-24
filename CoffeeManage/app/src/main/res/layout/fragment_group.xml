@@ -3,7 +3,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <Button
+        android:layout_width="143dp"
+        android:layout_height="40dp"
+        android:id="@+id/btnAddProduct"
+        android:text="Thêm thức uống"
+        android:background="@android:color/holo_blue_light"
+        android:textSize="6pt"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginLeft="170dp"/>
+
     <ListView
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/groupListView"
         android:layout_width="match_parent"

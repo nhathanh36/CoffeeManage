@@ -1,5 +1,8 @@
 package com.example.huynhthanhnha.myapplication.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,13 +28,13 @@ import java.util.List;
  */
 public class ListProductGroupFragment extends Fragment{
     DatabaseConnection conn = new DatabaseConnection();
-    ListView listCafe;
+    ListView lvProduct;
     TextView tvProduct;
     EditText etPrice;
+    Button btnAddProduct;
     Button btnSavePrice;
     Button btnCancelPrice;
     LinearLayout linearUpdate;
-    ArrayList<String> forchild = new ArrayList<String>();
     List<Product> listProduct = new ArrayList<Product>();
 
     @Override
@@ -40,8 +43,9 @@ public class ListProductGroupFragment extends Fragment{
         // Get param from ListProductActivity
         final String group= this.getArguments().getString("groupActivity");
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
-        listCafe = (ListView) rootView.findViewById(R.id.groupListView);
+        lvProduct = (ListView) rootView.findViewById(R.id.groupListView);
         tvProduct = (TextView) rootView.findViewById(R.id.tvNameProduct);
+        btnAddProduct = (Button) rootView.findViewById(R.id.btnAddProduct);
         etPrice = (EditText) rootView.findViewById(R.id.editPrice);
         linearUpdate = (LinearLayout) rootView.findViewById(R.id.linearUpdatePrice);
         btnSavePrice = (Button) rootView.findViewById(R.id.btnSavePrice);
@@ -58,11 +62,11 @@ public class ListProductGroupFragment extends Fragment{
         final ListProductAdapter productAdapter = new ListProductAdapter(this.getActivity(), listProduct);
        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,forchild);
 
-        listCafe.setAdapter(productAdapter);
-        listCafe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvProduct.setAdapter(productAdapter);
+        lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listCafe.setVisibility(View.GONE);
+                lvProduct.setVisibility(View.GONE);
                 linearUpdate.setVisibility(View.VISIBLE);
                 final Product product = (Product) parent.getItemAtPosition(position); // get Item in position
 
@@ -71,7 +75,7 @@ public class ListProductGroupFragment extends Fragment{
                 btnCancelPrice.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listCafe.setVisibility(View.VISIBLE);
+                        lvProduct.setVisibility(View.VISIBLE);
                         linearUpdate.setVisibility(View.GONE);
                     }
                 });
@@ -88,11 +92,42 @@ public class ListProductGroupFragment extends Fragment{
                         System.out.println("PRICE BEFORE SET: " + conn.getPriceOfProduct(product.getProductId()));
                         conn.UpdatePrice(product, price);
                         conn.Close();
-                        listCafe.invalidate();
-                        listCafe.deferNotifyDataSetChanged();
+                        productAdapter.notifyDataSetChanged();
+                        //listCafe.invalidateViews();
+                        //listCafe.refreshDrawableState();
+                        lvProduct.setAdapter(productAdapter);
+                        lvProduct.setVisibility(View.VISIBLE);
                         linearUpdate.setVisibility(View.GONE);
                     }
                 });
+            }
+        });
+
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // Get the layout inflater
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.dialog_add_product, null))
+                        .setTitle("Thêm thức uống")
+                        // Add action buttons
+                        .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                            }
+                        })
+                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //LoginDialogFragment.this.getDialog().cancel();
+                            }
+                        });
+                builder.create();
+                builder.show();
             }
         });
 
