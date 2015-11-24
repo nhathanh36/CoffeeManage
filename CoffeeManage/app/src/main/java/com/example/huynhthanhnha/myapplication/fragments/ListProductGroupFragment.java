@@ -39,7 +39,7 @@ public class ListProductGroupFragment extends Fragment{
         // TODO Auto-generated method stub
         // Get param from ListProductActivity
         final String group= this.getArguments().getString("groupActivity");
-        View rootView = inflater.inflate(R.layout.fragment_group, null);
+        View rootView = inflater.inflate(R.layout.fragment_group, container, false);
         listCafe = (ListView) rootView.findViewById(R.id.groupListView);
         tvProduct = (TextView) rootView.findViewById(R.id.tvNameProduct);
         etPrice = (EditText) rootView.findViewById(R.id.editPrice);
@@ -88,6 +88,8 @@ public class ListProductGroupFragment extends Fragment{
                         System.out.println("PRICE BEFORE SET: " + conn.getPriceOfProduct(product.getProductId()));
                         conn.UpdatePrice(product, price);
                         conn.Close();
+                        listCafe.invalidate();
+                        listCafe.deferNotifyDataSetChanged();
                         linearUpdate.setVisibility(View.GONE);
                     }
                 });
