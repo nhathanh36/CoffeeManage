@@ -42,12 +42,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:background="#BDBDBD"
         android:layout_gravity="center"
         android:baselineAligned="false"
         android:clickable="false">
         <TextView
+            android:id="@+id/tvSumProduct"
             android:layout_width="354dp"
             android:gravity="center_vertical"
             android:layout_marginLeft="8dp"

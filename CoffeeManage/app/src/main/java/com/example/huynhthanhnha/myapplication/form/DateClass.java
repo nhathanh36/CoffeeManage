@@ -12,6 +12,10 @@ public class DateClass {
     Date date;
     Set<ListPrice> listPrices;
 
+    public DateClass() {
+        listPrices = new HashSet<ListPrice>();
+    }
+
     public DateClass(Date date) {
         this.date = date;
         listPrices = new HashSet<ListPrice>();

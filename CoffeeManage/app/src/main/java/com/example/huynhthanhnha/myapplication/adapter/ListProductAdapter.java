@@ -54,13 +54,17 @@ public class ListProductAdapter extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.list_item_product, null);
 
         TextView tvProduct = (TextView) rowView.findViewById(R.id.tvlistProduct);
-        tvProduct.setText(String.valueOf(product.getProductName()));
+        if (product.getProductName().equals("")) {
+            tvProduct.setText("Chưa có thức uống!");
+        } else {
+            tvProduct.setText(String.valueOf(product.getProductName()));
+        }
         TextView tvPrice = (TextView) rowView.findViewById(R.id.tvPrice);
         conn.Open();
         price = conn.getPriceOfProduct(product.getProductId());
         conn.Close();
 
-        tvPrice.setText(String.valueOf(price));
+        tvPrice.setText(String.valueOf(price) + " đ");
 
         System.out.println("/*********************************/");
         System.out.println("PRODUCT OF DATE CLOSET: " + tvProduct.getText());
