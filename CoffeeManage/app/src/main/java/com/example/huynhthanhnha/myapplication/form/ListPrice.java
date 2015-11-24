@@ -10,6 +10,9 @@ public class ListPrice {
     DateClass dateClass;
     Product product;
 
+    public ListPrice() {
+    }
+
     public ListPrice(DateClass date, Product prod, long price) {
         this.price = price;
         this.dateClass = date;

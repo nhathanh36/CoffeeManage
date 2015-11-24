@@ -1,8 +1,5 @@
 package com.example.huynhthanhnha.myapplication.form;
 
-import android.content.Context;
-import android.support.design.widget.TabLayout;
-
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -14,29 +11,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-import com.db4o.ObjectSet;
-import com.db4o.config.CacheConfiguration;
-import com.db4o.config.CommonConfiguration;
 import com.db4o.config.EmbeddedConfiguration;
-import com.db4o.config.EmbeddedConfigurationItem;
-import com.db4o.config.FileConfiguration;
-import com.db4o.config.IdSystemConfiguration;
-import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by NguyenThanh on 13/11/2015.
@@ -62,7 +42,8 @@ public class DatabaseConnection {
 
     public void Open(){
         EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
-        conf.common().objectClass(ProductDetails.class).updateDepth(0);
+        conf.common().objectClass(Product.class).cascadeOnUpdate(true);
+        //conf.common().objectClass(ProductDetails.class).updateDepth(0);
         //db = Db4oEmbedded.openFile(filePath);
         db = Db4oEmbedded.openFile(conf, filePath);
         if(!flag) InitData();
@@ -684,6 +665,7 @@ public class DatabaseConnection {
     }
 
     public long getPriceOfProduct(final int productID){
+        long price = 0;
         final List<Date> dates = new ArrayList<Date>();
         Date closetDate;
         ObjectSet<ListPrice> details = db.query(new Predicate<ListPrice>() {
@@ -703,12 +685,43 @@ public class DatabaseConnection {
         closetDate = getNearestDate(dates, new Date());
         for (ListPrice lp: details) {
             if (lp.getDateClass().getDate() == closetDate) {
-                return lp.getPrice();
+                price = lp.getPrice();
             }
         }
 
-        return 0;
+        return price;
     }
+
+    public void UpdatePrice(final Product product, long price) {
+        ListPrice lp = new ListPrice();
+        DateClass dateClass = new DateClass();
+        dateClass.setDate(new Date());
+        // Create new object in ListPrice
+        lp.setPrice(price);
+        System.out.println("PRICE AFTER SET " + lp.getPrice());
+        System.out.println("/*************************************/");
+        lp.setDateClass(dateClass);
+        System.out.println("DATECLASS AFTER SET " + lp.getDateClass().getDate());
+        System.out.println("/*************************************/");
+
+        // Set price into Product
+        ObjectSet<Product> details = db.query(new Predicate<Product>() {
+            public boolean match(Product p) {
+                return p.getProductId() == product.getProductId();
+            }
+        });
+        lp.setProduct(details.next());
+
+        // Set list price into DateClass
+        dateClass.addListPrices(lp);
+        System.out.println("LISPRICE AFTER SET " + dateClass.getListPrices().iterator().next().getPrice());
+        System.out.println("/*************************************/");
+
+        db.store(lp);
+        db.commit();
+     }
+
+
 
     public void Close(){
         db.close();

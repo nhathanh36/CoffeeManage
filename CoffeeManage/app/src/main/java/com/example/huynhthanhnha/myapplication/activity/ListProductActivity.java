@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
@@ -30,8 +31,6 @@ public class ListProductActivity extends AppCompatActivity {
     ListView mainlist;
     ArrayList<String> formain = new ArrayList<String>();
     DatabaseConnection conn = new DatabaseConnection();
-    Set<Product> listProduct = new HashSet<Product>();
-    Set<ListPrice> listPrices = new HashSet<ListPrice>();
     List<GroupProduct> listGroupProduct = new ArrayList<GroupProduct>();
 
     @Override
@@ -39,28 +38,14 @@ public class ListProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_product);
 
-        //createListProduct();
-
         conn.Open();
         listGroupProduct = conn.getListGroupProduct();
         conn.Close();
 
-        for (GroupProduct g: listGroupProduct) {
-            listProduct = g.getListProduct();
-        }
-
-        for (Product p: listProduct) {
-            listPrices = p.getListPrice();
-        }
-
-        for (ListPrice lp: listPrices) {
-            System.out.println("DATE IN ACTIVITY: " + lp.getDateClass().getDate());
-        }
         mainlist = (ListView) findViewById(R.id.left_drawer_child);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
         mDrawerLayout.setDrawerListener(mDrawerListener);
-        //  childlist = (ListView) findViewById(R.id.listView2);
 
         for (GroupProduct gp: listGroupProduct) {
             formain.add(String.valueOf(gp.getGroupProductName()));
@@ -110,24 +95,4 @@ public class ListProductActivity extends AppCompatActivity {
         }
     };
 
-    /*public void createListProduct() {
-        ListView listView = (ListView) findViewById(R.id.listProduct);
-        conn.Open();
-        conn.TestDB();
-        conn.PrintProductPrice();
-        listProduct = conn.getListProduct();
-        conn.Close();
-
-        System.out.println("List price: " + listProduct.get(0).getListPrice().size());
-        listView.setAdapter(new ListProductAdapter(this, listProduct));
-
-        // Handle when user click on item in list view
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // get table user clicked
-                Product entry = (Product) adapterView.getItemAtPosition(position);
-            }
-        });*/
-    //}
 }

@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="98dp"
+                android:layout_width="80dp"
                 android:layout_height="78dp"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/tea"/>
@@ -24,7 +24,7 @@
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="257dp"
-                    android:textSize="10pt"
+                    android:textSize="9pt"
                     android:textColor="#ffffff"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
@@ -48,6 +48,7 @@
         android:baselineAligned="false"
         android:clickable="false">
         <TextView
+            android:id="@+id/tvSumProduct"
             android:layout_width="354dp"
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
