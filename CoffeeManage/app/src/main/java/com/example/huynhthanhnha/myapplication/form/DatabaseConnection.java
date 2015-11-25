@@ -680,7 +680,7 @@ public class DatabaseConnection {
         });
 
         for (ListPrice lp: details){
-            System.out.println("DATE IN PRICE: " + lp.getDateClass().getDate());
+            //System.out.println("DATE IN PRICE: " + lp.getDateClass().getDate());
             dates.add(lp.getDateClass().getDate());
 //            System.out.println("Ten: " + lp.getProduct().getProductName()
 //                + " Price: " + lp.getPrice()
@@ -714,11 +714,7 @@ public class DatabaseConnection {
         dateClass.setDate(new Date());
         // Create new object in ListPrice
         lp.setPrice(price);
-        System.out.println("PRICE AFTER SET " + lp.getPrice());
-        System.out.println("/*************************************/");
         lp.setDateClass(dateClass);
-        System.out.println("DATECLASS AFTER SET " + lp.getDateClass().getDate());
-        System.out.println("/*************************************/");
 
         // Set price into Product
         ObjectSet<Product> details = db.query(new Predicate<Product>() {
@@ -730,8 +726,6 @@ public class DatabaseConnection {
 
         // Set list price into DateClass
         dateClass.addListPrices(lp);
-        System.out.println("LISPRICE AFTER SET " + dateClass.getListPrices().iterator().next().getPrice());
-        System.out.println("/*************************************/");
 
         db.store(lp);
         db.commit();

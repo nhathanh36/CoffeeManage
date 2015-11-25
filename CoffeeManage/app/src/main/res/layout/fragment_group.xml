@@ -3,82 +3,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <ListView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/groupListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp">
+    </ListView>
+
     <Button
+        android:layout_marginTop="450dp"
         android:layout_width="143dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:id="@+id/btnAddProduct"
         android:text="Thêm thức uống"
         android:background="@android:color/holo_blue_light"
         android:textSize="6pt"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:layout_marginLeft="170dp"/>
-
-    <ListView
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/groupListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
-
-    <!-- Update price of product -->
-    <LinearLayout
-        android:id="@+id/linearUpdatePrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cập nhật giá sản phẩm"
-            android:textSize="8pt"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNameProduct"
-                android:text="Cafe"
-                android:textSize="8pt"
-                android:gravity="left"/>
-
-            <EditText
-                android:id="@+id/editPrice"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="8pt"
-                android:hint="Nhập giá"
-                android:layout_marginLeft="70dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnSavePrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lưu"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnCancelPrice"
-                android:text="Hủy"/>
-
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_marginLeft="180dp"/>
 
 </RelativeLayout>
