@@ -1,5 +1,7 @@
 package com.example.huynhthanhnha.myapplication.form;
 
+import android.view.View;
+
 /**
  * Created by NguyenThanh on 14/11/2015.
  */

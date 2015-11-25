@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -29,10 +30,11 @@
             android:layout_width="67dp"
             android:layout_height="wrap_content"
             android:textSize="7pt"
-            android:text="01"
+            android:text=""
             android:layout_marginTop="65dp"
             android:textColor="@android:color/black"
             android:gravity="center_horizontal"
             android:id="@+id/tvTable"/>
+
     </RelativeLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 <RelativeLayout
     android:id="@+id/relativeProductDetails"
@@ -15,11 +16,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/table1"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/table1"/>
+                <TextView
+                    android:layout_width="20dp"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="23dp"
+                    android:id="@+id/tableNumber"
+                    android:textColor="#000000"
+                    android:layout_height="30dp"
+                    android:gravity="center_vertical"
+                    android:text="3"/>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,14 +48,14 @@
                     android:textColor="#1B5E20"
                     android:layout_height="30dp"
                     android:gravity="center_vertical"
-                    android:text="Chi tiết thức uống"/>
+                    android:text="CHI TIẾT THỨC UỐNG"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
                         android:layout_width="70dp"
                         android:textSize="14dp"
-                        android:id="@+id/tableNumber"
+                        android:id="@+id/tableNumber1"
                         android:textColor="#000000"
                         android:layout_height="30dp"
                         android:gravity="center_vertical"
@@ -66,8 +81,7 @@
         android:layout_marginTop="80dp"
         android:background="#d8187eb9"
         android:layout_gravity="center"
-        android:baselineAligned="false"
-        android:clickable="false">
+        android:baselineAligned="false">
         <TextView
             android:id="@+id/textTongsomon"
             android:layout_width="354dp"
@@ -132,7 +146,7 @@
             android:text="1530000đ"
             android:textColor="#283593"
             android:textSize="15dp"
-            android:id="@+id/textTongtien"
+            android:id="@+id/tvPriceTotal"
             android:gravity="right"
             android:layout_gravity="bottom" />
     </LinearLayout>
