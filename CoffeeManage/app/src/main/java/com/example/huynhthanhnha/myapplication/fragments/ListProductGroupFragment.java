@@ -5,15 +5,21 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
 import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
@@ -26,80 +32,125 @@ import java.util.List;
 /**
  * Created by Huynh Thanh Nha on 19-Nov-15.
  */
-public class ListProductGroupFragment extends Fragment{
+public class ListProductGroupFragment extends Fragment {
     DatabaseConnection conn = new DatabaseConnection();
     ListView lvProduct;
     TextView tvProduct;
     EditText etPrice;
+    EditText etName;
     Button btnAddProduct;
-    Button btnSavePrice;
-    Button btnCancelPrice;
-    LinearLayout linearUpdate;
+    EditText addGroup;
+    EditText addName;
+    EditText addUnit;
+    EditText addPrice;
     List<Product> listProduct = new ArrayList<Product>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         // Get param from ListProductActivity
-        final String group= this.getArguments().getString("groupActivity");
+        final String group = this.getArguments().getString("groupActivity");
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
         lvProduct = (ListView) rootView.findViewById(R.id.groupListView);
-        tvProduct = (TextView) rootView.findViewById(R.id.tvNameProduct);
         btnAddProduct = (Button) rootView.findViewById(R.id.btnAddProduct);
-        etPrice = (EditText) rootView.findViewById(R.id.editPrice);
-        linearUpdate = (LinearLayout) rootView.findViewById(R.id.linearUpdatePrice);
-        btnSavePrice = (Button) rootView.findViewById(R.id.btnSavePrice);
-        btnCancelPrice = (Button) rootView.findViewById(R.id.btnCancelPrice);
-        linearUpdate.setVisibility(View.GONE);
-
-        System.out.println("ARGU: " + group);
 
         conn.Open();
         listProduct = conn.getListProductGroupByName(group);
-        //conn.TestDB();
         conn.Close();
 
         final ListProductAdapter productAdapter = new ListProductAdapter(this.getActivity(), listProduct);
-       // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,forchild);
 
         lvProduct.setAdapter(productAdapter);
         lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lvProduct.setVisibility(View.GONE);
-                linearUpdate.setVisibility(View.VISIBLE);
                 final Product product = (Product) parent.getItemAtPosition(position); // get Item in position
 
-                tvProduct.setText(String.valueOf(product.getProductName()));
-                // Click cancel button
-                btnCancelPrice.setOnClickListener(new View.OnClickListener() {
+                // Dialog show list edit, delete,...
+                PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        lvProduct.setVisibility(View.VISIBLE);
-                        linearUpdate.setVisibility(View.GONE);
-                    }
-                });
-                // Click save button
-                btnSavePrice.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        long price = Long.valueOf(etPrice.getText().toString());
-//                        System.out.println("/*********************************/");
-//                        System.out.println("EDIT PRICE: " + strEditPrice);
-//                        System.out.println("/*********************************/");
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.itemUpdatePrice:
+                                // Dialog update price
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                // Get the layout inflater
+                                LayoutInflater inflater = getActivity().getLayoutInflater();
 
-                        conn.Open();
-                        System.out.println("PRICE BEFORE SET: " + conn.getPriceOfProduct(product.getProductId()));
-                        conn.UpdatePrice(product, price);
-                        conn.Close();
-                        productAdapter.notifyDataSetChanged();
-                        //listCafe.invalidateViews();
-                        //listCafe.refreshDrawableState();
-                        lvProduct.setAdapter(productAdapter);
-                        lvProduct.setVisibility(View.VISIBLE);
-                        linearUpdate.setVisibility(View.GONE);
+                                // Inflate and set the layout for the dialog
+                                // Pass null as the parent view because its going in the dialog layout
+                                final View dialogView = inflater.inflate(R.layout.dialog_update_price, null);
+                                tvProduct = (TextView) dialogView.findViewById(R.id.tvNameProduct);
+                                tvProduct.setText(String.valueOf(product.getProductName()));
+                                builder.setView(dialogView)
+                                        .setTitle("Cập nhật giá sản phẩm")
+                                                // Add action buttons
+                                        .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                etPrice = (EditText) dialogView.findViewById(R.id.editPrice);
+                                                long price = Long.valueOf(etPrice.getText().toString());
+
+                                                conn.Open();
+                                                conn.UpdatePrice(product, price);
+                                                conn.Close();
+
+                                                productAdapter.notifyDataSetChanged();
+                                            }
+                                        })
+                                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                //LoginDialogFragment.this.getDialog().cancel();
+                                            }
+                                        });
+                                builder.create();
+                                builder.show();
+                                return true;
+                            case R.id.itemDelete:
+
+                                return true;
+                            case R.id.itemEditName:
+                                // Dialog edit name
+                                final AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                                // Get the layout inflater
+                                LayoutInflater inflater1 = getActivity().getLayoutInflater();
+
+                                // Inflate and set the layout for the dialog
+                                // Pass null as the parent view because its going in the dialog layout
+                                final View dialogView1 = inflater1.inflate(R.layout.dialog_edit_name, null);
+                                builder1.setView(dialogView1)
+                                        .setTitle("Cập nhật tên sản phẩm")
+                                                // Add action buttons
+                                        .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                etName = (EditText) dialogView1.findViewById(R.id.editName);
+                                                String newName = etName.getText().toString();
+
+                                                conn.Open();
+                                                conn.UpdateNameProduct(product.getProductId(), newName);
+                                                conn.Close();
+                                                //listProduct.clear();
+                                                productAdapter.notifyDataSetChanged();
+                                            }
+                                        })
+                                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                //LoginDialogFragment.this.getDialog().cancel();
+                                            }
+                                        });
+                                builder1.create();
+                                builder1.show();
+                                return true;
+                        }
+                        return false;
                     }
                 });
+                popupMenu.inflate(R.menu.popup_menu);
+                popupMenu.show();
             }
         });
 
@@ -112,13 +163,25 @@ public class ListProductGroupFragment extends Fragment{
 
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
-                builder.setView(inflater.inflate(R.layout.dialog_add_product, null))
+                View rootView = inflater.inflate(R.layout.dialog_add_product, null);
+                addName = (EditText) rootView.findViewById(R.id.editAddName);
+                addGroup = (EditText) rootView.findViewById(R.id.editAddGroup);
+                addPrice = (EditText) rootView.findViewById(R.id.editAddPrice);
+                addUnit = (EditText) rootView.findViewById(R.id.editAddUnit);
+
+                final String strGroup = addGroup.getText().toString();
+                final String strName = addName.getText().toString();
+                final String strUnit = addUnit.getText().toString();
+                final long price = Long.parseLong(addPrice.getText().toString());
+                builder.setView(rootView)
                         .setTitle("Thêm thức uống")
-                        // Add action buttons
+                                // Add action buttons
                         .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                // sign in the user ...
+                                conn.Open();
+                                conn.InsertProduct(strGroup, strName, strUnit, price);
+                                conn.Close();
                             }
                         })
                         .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

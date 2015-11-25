@@ -65,11 +65,6 @@ public class ListProductAdapter extends BaseAdapter {
         conn.Close();
 
         tvPrice.setText(String.valueOf(price) + " đ");
-
-        System.out.println("/*********************************/");
-        System.out.println("PRODUCT OF DATE CLOSET: " + tvProduct.getText());
-        System.out.println("PRICE OF DATE CLOSET: " + tvPrice.getText());
-        System.out.println("/*********************************/");
         return rowView;
     }
 }

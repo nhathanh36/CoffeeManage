@@ -111,5 +111,10 @@
     <string name="title_activity_pinned_top_tabs">Pin Top Tabs</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <array name="showList">
+        <item>Cập nhật giá</item>
+        <item>Xóa</item>
+    </array>
+
 
 </resources>
