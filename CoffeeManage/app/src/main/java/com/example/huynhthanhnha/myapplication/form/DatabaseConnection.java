@@ -346,11 +346,11 @@ public class DatabaseConnection {
         return listProduct;
     }
 
-    public void InsertProduct(int idGroupProduct, String nameOfProduct, String unitOfProduct, long price){
+    public void InsertProduct(final String groupProductName, String nameOfProduct, String unitOfProduct, long price){
         Date date = new Date();
         DateClass dateClass = new DateClass(date);
         //Get max id for product
-        int maxID = 0;
+        int maxID = getMaxProductID();
 
         //Insert product object
         Product prod = new Product(maxID, nameOfProduct, unitOfProduct);
@@ -358,7 +358,7 @@ public class DatabaseConnection {
         //Select group product
         ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
             public boolean match(GroupProduct group) {
-                return group.getGroupID() == 1;
+                return group.getGroupProductName() == groupProductName;
             }
         });
         GroupProduct groupProduct = gro.next();
@@ -765,6 +765,37 @@ public class DatabaseConnection {
 
         return price;
     }
+
+    public void UpdateNameProduct(final int id, String name) {
+        Product p;
+        ObjectSet<Product> result = db.query(new Predicate<Product>() {
+            @Override
+            public boolean match(Product product) {
+                return product.getProductId() == id;
+            }
+        });
+        p = result.next();
+        System.out.println("before Ten san pham: " + p.getProductName());
+        p.setProductName(name);
+        System.out.println("after Ten san pham: " + p.getProductName());
+
+        db.store(p);
+        db.commit();
+    }
+
+    public int getMaxProductID(){
+        int MaxID = 0;
+        ObjectSet<Product> dt = db.queryByExample(Product.class);
+        if(dt.size() != 0)
+            for (Product p : dt){
+                if(p.getProductId() > MaxID)
+                    MaxID = p.getProductId();
+
+            }
+        //System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
+        return MaxID;
+    }
+
 
     public void Close(){
         db.close();

@@ -1,77 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="400dp"
+        android:layout_height="65dp"
         android:background="#d8187eb9"
-        android:layout_height="65dp">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/tea"/>
+                android:src="@drawable/tea" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="257dp"
-                    android:textSize="9pt"
-                    android:textColor="#ffffff"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="Danh sách thức uống"/>
+                    android:text="Danh sách thức uống"
+                    android:textColor="#ffffff"
+                    android:textSize="9pt" />
+
                 <TextView
                     android:layout_width="261dp"
                     android:layout_height="25dp"
-                    android:textSize="6pt"
-                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:text="Tổng sản phẩm: 30"/>
+                    android:text="Tổng sản phẩm: 30"
+                    android:textColor="@android:color/black"
+                    android:textSize="6pt" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:background="#BDBDBD"
         android:layout_gravity="center"
+        android:background="#BDBDBD"
         android:baselineAligned="false"
-        android:clickable="false">
+        android:clickable="false"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvSumProduct"
             android:layout_width="354dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="8dp"
-            android:textSize="10dp"
-            android:textColor="#000000"
             android:layout_height="match_parent"
-            android:text="Tổng sản phẩm: 30"/>
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="Tổng sản phẩm: 30"
+            android:textColor="#000000"
+            android:textSize="10dp" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="vertical"
-        tools:context="com.example.listtest.ListProductActivity" >
+        tools:context="com.example.listtest.ListProductActivity">
 
-        <android.support.v4.widget.DrawerLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/drawer_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" >
+            android:layout_width="300dp"
+            android:layout_height="500dp">
 
             <!-- Drawer Content -->
 
@@ -89,48 +94,19 @@
                 android:id="@+id/left_drawer_child"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:choiceMode="singleChoice"
                 android:layout_gravity="start"
+                android:background="@android:color/holo_green_light"
+                android:choiceMode="singleChoice"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
-                android:background="@android:color/holo_green_light" />
+                android:dividerHeight="0dp" />
         </android.support.v4.widget.DrawerLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:layout_weight="0.69">
+        android:background="#ffffff">
 
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  Thêm  "
-            android:id="@+id/button4" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="    Xóa    "
-            android:id="@+id/buttonf"
-            android:layout_gravity="center_horizontal" />
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button5"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-
 
 </LinearLayout>

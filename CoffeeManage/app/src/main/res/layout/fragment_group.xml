@@ -3,25 +3,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/btnAddProduct"
+        android:layout_width="143dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="100dp"
+        android:background="@android:color/holo_blue_light"
+        android:gravity="center"
+        android:text="Thêm thức uống"
+        android:textColor="@android:color/white"
+        android:textSize="6pt" />
+
     <ListView
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/groupListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp">
+        android:layout_height="440dp">
     </ListView>
 
-    <Button
-        android:layout_marginTop="450dp"
-        android:layout_width="143dp"
-        android:layout_height="35dp"
-        android:id="@+id/btnAddProduct"
-        android:text="Thêm thức uống"
-        android:background="@android:color/holo_blue_light"
-        android:textSize="6pt"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:layout_marginLeft="180dp"/>
 
 </RelativeLayout>
