@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popupGridEnter"
+        android:showAsAction="ifRoom|withText"
+        android:title="Mở/Xem bàn"/>
+    <item
+        android:id="@+id/popupGridMove"
+        android:showAsAction="ifRoom|withText"
+        android:visible="true"
+        android:title="Chuyển bàn"/>
+    <item
+        android:id="@+id/popupGridJoin"
+        android:showAsAction="ifRoom|withText"
+        android:visible="true"
+        android:title="Gộp bàn"/>
+</menu>

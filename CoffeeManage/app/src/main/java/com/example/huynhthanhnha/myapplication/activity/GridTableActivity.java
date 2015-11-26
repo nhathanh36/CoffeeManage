@@ -3,18 +3,20 @@ package com.example.huynhthanhnha.myapplication.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.db4o.ObjectSet;
-import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.R;
-import com.example.huynhthanhnha.myapplication.form.Table;
 import com.example.huynhthanhnha.myapplication.adapter.ListTableAdapter;
-
+import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
+import com.example.huynhthanhnha.myapplication.form.ProductDetails;
+import com.example.huynhthanhnha.myapplication.form.Table;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,16 +58,36 @@ public class GridTableActivity extends Activity {
         gridView.setAdapter(new ListTableAdapter(this, listTable));
 
 
+
         // Handle when user click on item in grid view
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // get table user clicked
-                Table entry = (Table) adapterView.getItemAtPosition(position);
-                //System.out.println("ID ban: " + entry.getIdTable());
-                Intent intent = new Intent(GridTableActivity.this, ListTableDetails.class);
-                intent.putExtra("IdTable", entry.getIdTable());
-                startActivity(intent);
+                final Table tablePosition = (Table) adapterView.getItemAtPosition(position);
+                PopupMenu popup = new PopupMenu(GridTableActivity.this, view);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.popup_gird_table, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.popupGridEnter:
+                                // get table user clicked
+                                Intent intent = new Intent(GridTableActivity.this, ListTableDetails.class);
+                                intent.putExtra("IdTable", tablePosition.getIdTable());
+                                startActivity(intent);
+                                break;
+                            case R.id.popupGridMove:
+                                Toast.makeText(GridTableActivity.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
             }
         });
     }

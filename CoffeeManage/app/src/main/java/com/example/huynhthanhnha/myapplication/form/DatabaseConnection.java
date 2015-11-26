@@ -745,7 +745,7 @@ public class DatabaseConnection {
         else return false;
     }
 
-    public long getPriceInCurrentBill(Bill bill, final int pro){
+    public long getPriceInCurrentBill(Bill bill, final int proID){
         long price = 0;
         List<Date> listDate = new ArrayList<Date>();
         //Get date of bill
@@ -753,23 +753,27 @@ public class DatabaseConnection {
         ObjectSet<ListPrice> result = db.query(new Predicate<ListPrice>() {
             @Override
             public boolean match(ListPrice l) {
-                return l.getProduct().getProductId() == pro;
+                return l.getProduct().getProductId() == proID;
             }
         });
 
+        System.out.println("Date before sort: ");
         //Get price and date of product
         for (ListPrice lp : result){
             listDate.add(lp.getDateClass().getDate());
-            System.out.println("VIC Date : " + lp.getDateClass().getDate().toString());
+            System.out.println("Before" + lp.getDateClass().getDate().toString());
         }
 
         //Sort date
         Collections.sort(listDate);
+        System.out.println("Date after sort: ");
+        for (Date lp : listDate){
+            System.out.println("After" + lp.getTime());
+        }
 
 
         return price;
     }
-
 
     public long getPriceTotalOfBill(List<ProductDetails> productDetailsList){
         long priceTotal = 0;
@@ -783,6 +787,7 @@ public class DatabaseConnection {
 
     public void deleteProductDetail(final ProductDetails productDetails){
         ProductDetails detailsTemp;
+        //Get product details to delete
         ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
             public boolean match(ProductDetails dt) {
                 return dt.getProductDetailID() == productDetails.getProductDetailID();
@@ -791,6 +796,25 @@ public class DatabaseConnection {
         detailsTemp = details.next();
         System.out.println("ID" + detailsTemp.getProductDetailID());
         db.delete(detailsTemp);
+
+        //Find id bill of product details. If number of product details in this bill is O, delete the bill
+        ObjectSet<ProductDetails> numOfProductDetail = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getBill().getBillID() == productDetails.getBill().getBillID();
+            }
+        });
+        int numProductOfBill = numOfProductDetail.size();
+        if(numProductOfBill == 0){
+            //Find the bill and delete this bill
+            ObjectSet<Bill> billDelete = db.query(new Predicate<Bill>() {
+                public boolean match(Bill b) {
+                    return b.getBillID() == productDetails.getBill().getBillID();
+                }
+            });
+            //Delete bill don't have any product
+            db.delete(billDelete.next());
+        }
+        //Push data into database
         db.commit();
     }
 
@@ -828,115 +852,6 @@ public class DatabaseConnection {
         db.close();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

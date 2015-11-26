@@ -77,6 +77,7 @@ public class ListTableDetails extends Activity {
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListTableDetails.this);
                 // Get the layout inflater
                 LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
@@ -119,17 +120,19 @@ public class ListTableDetails extends Activity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        if(item.getTitle().equals("Xóa")){
-                            conn.Open();
-                            System.out.println("PHI: " + productDetails.getProductDetailID());
-                            conn.getProductDetails();
-                            conn.deleteProductDetail(productDetails);
-                            conn.Close();
+                        //Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        switch (item.getItemId()){
+                            case R.id.popupDelete:
+                                conn.Open();
+                                //conn.getProductDetails();
+                                conn.deleteProductDetail(productDetails);
+                                conn.Close();
+                                break;
+                            case R.id.popupEdit:
+                                Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                                break;
                         }
-                        else if(item.getTitle().equals("Chỉnh sửa")) {
-                            //Show message box
-                        }
+                        createListProduct();
                         return true;
                     }
                 });
