@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="horizontal" android:layout_width="400dp"
+    android:layout_height="60dp"
     android:weightSum="1">
 
     <LinearLayout
@@ -10,18 +10,28 @@
         android:orientation="horizontal">
     <TextView
         android:layout_marginTop="10dp"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
+        android:layout_width="185dp"
+        android:layout_height="40dp"
         android:id="@+id/tvProductName"
         android:layout_gravity="center_horizontal"
         android:textColor="#B71C1C"
-        android:paddingLeft="10dp"
+        android:paddingLeft="6dp"
         android:paddingTop="10dp"
         android:text="Cà phê đá"
-        android:textSize="14dp"
+        android:textSize="14dp"/>
 
-        android:allowUndo="false" />
-
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="64dp"
+        android:layout_height="35dp"
+        android:id="@+id/tvPriceProduct"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"
+        android:paddingLeft="2dp"
+        android:paddingTop="10dp"
+        android:gravity="right"
+        android:text="15000đ X"
+        android:textSize="14dp" />
     <TextView
         android:layout_width="30dp"
         android:layout_height="35dp"
@@ -35,12 +45,13 @@
 
     <TextView
         android:layout_width="32dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:id="@+id/tvDonviban"
         android:paddingTop="5dp"
         android:textColor="@android:color/black"
         android:text="Tách"
-        android:layout_marginRight="30dp"
+        android:paddingLeft="2dp"
+        android:layout_marginRight="28dp"
         android:textSize="13dp"
         android:gravity="left"/>
     </LinearLayout>

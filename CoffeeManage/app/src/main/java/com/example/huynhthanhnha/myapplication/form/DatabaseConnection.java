@@ -25,8 +25,8 @@ import java.util.Comparator;
  */
 public class DatabaseConnection {
     //String filePath;
-    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
-    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
+    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
     ObjectContainer db;
     boolean flag;
 
@@ -44,11 +44,12 @@ public class DatabaseConnection {
 
     public void Open(){
         EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
-        //conf.common().objectClass(ProductDetails.class).updateDepth(0);
+        //conf.common().objectClass(ProductDetails.class).cascadeOnDelete(true);
         conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
         conf.common().objectClass(Product.class).cascadeOnUpdate(true);
         conf.common().objectClass(GroupProduct.class).cascadeOnUpdate(true);
         //conf.common().objectClass(ProductDetails.class).updateDepth(0);
+        //conf.common().objectClass(Product.class).cascadeOnDelete(true);
 
         //db = Db4oEmbedded.openFile(filePath);
         db = Db4oEmbedded.openFile(conf, filePath);
@@ -296,7 +297,7 @@ public class DatabaseConnection {
         ObjectSet<Product> lsProduct = db.queryByExample(Product.class);
         for (Product pd: lsProduct) {
             listProduct.add(pd);
-            System.out.println("Product Name 1: " + pd.getProductName() + " Unit: " + pd.getUnit());
+            //System.out.println("Product Name 1: " + pd.getProductName() + " Unit: " + pd.getUnit());
         }
         return listProduct;
     }
@@ -410,13 +411,13 @@ public class DatabaseConnection {
             }
         });
         if(gro.size() == 0) {
-            System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
+            //System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
         }
         else
             //Set values for list product
             for(Product pro : gro.next().getListProduct()){
                 listProduct.add(pro);
-                System.out.println("TEN THUC UONG 2: " + pro.getProductName());
+                //System.out.println("TEN THUC UONG 2: " + pro.getProductName());
             }
 
         return listProduct;
@@ -437,7 +438,7 @@ public class DatabaseConnection {
         }
         else {
             final Bill billTemp = bills.next();
-            System.out.println("Bill id: xxx " + billTemp.getBillID());
+            //System.out.println("Bill id: xxx " + billTemp.getBillID());
             ObjectSet<ProductDetails> lproductdetail = db.query(new Predicate<ProductDetails>() {
                 public boolean match(ProductDetails l) {
                     return l.getBill().getBillID() == billTemp.getBillID();
@@ -446,7 +447,7 @@ public class DatabaseConnection {
 
             for (ProductDetails details : lproductdetail) {
                 listDetailProduct.add(details);
-                System.out.println("TEN THUC UONG 3: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
+                //System.out.println("TEN THUC UONG 3: " + details.getProduct().getProductName() + " SO LUONG: " + details.getUnitSales());
             }
         }
 
@@ -538,11 +539,11 @@ public class DatabaseConnection {
             System.out.println("TRUNG THUC UONG TRONG DETAILS!!");
             //get current Unit of product
             int currentUnit = productOld.getUnitSales();
-            System.out.println("UNIT CURRENT = " + currentUnit);
+            //System.out.println("UNIT CURRENT = " + currentUnit);
             //Update unit sales for this product
             productOld.setUnitSales((numSales + currentUnit));
             System.out.println("AFTER CURRENT = " + (numSales + currentUnit));
-            System.out.println("GET UNIT SALES: " + productOld.getUnitSales());
+            //System.out.println("GET UNIT SALES: " + productOld.getUnitSales());
             db.store(productOld);
             db.commit();
         }
@@ -650,7 +651,8 @@ public class DatabaseConnection {
     public void getProductDetails(){
         ObjectSet<ProductDetails> listProductDetail = db.queryByExample(ProductDetails.class);
         for(ProductDetails p: listProductDetail){
-            System.out.println(" BILL ID " + p.getBill().getBillID() +
+            System.out.println("ID Details " + p.getProductDetailID()+
+                    "BILL ID " + p.getBill().getBillID() +
                     " BAN" + p.getBill().getTable().getIdTable() +
                     " DS THUC UONG " + p.getProduct().getProductName() +
                     " SL "+ p.getUnitSales() + " XYX");
@@ -682,11 +684,7 @@ public class DatabaseConnection {
         });
 
         for (ListPrice lp: details){
-            //System.out.println("DATE IN PRICE: " + lp.getDateClass().getDate());
             dates.add(lp.getDateClass().getDate());
-//            System.out.println("Ten: " + lp.getProduct().getProductName()
-//                + " Price: " + lp.getPrice()
-//                + " Date: " + lp.getDateClass().getDate());
         }
 
         closetDate = getNearestDate(dates, new Date());
@@ -716,7 +714,12 @@ public class DatabaseConnection {
         dateClass.setDate(new Date());
         // Create new object in ListPrice
         lp.setPrice(price);
+        System.out.println("PRICE AFTER SET " + lp.getPrice());
+        //System.out.println("/*************************************/");
         lp.setDateClass(dateClass);
+        System.out.println("DATECLASS AFTER SET " + lp.getDateClass().getDate());
+        lp.setDateClass(dateClass);
+
 
         // Set price into Product
         ObjectSet<Product> details = db.query(new Predicate<Product>() {
@@ -728,6 +731,8 @@ public class DatabaseConnection {
 
         // Set list price into DateClass
         dateClass.addListPrices(lp);
+
+        System.out.println("LISPRICE AFTER SET " + dateClass.getListPrices().iterator().next().getPrice());
 
         db.store(lp);
         db.commit();
@@ -743,7 +748,7 @@ public class DatabaseConnection {
         else return false;
     }
 
-    public long getPriceInCurrentBill(Bill bill, final int pro){
+    public long getPriceInCurrentBill(Bill bill, final int proID){
         long price = 0;
         List<Date> listDate = new ArrayList<Date>();
         //Get date of bill
@@ -751,21 +756,69 @@ public class DatabaseConnection {
         ObjectSet<ListPrice> result = db.query(new Predicate<ListPrice>() {
             @Override
             public boolean match(ListPrice l) {
-                return l.getProduct().getProductId() == pro;
+                return l.getProduct().getProductId() == proID;
             }
         });
 
+        System.out.println("Date before sort: ");
         //Get price and date of product
         for (ListPrice lp : result){
             listDate.add(lp.getDateClass().getDate());
-            System.out.println("VIC Date : " + lp.getDateClass().getDate().toString());
+            System.out.println("Before" + lp.getDateClass().getDate().toString());
         }
 
         //Sort date
         Collections.sort(listDate);
+        System.out.println("Date after sort: ");
+        for (Date lp : listDate){
+            System.out.println("After" + lp.getTime());
+        }
 
 
         return price;
+    }
+
+    public long getPriceTotalOfBill(List<ProductDetails> productDetailsList){
+        long priceTotal = 0;
+        long priceOfProduct = 0;
+        for (ProductDetails details : productDetailsList){
+            priceOfProduct = getPriceOfProduct(details.getProduct().getProductId());
+            priceTotal += priceOfProduct*details.getUnitSales();
+        }
+        return priceTotal;
+    }
+
+    public void deleteProductDetail(final ProductDetails productDetails){
+        ProductDetails detailsTemp;
+        //Get product details to delete
+        ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getProductDetailID() == productDetails.getProductDetailID();
+            }
+        });
+        detailsTemp = details.next();
+        System.out.println("ID" + detailsTemp.getProductDetailID());
+        db.delete(detailsTemp);
+
+        //Find id bill of product details. If number of product details in this bill is O, delete the bill
+        ObjectSet<ProductDetails> numOfProductDetail = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getBill().getBillID() == productDetails.getBill().getBillID();
+            }
+        });
+        int numProductOfBill = numOfProductDetail.size();
+        if(numProductOfBill == 0){
+            //Find the bill and delete this bill
+            ObjectSet<Bill> billDelete = db.query(new Predicate<Bill>() {
+                public boolean match(Bill b) {
+                    return b.getBillID() == productDetails.getBill().getBillID();
+                }
+            });
+            //Delete bill don't have any product
+            db.delete(billDelete.next());
+        }
+        //Push data into database
+        db.commit();
     }
 
     public void UpdateNameProduct(final int id, String name) {
@@ -798,120 +851,10 @@ public class DatabaseConnection {
         return MaxID;
     }
 
-
     public void Close(){
         db.close();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

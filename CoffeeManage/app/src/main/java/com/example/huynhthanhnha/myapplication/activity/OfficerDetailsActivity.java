@@ -2,6 +2,8 @@ package com.example.huynhthanhnha.myapplication.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,5 +35,11 @@ public class OfficerDetailsActivity extends Activity {
 
         OfficerDetailsAdapter adapter = new OfficerDetailsAdapter(this, listOfficer);
         lOfficer.setAdapter(adapter);
+        lOfficer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.print("PHIPHI");
+            }
+        });
     }
 }

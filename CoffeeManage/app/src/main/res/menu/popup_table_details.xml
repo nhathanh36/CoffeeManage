@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popupDelete"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/giohang"
+        android:visible="true"
+        android:title="Xóa"/>
+    <item
+        android:id="@+id/popupEdit"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/cart_add"
+        android:visible="true"
+        android:title="Chỉnh sửa"/>
+</menu>

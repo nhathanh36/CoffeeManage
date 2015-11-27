@@ -52,8 +52,8 @@ public class ListTableAdapter extends BaseAdapter {
 
         View rowView = inflater.inflate(R.layout.grid_item_table, null);
 
-        TextView textView = (TextView) rowView.findViewById(R.id.tvTable);
-        textView.setText("Bàn " + String.valueOf(table.getIdTable()));
+        //TextView textView = (TextView) rowView.findViewById(R.id.tvTable);
+        //textView.setText("Bàn " + String.valueOf(table.getIdTable()));
 
         TextView textID = (TextView) rowView.findViewById(R.id.tvIDTable);
         textID.setText(String.valueOf(position + 1));

@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.ListPopupWindow;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,14 +16,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
 //import com.example.huynhthanhnha.myapplication.adapter.AddProductDetailsAdaper;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.Product;
 import com.example.huynhthanhnha.myapplication.form.ProductDetails;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +37,15 @@ import java.util.List;
  */
 public class ListTableDetails extends Activity {
     DatabaseConnection conn = new DatabaseConnection();
+    ListView listView;
     List<ProductDetails> listProductDetails = new ArrayList<ProductDetails>();
     List<Product> listProductGroup = new ArrayList<Product>();
     RelativeLayout relativeDetails;
     RelativeLayout relativeAdd;
     int IdTable;
-    Button btnAdd;
-    Button btnComplete;
     Button btnMonmoi;
     Button btnThanhToan;
+    long Total;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +53,12 @@ public class ListTableDetails extends Activity {
         IdTable = getIntent().getExtras().getInt("IdTable");
 
         TextView numTable = (TextView) findViewById(R.id.tableNumber);
-        numTable.setText("Bàn " + String.valueOf(IdTable));
+        numTable.setText(String.valueOf(IdTable));
 
-        createListProduct();
+        TextView numTable1 = (TextView) findViewById(R.id.tableNumber1);
+        numTable1.setText("Bàn số " + String.valueOf(IdTable));
 
+        listView = (ListView) findViewById(R.id.listProductDetails);
         relativeDetails = (RelativeLayout) findViewById(R.id.relativeProductDetails);
         relativeAdd = (RelativeLayout) findViewById(R.id.relativeAddProduct);
 
@@ -69,6 +77,7 @@ public class ListTableDetails extends Activity {
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListTableDetails.this);
                 // Get the layout inflater
                 LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
@@ -96,28 +105,69 @@ public class ListTableDetails extends Activity {
             }
         });
 
+        ////////////////////////////////////////////
+        //Show popup menu for each item
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Creating the instance of PopupMenu
+                final ProductDetails productDetails = (ProductDetails) parent.getItemAtPosition(position);
+                PopupMenu popup = new PopupMenu(ListTableDetails.this, view);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.popup_table_details, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        //Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        switch (item.getItemId()){
+                            case R.id.popupDelete:
+                                conn.Open();
+                                //conn.getProductDetails();
+                                conn.deleteProductDetail(productDetails);
+                                conn.Close();
+                                break;
+                            case R.id.popupEdit:
+                                Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        createListProduct();
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+        });
+
         createListProductGroup();
         createListProduct();
 
     }
 
     public void createListProduct() {
-        ListView listView = (ListView) findViewById(R.id.listProductDetails);
+
         conn.Open();
         listProductDetails = conn.getListProductOfTable(IdTable);
+        Total = conn.getPriceTotalOfBill(listProductDetails);
         conn.Close();
         ListProductDetailsAdapter adapter = new ListProductDetailsAdapter(this, listProductDetails);
         listView.setAdapter(adapter);
 
         TextView countProduct = (TextView) findViewById(R.id.textTongsomon);
         countProduct.setText("Tổng số món: " + String.valueOf(listProductDetails.size()));
+
+        //Get price total of bill
+        TextView totalPrice = (TextView) findViewById(R.id.tvPriceTotal);
+
+        totalPrice.setText(String.valueOf(Total) + "đ");
     }
 
     public void createListProductGroup() {
         ListView listProductDetailsForAdd = (ListView) findViewById(R.id.listProductDetailsForAdd);
         conn.Open();
         listProductGroup = conn.getListProduct();
-        conn.getProductDetails();
         conn.Close();
         AddProductDetailsAdaper adaper = new AddProductDetailsAdaper(this, listProductGroup, IdTable, relativeDetails, relativeAdd);
         listProductDetailsForAdd.setAdapter(adaper);
@@ -153,13 +203,19 @@ public class ListTableDetails extends Activity {
             View rowView = inflater.inflate(R.layout.table_item_details, null);
 
             TextView productName = (TextView) rowView.findViewById(R.id.tvProductName);
-            productName.setText(String.valueOf(position+1) + ". " + String.valueOf(productDetails.getProduct().getProductName()));
+            productName.setText(String.valueOf(position + 1) + ". " + String.valueOf(productDetails.getProduct().getProductName()));
 
             TextView unitSales = (TextView) rowView.findViewById(R.id.tvUnitSales);
             unitSales.setText(String.valueOf(productDetails.getUnitSales()));
 
-            TextView donviBan = (TextView) rowView.findViewById(R.id.tvDonviban);
-            donviBan.setText( productDetails.getProduct().getUnit());
+            TextView numberSales = (TextView) rowView.findViewById(R.id.tvDonviban);
+            numberSales.setText(productDetails.getProduct().getUnit());
+
+            TextView price = (TextView) rowView.findViewById(R.id.tvPriceProduct);
+            conn.Open();
+            long pricet = conn.getPriceOfProduct(productDetails.getProduct().getProductId());
+            price.setText(String.valueOf(pricet) + "đ X");
+            conn.Close();
 
             return rowView;
         }
