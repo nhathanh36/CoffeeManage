@@ -1,130 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TableLayout
-        android:layout_marginLeft="15dp"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:id="@+id/tableLayout">
+    <!-- Name of product -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <TableRow
-            android:orientation="vertical"
-            android:id="@+id/TRowAB"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="Tên thức uống:"
+            android:textSize="7pt" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <!-- Name of product -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tên thức uống:"
-                        android:textSize="7pt"/>
-
-                    <EditText
-                        android:id="@+id/editAddName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Nhập tên"
-                        android:textSize="7pt"/>
-                </LinearLayout>
-
-                <!-- Group of product -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nhóm thức uống:"
-                        android:textSize="7pt"/>
-
-                    <EditText
-                        android:id="@+id/editAddGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Nhóm"
-                        android:textSize="7pt"/>
-                </LinearLayout>
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TRowCD"
-            android:layout_marginTop="20dp"
+        <EditText
+            android:id="@+id/editAddName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên"
+            android:textSize="7pt" />
+    </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearVA"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    <!-- Group of product -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-                <!-- Name of product -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhóm thức uống:"
+            android:textSize="7pt" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Giá thức uống:"
-                        android:textSize="7pt"/>
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="3sp">
 
-                    <EditText
-                        android:inputType="number"
-                        android:id="@+id/editAddPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Nhập giá"
-                        android:textSize="7pt"/>
-                </LinearLayout>
+        </Spinner>
+    </LinearLayout>
 
-                <!-- Group of product -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center">
+    <!-- Price of product -->
+    <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Đơn vị thức uống:"
-                        android:textSize="7pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá thức uống:"
+            android:textSize="7pt" />
 
-                    <EditText
-                        android:id="@+id/editAddUnit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chai, ly, tách,..."
-                        android:layout_marginTop="10dp"
-                        android:textSize="7pt" />
-                </LinearLayout>
-            </LinearLayout>
-        </TableRow>
+        <EditText
+            android:id="@+id/editAddPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Nhập giá"
+            android:inputType="number"
+            android:textSize="7pt" />
+    </LinearLayout>
 
-    </TableLayout>
+    <!-- Group of product -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đơn vị thức uống:"
+            android:textSize="7pt" />
+
+        <EditText
+            android:id="@+id/editAddUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Chai, ly, tách,..."
+            android:textSize="7pt" />
+    </LinearLayout>
 </LinearLayout>

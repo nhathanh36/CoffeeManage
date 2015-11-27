@@ -13,17 +13,21 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
 import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
+import com.example.huynhthanhnha.myapplication.form.GroupProduct;
 import com.example.huynhthanhnha.myapplication.form.Product;
 
 import java.util.ArrayList;
@@ -39,9 +43,9 @@ public class ListProductGroupFragment extends Fragment {
     EditText etPrice;
     EditText etName;
     Button btnAddProduct;
-    EditText addGroup;
     EditText addName;
     EditText addUnit;
+    String strGroup;
     EditText addPrice;
     List<Product> listProduct = new ArrayList<Product>();
 
@@ -83,6 +87,7 @@ public class ListProductGroupFragment extends Fragment {
                                 final View dialogView = inflater.inflate(R.layout.dialog_update_price, null);
                                 tvProduct = (TextView) dialogView.findViewById(R.id.tvNameProduct);
                                 tvProduct.setText(String.valueOf(product.getProductName()));
+                                tvProduct.setTextSize(17);
                                 builder.setView(dialogView)
                                         .setTitle("Cập nhật giá sản phẩm")
                                                 // Add action buttons
@@ -160,28 +165,62 @@ public class ListProductGroupFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 // Get the layout inflater
                 LayoutInflater inflater = getActivity().getLayoutInflater();
+                final View rootView = inflater.inflate(R.layout.dialog_add_product, null);
+
+                final List<String> list = new ArrayList<String>();
+                conn.Open();
+                List<GroupProduct> groupProductLis = conn.getListGroup();
+                conn.Close();
+
+                for (GroupProduct gp : groupProductLis) {
+                    list.add(String.valueOf(gp.getGroupProductName()));
+                }
+
+                final Spinner sp1 = (Spinner) rootView.findViewById(R.id.spinner1);
+
+                ArrayAdapter<String> adp1 = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_1, list);
+                adp1.setDropDownViewResource(R.layout.spinner_group);
+                sp1.setAdapter(adp1);
+
+                sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+                        // TODO Auto-generated method stub
+                        strGroup = String.valueOf(list.get(position));
+                       // Toast.makeText(getActivity(), list.get(position), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                });
 
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
-                View rootView = inflater.inflate(R.layout.dialog_add_product, null);
-                addName = (EditText) rootView.findViewById(R.id.editAddName);
-                addGroup = (EditText) rootView.findViewById(R.id.editAddGroup);
-                addPrice = (EditText) rootView.findViewById(R.id.editAddPrice);
-                addUnit = (EditText) rootView.findViewById(R.id.editAddUnit);
-
-                final String strGroup = addGroup.getText().toString();
-                final String strName = addName.getText().toString();
-                final String strUnit = addUnit.getText().toString();
-                final long price = Long.parseLong(addPrice.getText().toString());
                 builder.setView(rootView)
                         .setTitle("Thêm thức uống")
                                 // Add action buttons
                         .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
+                                addName = (EditText) rootView.findViewById(R.id.editAddName);
+                                addPrice = (EditText) rootView.findViewById(R.id.editAddPrice);
+                                addUnit = (EditText) rootView.findViewById(R.id.editAddUnit);
+
+                                String strName = addName.getText().toString();
+                                String strUnit = addUnit.getText().toString();
+                                long price = Long.parseLong(addPrice.getText().toString());
                                 conn.Open();
                                 conn.InsertProduct(strGroup, strName, strUnit, price);
                                 conn.Close();
+                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                productAdapter.notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

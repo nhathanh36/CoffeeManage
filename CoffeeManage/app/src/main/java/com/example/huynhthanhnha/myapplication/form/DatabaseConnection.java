@@ -47,6 +47,7 @@ public class DatabaseConnection {
         //conf.common().objectClass(ProductDetails.class).updateDepth(0);
         conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
         conf.common().objectClass(Product.class).cascadeOnUpdate(true);
+        conf.common().objectClass(GroupProduct.class).cascadeOnUpdate(true);
         //conf.common().objectClass(ProductDetails.class).updateDepth(0);
 
         //db = Db4oEmbedded.openFile(filePath);
@@ -358,10 +359,11 @@ public class DatabaseConnection {
         //Select group product
         ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
             public boolean match(GroupProduct group) {
-                return group.getGroupProductName() == groupProductName;
+                return group.getGroupProductName().equals(groupProductName);
             }
         });
-        GroupProduct groupProduct = gro.next();
+
+       GroupProduct groupProduct = gro.next();
 
         //Insert ListPrice object
         ListPrice listPrice = new ListPrice(dateClass, prod, price); //added ref

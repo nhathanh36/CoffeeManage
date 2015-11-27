@@ -15,7 +15,7 @@
         android:textSize="6pt" />
 
     <ListView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/groupListView"
         android:layout_width="match_parent"

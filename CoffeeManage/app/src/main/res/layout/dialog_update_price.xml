@@ -12,12 +12,11 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNameProduct"
                 android:text="Cafe: "
-                android:textSize="8pt"
-                android:gravity="left"/>
+                android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:id="@+id/editPrice"
