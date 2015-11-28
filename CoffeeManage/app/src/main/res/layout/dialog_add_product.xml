@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:gravity="center"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <TextView
@@ -20,8 +21,12 @@
 
         <EditText
             android:id="@+id/editAddName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="112dp"
+            android:padding="3dp"
+            android:layout_marginLeft="28dp"
+            android:gravity="center"
+            android:layout_height="34dp"
+            android:background="@drawable/edit_text"
             android:hint="Nhập tên"
             android:textSize="7pt" />
     </LinearLayout>
@@ -65,8 +70,12 @@
 
         <EditText
             android:id="@+id/editAddPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:padding="3dp"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
             android:hint="Nhập giá"
             android:inputType="number"
             android:textSize="7pt" />
@@ -74,10 +83,12 @@
 
     <!-- Group of product -->
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:gravity="center"
+        android:layout_marginBottom="7dp"
         android:orientation="horizontal">
 
         <TextView
@@ -88,9 +99,13 @@
 
         <EditText
             android:id="@+id/editAddUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Chai, ly, tách,..."
+            android:layout_width="110dp"
+            android:padding="3dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:hint="Chai, ly, tách"
             android:textSize="7pt" />
     </LinearLayout>
 </LinearLayout>

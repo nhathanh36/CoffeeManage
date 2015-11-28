@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="400dp"
         android:layout_height="65dp"
-        android:background="#d8187eb9"
+        android:background="#03A9F4"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -39,7 +39,8 @@
                     android:layout_height="25dp"
                     android:gravity="center_vertical"
                     android:text="Tổng sản phẩm: 30"
-                    android:textColor="@android:color/black"
+                    
+                    android:textColor="@android:color/white"
                     android:textSize="6pt" />
             </LinearLayout>
         </LinearLayout>
@@ -49,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:background="#BDBDBD"
+        android:background="#f0b3ff"
         android:baselineAligned="false"
         android:clickable="false"
         android:orientation="vertical">
@@ -61,7 +62,7 @@
             android:layout_marginLeft="8dp"
             android:gravity="center_vertical"
             android:text="Tổng sản phẩm: 30"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="10dp" />
     </LinearLayout>
 
@@ -95,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:background="@android:color/holo_blue_dark"
+                android:background="#BDBDBD"
                 android:choiceMode="singleChoice"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp" />
