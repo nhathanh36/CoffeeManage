@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.R;
 
 /**
@@ -19,6 +20,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
+        System.out.println("Login: ID " + Login.getIdUser());
         //
         imgOfficer = (ImageView) findViewById(R.id.imgOfficer);
         imgOfficer.setOnClickListener(new View.OnClickListener() {

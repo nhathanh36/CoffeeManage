@@ -41,16 +41,21 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 conn.Open();
                 int value = conn.CheckLogin(tUsername.getText().toString(), tPassword.getText().toString());
-                conn.Close();
+
                 if (value == 1) {
+                    Login.setUser(conn.getUser(tUsername.getText().toString()));
+                    conn.Close();
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 }
                 else if (value == 2) {
+                    Login.setUser(conn.getUser(tUsername.getText().toString()));
                     startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
+                    conn.Close();
                 }
                 else {
                     Toast toast = Toast.makeText(MainActivity.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT);
                     toast.show();
+                    conn.Close();
                 }
             }
         });

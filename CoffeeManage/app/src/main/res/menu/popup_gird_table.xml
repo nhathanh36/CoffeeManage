@@ -2,13 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/popupGridEnter"
+        style="@style/PopupGirdTable"
         android:showAsAction="ifRoom|withText"
         android:title="Mở/Xem bàn"/>
     <item
         android:id="@+id/popupGridMove"
         android:showAsAction="ifRoom|withText"
         android:visible="true"
-        android:title="Chuyển bàn"/>
+        android:title="Chuyển bàn">
+    </item>
+
     <item
         android:id="@+id/popupGridJoin"
         android:showAsAction="ifRoom|withText"

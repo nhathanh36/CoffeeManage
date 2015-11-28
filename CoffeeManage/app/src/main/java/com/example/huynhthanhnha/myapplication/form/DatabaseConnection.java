@@ -850,6 +850,45 @@ public class DatabaseConnection {
         //System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
         return MaxID;
     }
+	
+	public int moveTable(final Table srcTable, final int desTable){
+		//Check desTable is exist
+		Bill srcBill = checkBillExist(srcTable.getIdTable());
+		Bill desBill = checkBillExist(desTable);
+		if (desBill == null){ // DON'T HAVE A BILL
+			desBill.setTable(srcBill.getTable());
+			return 1;
+		}
+		else return 0;
+	}
+
+    public List<Table> getListTableEmpty(final int TableID){
+        List<Table> tableList = new ArrayList<Table>();
+        ObjectSet<Table> results = db.query(new Predicate<Table>() {
+            @Override
+            public boolean match(Table table) {
+                return table.getIdTable() != TableID && checkTableHasExist(table.getIdTable());
+            }
+        });
+
+        for(Table tb : results){
+            tableList.add(tb);
+            System.out.println("TABLE CAN MOVE: " + tb.getIdTable());
+        }
+
+        return tableList;
+    }
+
+    public User getUser(final String username){
+        ObjectSet<User> result = db.query(new Predicate<User>() {
+            @Override
+            public boolean match(User user) {
+                return user.getUsername().equals(username);
+            }
+        });
+        return  result.next();
+    }
+
 
     public void Close(){
         db.close();

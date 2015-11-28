@@ -26,8 +26,9 @@
             android:name=".activity.HomeOfficerActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activity.GridTableActivity">
-
+        <activity
+            android:name=".activity.GridTableActivity"
+            android:theme="@style/PopupGirdTable">
         </activity>
 
         <activity android:name=".activity.CustomViewIconTextTabsActivity">
