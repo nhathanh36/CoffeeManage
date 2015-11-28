@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.ListPopupWindow;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,10 +84,19 @@ public class ListTableDetails extends Activity {
                 // Get the layout inflater
                 LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
 
+                TextView title = new TextView(ListTableDetails.this);
+                title.setText("Bạn muốn thanh toán?");
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(10, 10, 10, 10);
+                title.setHeight(60);
+                title.setTextSize(15);
+                title.setTextColor(Color.BLUE);
+
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
                 builder.setView(inflater.inflate(R.layout.dialog_confirm, null))
-                        .setTitle("Bạn muốn thanh toán?")
+                        //.setTitle("Bạn muốn thanh toán?")
+                        .setCustomTitle(title)
                                 // Add action buttons
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override

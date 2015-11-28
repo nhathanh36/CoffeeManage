@@ -25,8 +25,8 @@ import java.util.Comparator;
  */
 public class DatabaseConnection {
     //String filePath;
-    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
-    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
+    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
     ObjectContainer db;
     boolean flag;
 

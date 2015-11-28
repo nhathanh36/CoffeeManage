@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +82,6 @@ public class GridTableActivity extends Activity {
                 PopupMenu popup = new PopupMenu(GridTableActivity.this, view);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_gird_table, popup.getMenu());
-
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -144,9 +145,17 @@ public class GridTableActivity extends Activity {
 
         });
 
+        TextView title = new TextView(GridTableActivity.this);
+        title.setText("Chọn bàn để chuyển");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(18);
+        title.setTextColor(Color.BLUE);
 
         builder.setView(view)
-                .setTitle("Chọn bàn để chuyển")
+                //.setTitle("Chọn bàn để chuyển")
+                .setCustomTitle(title)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {

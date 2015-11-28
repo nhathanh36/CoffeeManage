@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
+        //startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
 
         btn = (Button) findViewById(R.id.signIn);
         tUsername = (TextView) findViewById(R.id.textUsername);

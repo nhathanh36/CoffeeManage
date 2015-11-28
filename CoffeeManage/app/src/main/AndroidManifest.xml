@@ -27,11 +27,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.GridTableActivity"
-            android:theme="@style/PopupGirdTable">
+            android:name=".activity.GridTableActivity">
         </activity>
 
-        <activity android:name=".activity.CustomViewIconTextTabsActivity">
+        <activity android:name=".activity.StatisticTabsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 

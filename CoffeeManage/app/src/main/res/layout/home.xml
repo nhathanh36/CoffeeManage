@@ -6,12 +6,10 @@
     android:background="@drawable/light_bg"
     android:weightSum="1">
 
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="#00838F"
+        android:background="#3b5998"
         android:layout_height="44dp">
 
         <LinearLayout
@@ -31,6 +29,7 @@
                 android:layout_height="46dp"
                 android:layout_marginLeft="15dp"
                 android:paddingTop="13dp"
+                android:textColor="#FFFFFF"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Chào, Nguyễn Thanh Phi"
                 android:textAlignment="center"
@@ -45,7 +44,7 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:src="@drawable/logouticon"
-                android:id="@+id/imageView3" />
+                android:id="@+id/imgLogout" />
 
 
         </LinearLayout>
@@ -58,6 +57,7 @@
         android:paddingBottom="0dp"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
+        android:id="@+id/linearListOfficer"
         android:layout_width="167dp"
         android:layout_height="wrap_content">
         <ImageView
@@ -73,6 +73,7 @@
             android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
             android:text="Danh sách nhân viên"
+            android:textColor="#000000"
             android:layout_centerHorizontal="true"
             android:id="@+id/textView2"
             android:layout_gravity="center_horizontal" />
@@ -80,14 +81,15 @@
 
     <LinearLayout
         android:layout_marginTop="60dp"
+        android:id="@+id/linearStatistic"
         android:orientation="vertical"
         android:layout_width="167dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:src="@drawable/thongke"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/chart_pie"
             android:id="@+id/imageView2"
             android:layout_gravity="center_horizontal" />
 
@@ -95,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginTop="5dp"
+            android:textColor="#000000"
             android:text="Thống kê"
             android:id="@+id/textView3"
             android:layout_gravity="center_horizontal" />

@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:background="#f0b3ff"
+        android:background="@android:color/holo_red_dark"
         android:baselineAligned="false"
         android:clickable="false"
         android:orientation="vertical">
@@ -85,8 +85,6 @@
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-
             </FrameLayout>
 
             <!-- The navigation menu -->

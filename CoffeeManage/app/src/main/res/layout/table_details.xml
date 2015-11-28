@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="80dp"
-        android:background="#d8187eb9"
+        android:background="#3b5998"
         android:layout_gravity="center"
         android:baselineAligned="false">
         <TextView
@@ -159,7 +159,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:orientation="horizontal"
-            android:background="#d74f3d"
+            android:background="#3b5998"
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <TextView

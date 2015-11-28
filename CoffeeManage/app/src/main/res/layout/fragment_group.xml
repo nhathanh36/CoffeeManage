@@ -22,5 +22,4 @@
         android:layout_height="440dp">
     </ListView>
 
-
 </RelativeLayout>

@@ -23,23 +23,22 @@ public class HomeOfficerActivity extends AppCompatActivity {
     RelativeLayout linearLayout;
     RelativeLayout img;
     RelativeLayout product;
+    Animation anim;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_officer);
-
-        System.out.println("Login: ID " + Login.getIdUser());
+        anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         img = (RelativeLayout) findViewById(R.id.demo);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeOfficerActivity.this, CustomViewIconTextTabsActivity.class));
+                img.startAnimation(anim);
+                startActivity(new Intent(HomeOfficerActivity.this, StatisticTabsActivity.class));
             }
         });
-        //
 
-        final Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         linearLayout = (RelativeLayout) findViewById(R.id.linearListTable);
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +53,7 @@ public class HomeOfficerActivity extends AppCompatActivity {
         product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                product.startAnimation(anim);
                 startActivity(new Intent(HomeOfficerActivity.this, ListProductActivity.class));
             }
         });

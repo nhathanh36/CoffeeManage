@@ -7,32 +7,27 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.huynhthanhnha.myapplication.R;
-import com.example.huynhthanhnha.myapplication.fragments.OneFragment;
-import com.example.huynhthanhnha.myapplication.fragments.ThreeFragment;
-import com.example.huynhthanhnha.myapplication.fragments.TwoFragment;
+import com.example.huynhthanhnha.myapplication.fragments.BillFragment;
+import com.example.huynhthanhnha.myapplication.fragments.ChartFragment;
 
-public class CustomViewIconTextTabsActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+public class StatisticTabsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private int[] tabIcons = {
+            R.drawable.book,
+            R.drawable.chart_line
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_view_icon_text_tabs);
-
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.statistics);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -42,36 +37,15 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
         setupTabIcons();
     }
 
-    /**
-     * Adding custom view to tab
-     */
     private void setupTabIcons() {
-
-        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setText("ONE");
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.table1, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabOne);
-
-        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabTwo.setText("TWO");
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.table1, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
-
-        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabThree.setText("THREE");
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.table1, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 
-    /**
-     * Adding fragments to ViewPager
-     * @param viewPager
-     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new OneFragment(), "ONE");
-        adapter.addFrag(new TwoFragment(), "TWO");
-        adapter.addFrag(new ThreeFragment(), "THREE");
+        adapter.addFrag(new BillFragment(), "Hóa đơn");
+        adapter.addFrag(new ChartFragment(), "Biểu đồ");
         viewPager.setAdapter(adapter);
     }
 
