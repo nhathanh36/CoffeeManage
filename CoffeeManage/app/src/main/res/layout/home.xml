@@ -61,8 +61,8 @@
         android:layout_width="167dp"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/nhanvien"
             android:id="@+id/imgOfficer"
@@ -85,8 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/thongke"
             android:id="@+id/imageView2"
             android:layout_gravity="center_horizontal" />

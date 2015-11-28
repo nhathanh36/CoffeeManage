@@ -35,7 +35,7 @@
         android:text="Tên đăng nhập:"
         android:layout_marginTop="170dp"
         android:layout_marginLeft="30dp"
-        android:textSize="09pt"
+        android:textSize="14dp"
         android:textColor="#000000"
         android:id="@+id/textView4"/>
     <EditText
@@ -44,6 +44,7 @@
         android:layout_marginLeft="30dp"
         android:layout_width="300dp"
         android:layout_height="60dp"
+        android:background="@drawable/edit_text"
         android:textColor="#37474F" />
 
     <TextView
@@ -53,31 +54,32 @@
         android:layout_marginTop="260dp"
         android:text="Mật khẩu:"
         android:textColor="#000000"
-        android:textSize="09pt"
+        android:textSize="14dp"
         android:id="@+id/textView5" />
     <EditText
         android:id="@+id/textPassword"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="280dp"
+        android:background="@drawable/edit_text"
         android:layout_marginLeft="30dp"
         android:inputType="textPassword" />
     <Button
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:id="@+id/signIn"
-        android:textSize="10pt"
+        android:textSize="12dp"
         android:layout_marginTop="360dp"
         android:layout_marginLeft="30dp"
         android:text="OK"
         android:background="#00C853"/>
     <Button
-        android:layout_width="130dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:id="@+id/cancel_action"
-        android:textSize="10pt"
+        android:textSize="12dp"
         android:layout_marginTop="360dp"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="180dp"
         android:text="Hủy bỏ"
         android:background="#00C853"/>
 

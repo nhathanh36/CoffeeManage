@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.R;
 
 /**
@@ -27,9 +28,7 @@ public class HomeOfficerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_officer);
 
-        ///
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        System.out.println("Login: ID " + Login.getIdUser());
 
         img = (RelativeLayout) findViewById(R.id.demo);
         img.setOnClickListener(new View.OnClickListener() {

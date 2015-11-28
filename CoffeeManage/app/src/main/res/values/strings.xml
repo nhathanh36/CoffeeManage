@@ -116,4 +116,7 @@
         <item>Xóa</item>
     </array>
 
+    <string name="select">Choose an item</string>
+
+
 </resources>

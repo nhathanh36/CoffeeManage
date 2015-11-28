@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/itemUpdatePrice"
+        style="SizeGird"
         android:title="Cập nhật giá"
+        android:icon="@drawable/popup_grid_table"
         android:visible="true"/>
     <item
         android:id="@+id/itemDelete"
