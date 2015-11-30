@@ -26,10 +26,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //conn = new DatabaseConnection(this.getFilesDir().toString());
         //startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
 
         btn = (Button) findViewById(R.id.signIn);
@@ -59,8 +58,6 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
-
     }
 
 

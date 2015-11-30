@@ -6,8 +6,8 @@
     android:weightSum="1">
     <TextView
         android:layout_marginTop="10dp"
-        android:layout_width="120dp"
-        android:layout_height="35dp"
+        android:layout_width="140dp"
+        android:layout_height="32dp"
         android:id="@+id/tvNameOfficer"
         android:layout_gravity="center_horizontal"
         android:textColor="#522a2a"
@@ -16,45 +16,33 @@
         android:text="Tên nhân viên"
         android:textSize="10dp"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
         android:id="@+id/tvCMND"
         android:paddingTop="9dp"
         android:layout_marginLeft="10dp"
         android:textColor="@android:color/black"
         android:text="362386062"
         android:textSize="10dp"
-        android:gravity="left"
-        android:layout_weight="0.18" />
+        android:gravity="left"/>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="32dp"
         android:id="@+id/tvWorkDate"
         android:paddingTop="9dp"
         android:layout_marginLeft="10dp"
         android:textColor="@android:color/black"
         android:text="05/12/2014"
         android:textSize="10dp"
-        android:gravity="left"
-        android:layout_weight="0.18" />
+        android:gravity="left"/>
     <TextView
         android:layout_width="50dp"
-        android:layout_height="35dp"
+        android:layout_height="32dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/tvUsername"
+        android:id="@+id/tvSex"
         android:paddingTop="9dp"
         android:textColor="@android:color/black"
-        android:text="thanhphi"
-        android:textSize="10dp"
-        android:layout_weight="0.22" />
-    <TextView
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/tvPasswork"
-        android:paddingTop="9dp"
-        android:textColor="@android:color/black"
-        android:text="thanhphi"
-        android:textSize="10dp"
-        android:layout_weight="0.07" />
+        android:text="Nam"
+        android:textSize="10dp"/>
+
 </LinearLayout>

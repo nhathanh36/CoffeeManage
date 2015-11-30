@@ -10,8 +10,8 @@ import java.util.Set;
 public class Officer extends User {
     Date WorkDate;
     Set<Bill> listBill;
-    public Officer(String username, String password, String name, String CMND) {
-        super(username, password, name, CMND);
+    public Officer(String username, String password, String name, String CMND, String sex) {
+        super(username, password, name, CMND, sex);
         this.listBill = new HashSet<Bill>();
     }
 

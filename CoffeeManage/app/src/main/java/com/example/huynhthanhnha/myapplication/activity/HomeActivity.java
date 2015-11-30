@@ -24,7 +24,7 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.home);
 
         textViewName = (TextView) findViewById(R.id.textShowName);
-        textViewName.setText("Chào, " + Login.getUser().getUsername());
+        textViewName.setText("Chào, " + Login.getUser().getName());
 
         lnOfficer = (LinearLayout) findViewById(R.id.linearListOfficer);
         lnOfficer.setOnClickListener(new View.OnClickListener() {

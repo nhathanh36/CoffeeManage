@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.ListPopupWindow;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,17 +24,21 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.example.huynhthanhnha.myapplication.R;
 //import com.example.huynhthanhnha.myapplication.adapter.AddProductDetailsAdaper;
+import com.example.huynhthanhnha.myapplication.adapter.AddProductDetailsAdaper;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.Product;
 import com.example.huynhthanhnha.myapplication.form.ProductDetails;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * Created by NguyenThanh on 19/11/2015.
@@ -44,16 +50,20 @@ public class ListTableDetails extends Activity {
     List<Product> listProductGroup = new ArrayList<Product>();
     RelativeLayout relativeDetails;
     RelativeLayout relativeAdd;
+    EditText inputSearch;
     int IdTable;
     Button btnMonmoi;
     Button btnThanhToan;
     long Total;
+    ListProductDetailsAdapter adapter;
+    AddProductDetailsAdaper adapterAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.table_details);
         IdTable = getIntent().getExtras().getInt("IdTable");
 
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
         TextView numTable = (TextView) findViewById(R.id.tableNumber);
         numTable.setText(String.valueOf(IdTable));
 
@@ -64,26 +74,26 @@ public class ListTableDetails extends Activity {
         relativeDetails = (RelativeLayout) findViewById(R.id.relativeProductDetails);
         relativeAdd = (RelativeLayout) findViewById(R.id.relativeAddProduct);
 
+        createListProductGroup();
+        createListProduct();
+
         btnMonmoi = (Button) findViewById(R.id.btnMonmoi);
         btnMonmoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 relativeAdd.setVisibility(View.VISIBLE);
                 relativeDetails.setVisibility(View.GONE);
-                createListProduct();
-
             }
         });
+
 
         btnThanhToan = (Button) findViewById(R.id.btnThanhtoan);
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListTableDetails.this);
                 // Get the layout inflater
                 LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
-
                 TextView title = new TextView(ListTableDetails.this);
                 title.setText("Bạn muốn thanh toán?");
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -92,12 +102,8 @@ public class ListTableDetails extends Activity {
                 title.setTextSize(15);
                 title.setTextColor(Color.BLUE);
 
-                // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
                 builder.setView(inflater.inflate(R.layout.dialog_confirm, null))
-                        //.setTitle("Bạn muốn thanh toán?")
                         .setCustomTitle(title)
-                                // Add action buttons
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
@@ -132,7 +138,7 @@ public class ListTableDetails extends Activity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         //Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        switch (item.getItemId()){
+                        switch (item.getItemId()) {
                             case R.id.popupDelete:
                                 conn.Open();
                                 //conn.getProductDetails();
@@ -152,26 +158,50 @@ public class ListTableDetails extends Activity {
             }
         });
 
-        createListProductGroup();
-        createListProduct();
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                createListProductGroup();
+                if (!s.toString().equals("")) {
+                    searchItem(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void searchItem(String textToSearch) {
+        Iterator<Product> it = listProductGroup.iterator();
+        while (it.hasNext()) {
+            Product p = it.next();
+            if(!p.getProductName().contains(textToSearch)) {
+                it.remove();
+            }
+        }
+        adapterAdd.notifyDataSetChanged();
     }
 
     public void createListProduct() {
-
         conn.Open();
         listProductDetails = conn.getListProductOfTable(IdTable);
         Total = conn.getPriceTotalOfBill(listProductDetails);
         conn.Close();
-        ListProductDetailsAdapter adapter = new ListProductDetailsAdapter(this, listProductDetails);
+        adapter = new ListProductDetailsAdapter(this, listProductDetails);
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         TextView countProduct = (TextView) findViewById(R.id.textTongsomon);
         countProduct.setText("Tổng số món: " + String.valueOf(listProductDetails.size()));
-
         //Get price total of bill
         TextView totalPrice = (TextView) findViewById(R.id.tvPriceTotal);
-
         totalPrice.setText(String.valueOf(Total) + "đ");
     }
 
@@ -180,11 +210,13 @@ public class ListTableDetails extends Activity {
         conn.Open();
         listProductGroup = conn.getListProduct();
         conn.Close();
-        AddProductDetailsAdaper adaper = new AddProductDetailsAdaper(this, listProductGroup, IdTable, relativeDetails, relativeAdd);
-        listProductDetailsForAdd.setAdapter(adaper);
+
+        adapterAdd = new AddProductDetailsAdaper(this, listProductGroup, IdTable, relativeDetails, relativeAdd);
+        listProductDetailsForAdd.setAdapter(adapterAdd);
+        adapterAdd.notifyDataSetChanged();
     }
 
-    public class ListProductDetailsAdapter extends BaseAdapter {
+    public class ListProductDetailsAdapter extends BaseAdapter{
         List<ProductDetails> listProductDetail = new ArrayList<ProductDetails>();
         Activity context;
 
@@ -232,67 +264,5 @@ public class ListTableDetails extends Activity {
         }
     }
 
-    public class AddProductDetailsAdaper extends BaseAdapter {
-        List<Product> listProductGroup = new ArrayList<Product>();
-        DatabaseConnection conn = new DatabaseConnection();
-        int TableID = 1;
-        EditText unitSales;
-        Activity context;
-        RelativeLayout relativeDetails;
-        RelativeLayout relativeAdd;
-
-        public AddProductDetailsAdaper(Activity context, List<Product> listProductGroup, int TableID, RelativeLayout relativeDetails, RelativeLayout relativeAdd) {
-            this.listProductGroup = listProductGroup;
-            this.context = context;
-            this.TableID = TableID;
-            this.relativeAdd = relativeAdd;
-            this.relativeDetails = relativeDetails;
-        }
-
-        @Override
-        public int getCount() {
-            return listProductGroup.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return listProductGroup.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final Product product = listProductGroup.get(position);
-            LayoutInflater inflater = context.getLayoutInflater();
-            final View rowView = inflater.inflate(R.layout.add_product_item, null);
-
-            TextView productName = (TextView) rowView.findViewById(R.id.tvProductName);
-            productName.setText(String.valueOf(product.getProductName()));
-
-            //When user click each item
-            ImageView imgAddProduct = (ImageView) rowView.findViewById(R.id.imgAddProduct);
-            imgAddProduct.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    conn.Open();
-                    unitSales = (EditText) rowView.findViewById(R.id.editSoluong);
-                    if (unitSales.getText().length() != 0 && Integer.valueOf(unitSales.getText().toString()) != 0) {
-                        conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
-                    }
-                    conn.Close();
-
-                    relativeAdd.setVisibility(View.GONE);
-                    relativeDetails.setVisibility(View.VISIBLE);
-                    createListProduct();
-                }
-            });
-
-            return rowView;
-        }
-    }
 
 }

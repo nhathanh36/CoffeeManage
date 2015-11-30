@@ -57,11 +57,9 @@ public class OfficerDetailsAdapter extends BaseAdapter {
         TextView textDate = (TextView) rowView.findViewById(R.id.tvDate);
         //textDate.setText(String.valueOf(officer.getWorkDate().getTime()));
 
-        TextView textUsername = (TextView) rowView.findViewById(R.id.tvUsername);
-        textUsername.setText(officer.getUsername());
+        TextView textSex = (TextView) rowView.findViewById(R.id.tvSex);
+        textSex.setText(officer.getSex());
 
-        TextView textPass = (TextView) rowView.findViewById(R.id.tvPasswork);
-        textPass.setText(officer.getPassword());
 
         return rowView;
     }

@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:textSize="15pt"
+        android:textSize="13pt"
         android:paddingLeft="40dp"
         android:textAlignment="center"
         android:text="ĐĂNG NHẬP"
@@ -22,10 +22,10 @@
         android:layout_alignRight="@+id/textUsername"
         android:layout_alignEnd="@+id/textUsername" />
     <ImageView
-        android:layout_width="140dp"
+        android:layout_width="130dp"
         android:layout_marginTop="60dp"
         android:layout_marginLeft="83dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:id="@+id/imageView4"
         android:src="@drawable/admin_login_icon"/>
 
@@ -43,6 +43,9 @@
         android:layout_marginTop="190dp"
         android:layout_marginLeft="30dp"
         android:layout_width="300dp"
+        android:textSize="12dp"
+        android:padding="5dp"
+        android:hint="Nhập tên"
         android:layout_height="40dp"
         android:background="@drawable/edit_text_login"
         android:textColor="#37474F" />
@@ -61,6 +64,9 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="280dp"
+        android:textSize="12dp"
+        android:padding="5dp"
+        android:hint="********"
         android:background="@drawable/edit_text_login"
         android:layout_marginLeft="30dp"
         android:inputType="textPassword" />

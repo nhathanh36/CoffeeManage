@@ -6,15 +6,17 @@ package com.example.huynhthanhnha.myapplication.form;
 public class User {
     String Username;
     String Password;
+    String sex;
     String Name;
     String CMND;
     Permission per;
 
-    public User(String username, String password, String name, String cmnd) {
+    public User(String username, String password, String name, String cmnd, String sex) {
         Username = username;
         Password = password;
         Name = name;
         this.CMND = cmnd;
+        this.sex = sex;
         this.per = new Permission();
     }
 
@@ -56,5 +58,13 @@ public class User {
 
     public void setCMND(String CMND) {
         this.CMND = CMND;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

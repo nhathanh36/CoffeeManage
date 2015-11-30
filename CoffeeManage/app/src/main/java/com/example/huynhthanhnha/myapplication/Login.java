@@ -9,7 +9,7 @@ import com.example.huynhthanhnha.myapplication.form.User;
  */
  public class Login {
     static String idUser = "";
-    static User user = new User("thanhphi","admin", "Nguyễn Thanh Phi", "362386062");
+    static User user = new User("phi","phi", "Nguyễn Thanh Phi", "362386062", "Nam");
 
     public static String getIdUser() {
         return idUser;

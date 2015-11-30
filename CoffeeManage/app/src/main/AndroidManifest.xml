@@ -32,18 +32,15 @@
 
         <activity android:name=".activity.StatisticTabsActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
 
         <activity android:name=".activity.ListProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.ListTableDetails">
         </activity>
 
         <activity android:name=".activity.OfficerDetailsActivity">
-
         </activity>
 
     </application>

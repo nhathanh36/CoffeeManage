@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 <RelativeLayout
     android:id="@+id/relativeProductDetails"
     android:layout_width="match_parent"
@@ -152,33 +153,43 @@
     </LinearLayout>
 </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/relativeAddProduct"
         android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:background="#3b5998"
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/text"
-                android:layout_width="167dp"
+                android:layout_width="145dp"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:textColor="#ffffff"
                 android:layout_height="match_parent"
                 android:text="Tên thức uống"/>
-            <TextView
-                android:id="@+id/textTongsomfon"
-                android:layout_width="167dp"
+            <EditText
+                android:id="@+id/inputSearch"
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:textColor="#ffffff"
-                android:layout_height="match_parent"
-                android:text="Số lượng"/>
-        </LinearLayout>
+                android:layout_marginLeft="150dp"
+                android:textSize="12dp"
+                android:paddingLeft="35dp"
+                android:textColor="#000000"
+                android:background="@drawable/edit_text_login"
+                android:layout_height="35dp"
+                android:hint="Tìm thức uống"/>
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="155dp"
+                android:src="@drawable/search128"
+                android:layout_height="28dp"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -193,24 +204,6 @@
                 android:id="@+id/listProductDetailsForAdd">
             </ListView>
         </LinearLayout>
-<!--
-        <LinearLayout
-            android:layout_width="380dp"
-            android:layout_marginTop="460dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Xong"
-                android:width="200dp"
-                android:id="@+id/btnComplete"
-                android:layout_gravity="bottom"
-                android:layout_weight="5.60" />
-        </LinearLayout>
-        -->
     </RelativeLayout>
 
 </LinearLayout>

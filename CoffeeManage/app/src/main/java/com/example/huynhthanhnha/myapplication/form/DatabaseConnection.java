@@ -25,9 +25,9 @@ import java.util.Comparator;
  */
 public class DatabaseConnection {
     //String filePath;
-    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
-    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
-    ObjectContainer db;
+    static String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
+    static ObjectContainer db;
     boolean flag;
 
     public DatabaseConnection(){
@@ -35,23 +35,17 @@ public class DatabaseConnection {
         if(new File(filePath).exists()) flag = true;
         else flag = false;
     }
-
+/*
     public DatabaseConnection(String filePath) {
-        //Context;
         this.filePath = filePath + "/coffee_db.db4o";
         System.out.println(this.filePath);
     }
-
+*/
     public void Open(){
         EmbeddedConfiguration conf = Db4oEmbedded.newConfiguration();
-        //conf.common().objectClass(ProductDetails.class).cascadeOnDelete(true);
         conf.common().objectClass(ProductDetails.class).cascadeOnUpdate(true);
         conf.common().objectClass(Product.class).cascadeOnUpdate(true);
         conf.common().objectClass(GroupProduct.class).cascadeOnUpdate(true);
-        //conf.common().objectClass(ProductDetails.class).updateDepth(0);
-        //conf.common().objectClass(Product.class).cascadeOnDelete(true);
-
-        //db = Db4oEmbedded.openFile(filePath);
         db = Db4oEmbedded.openFile(conf, filePath);
         if(!flag) InitData();
     }
@@ -65,14 +59,14 @@ public class DatabaseConnection {
 
         //List user
         List<User> listUsr = new ArrayList<User>();
-        Manager usr1 = new Manager("admin", "admin", "Nguyễn Thanh Phi","362368062");
+        Manager usr1 = new Manager("phi", "phi", "Nguyễn Thanh Phi","362368062", "Nam");
 
-        Officer usr2 = new Officer("nhanvien", "nhanvien", "Huỳnh Thanh Nhã","365368060");
-        Officer usr3 = new Officer("tri", "tri", "Nguyễn Minh Trí","365368060");
-        Officer usr4 = new Officer("nguyen", "nguyen", "Trương Hoàng Nguyên","365368060");
-        Officer usr5 = new Officer("lan", "lan", "Nguyễn Thi Lan","365368060");
-        Officer usr6 = new Officer("liet", "liet", "Võ Văn Liệt","365368060");
-        Officer usr7 = new Officer("nam", "nam", "Nguyễn Hoài Nam","365368060");
+        Officer usr2 = new Officer("nha", "nha", "Huỳnh Thanh Nhã","365368060", "Nữ");
+        Officer usr3 = new Officer("tri", "tri", "Nguyễn Minh Trí","365368060", "Nam");
+        Officer usr4 = new Officer("nguyen", "nguyen", "Trương Hoàng Nguyên","365368060", "Nam");
+        Officer usr5 = new Officer("lan", "lan", "Nguyễn Thi Lan","365368060", "Nam");
+        Officer usr6 = new Officer("liet", "liet", "Võ Văn Liệt","365368060", "Nam");
+        Officer usr7 = new Officer("nam", "nam", "Nguyễn Hoài Nam","365368060", "Nam");
 
         listUsr.add(usr1);
 
@@ -481,7 +475,7 @@ public class DatabaseConnection {
             System.out.println("InsertProductForBill => THEM BILL MOI (CHUA CO THUC UONG NAO)");
             //Get max bill id
             idBill = getMaxBillID() + 1;
-            System.out.println("ID Bill moi trong ham insert: " + idBill);
+            //System.out.println("ID Bill moi trong ham insert: " + idBill);
 
             //Insert bill
             bill = new Bill(idBill, calendar);
