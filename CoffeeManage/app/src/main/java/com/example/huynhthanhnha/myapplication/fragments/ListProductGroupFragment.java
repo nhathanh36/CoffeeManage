@@ -221,12 +221,18 @@ public class ListProductGroupFragment extends Fragment {
 
                                 String strName = addName.getText().toString();
                                 String strUnit = addUnit.getText().toString();
-                                long price = Long.parseLong(addPrice.getText().toString());
-                                conn.Open();
-                                conn.InsertProduct(strGroup, strName, strUnit, price);
-                                conn.Close();
-                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                productAdapter.notifyDataSetChanged();
+                                String price = addPrice.getText().toString();
+                                if (strName.equals("") || strUnit.equals("") || price.equals("")) {
+                                    Toast.makeText(getActivity(), "Các trường nhập không được trống!!", Toast.LENGTH_SHORT).show();
+                                } else if (Long.valueOf(price) < 8000) {
+                                    Toast.makeText(getActivity(), "Giá thức uống không được quá nhỏ!!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    conn.Open();
+                                    conn.InsertProduct(strGroup, strName, strUnit, Long.valueOf(price));
+                                    conn.Close();
+                                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    productAdapter.notifyDataSetChanged();
+                                }
                             }
                         })
                         .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
