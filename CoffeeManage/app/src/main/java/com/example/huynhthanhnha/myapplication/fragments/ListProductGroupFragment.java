@@ -96,11 +96,17 @@ public class ListProductGroupFragment extends Fragment {
                                             public void onClick(DialogInterface dialog, int id) {
 
                                                 etPrice = (EditText) dialogView.findViewById(R.id.editPrice);
-                                                long price = Long.valueOf(etPrice.getText().toString());
-
-                                                conn.Open();
-                                                conn.UpdatePrice(product, price);
-                                                conn.Close();
+                                                String price = String.valueOf(etPrice.getText());
+                                                if (String.valueOf(price).equals("")) {
+                                                    Toast.makeText(getActivity(), "Trường giá không được rỗng!!", Toast.LENGTH_SHORT).show();
+                                                } else if (Long.valueOf(price) < 8000) {
+                                                    Toast.makeText(getActivity(), "Giá thức uống không được quá nhỏ!!", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    conn.Open();
+                                                    conn.UpdatePrice(product, Long.valueOf(price));
+                                                    conn.Close();
+                                                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                                }
 
                                                 productAdapter.notifyDataSetChanged();
                                             }
@@ -189,7 +195,7 @@ public class ListProductGroupFragment extends Fragment {
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
                         // TODO Auto-generated method stub
                         strGroup = String.valueOf(list.get(position));
-                       // Toast.makeText(getActivity(), list.get(position), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(), list.get(position), Toast.LENGTH_SHORT).show();
 
                     }
 
