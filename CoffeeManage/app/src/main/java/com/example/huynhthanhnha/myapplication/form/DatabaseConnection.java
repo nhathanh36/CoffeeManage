@@ -870,7 +870,6 @@ public class DatabaseConnection {
     }
 
     //Get total price for all bill in statistics
-    public long getPriceAllBill() {
     public long getPriceAllBill(final int[] intDate){
         long priceAll = 0;
         List<Bill> billList = getListBill(intDate);
@@ -1016,15 +1015,7 @@ public class DatabaseConnection {
                 return bill.isState() == false;
             }
         });
-<<<<<<< HEAD
         return listBill;
-    }
-
-=======
-        for (Bill b: result){
-            listBill.add(b);
-        }
-        return  listBill;
     }
 
     public List<Bill> getListBill(final int[] intDate){
@@ -1044,7 +1035,6 @@ public class DatabaseConnection {
         return  listBill;
     }
 
->>>>>>> origin/master
     public List<Product> aaa() {
         List<Product> products = new ArrayList<>();
         ObjectSet<Product> Products = db.queryByExample(Product.class);
@@ -1075,10 +1065,6 @@ public class DatabaseConnection {
 
         db.store(groupProduct);
         db.commit();
-    }
-
-    public void Close() {
-        db.close();
     }
 
     public long getPriceProductInCurrentBill(final int productID, Calendar cal) {
@@ -1136,23 +1122,28 @@ public class DatabaseConnection {
         return price;
     }
 
-<<<<<<< HEAD
-=======
+    public void UpdateNameGroup(final int id, String name) {
+        GroupProduct groupProduct;
+        ObjectSet<GroupProduct> result = db.query(new Predicate<GroupProduct>() {
+            @Override
+            public boolean match(GroupProduct gp) {
+                return gp.getGroupID() == id;
+            }
+        });
+        groupProduct = result.next();
+        System.out.println("before Ten san pham: " + groupProduct.getGroupProductName());
+        groupProduct.setGroupProductName(name);
+        System.out.println("after Ten san pham: " + groupProduct.getGroupProductName());
 
-
-
-
-
-
-
-
+        db.store(groupProduct);
+        db.commit();
+    }
 
     public void Close(){
         db.close();
     }
 
 
->>>>>>> origin/master
 }
 
 

@@ -15,6 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.R;
 import com.example.huynhthanhnha.myapplication.adapter.ListGroupAdapter;
 import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
@@ -30,7 +31,10 @@ import java.util.List;
  */
 public class ShowGroupActivity extends Activity {
     ListView lvGroup;
+    EditText etName;
     EditText addName;
+    TextView tvUserName;
+    TextView tvAuth;
     DatabaseConnection conn = new DatabaseConnection();
     List<GroupProduct> listGroupProduct = new ArrayList<GroupProduct>();
 
@@ -40,6 +44,10 @@ public class ShowGroupActivity extends Activity {
         setContentView(R.layout.group_product);
 
         lvGroup = (ListView) findViewById(R.id.groupListView);
+        tvUserName = (TextView) findViewById(R.id.tvUserName);
+        tvAuth = (TextView) findViewById(R.id.tvAuth);
+        tvUserName.setText("Tên: " + Login.getUser().getName().toString());
+        tvAuth.setText("Cấp: " + Login.getUser().getPer().getDetails().toString());
 
         conn.Open();
         listGroupProduct = conn.getListGroupProduct();
@@ -94,43 +102,44 @@ public class ShowGroupActivity extends Activity {
                                 builder.create();
                                 builder.show();
                                 return true;
-                            case R.id.itemDelete:
+                            case R.id.itemDeleteGroup:
 
                                 return true;
-                            case R.id.itemEditName:
-//                                // Dialog edit name
-//                                final AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-//                                // Get the layout inflater
-//                                LayoutInflater inflater1 = getActivity().getLayoutInflater();
-//
-//                                // Inflate and set the layout for the dialog
-//                                // Pass null as the parent view because its going in the dialog layout
-//                                final View dialogView1 = inflater1.inflate(R.layout.dialog_edit_name, null);
-//                                builder1.setView(dialogView1)
-//                                        .setTitle("Cập nhật tên sản phẩm")
-//                                                // Add action buttons
-//                                        .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int id) {
-//
-//                                                etName = (EditText) dialogView1.findViewById(R.id.editName);
-//                                                String newName = etName.getText().toString();
-//
-//                                                conn.Open();
-//                                                conn.UpdateNameProduct(product.getProductId(), newName);
-//                                                conn.Close();
-//                                                //listProduct.clear();
-//                                                productAdapter.notifyDataSetChanged();
-//                                            }
-//                                        })
-//                                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-//                                            public void onClick(DialogInterface dialog, int id) {
-//                                                //LoginDialogFragment.this.getDialog().cancel();
-//                                            }
-//                                        });
-//                                builder1.create();
-//                                builder1.show();
-//                                return true;
+                            case R.id.itemEditGroup:
+                                // Dialog edit name
+                                final AlertDialog.Builder builder1 = new AlertDialog.Builder(ShowGroupActivity.this);
+                                // Get the layout inflater
+                                LayoutInflater inflater1 = ShowGroupActivity.this.getLayoutInflater();
+
+                                // Inflate and set the layout for the dialog
+                                // Pass null as the parent view because its going in the dialog layout
+                                final View dialogView1 = inflater1.inflate(R.layout.dialog_edit_group, null);
+                                builder1.setView(dialogView1)
+                                        .setTitle("Cập nhật tên sản phẩm")
+                                                // Add action buttons
+                                        .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                etName = (EditText) dialogView1.findViewById(R.id.editName);
+                                                etName.setHint(group.getGroupProductName().toString());
+                                                String newName = etName.getText().toString();
+
+                                                conn.Open();
+                                                conn.UpdateNameGroup(group.getGroupID(), newName);
+                                                conn.Close();
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        })
+                                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                //LoginDialogFragment.this.getDialog().cancel();
+                                            }
+                                        });
+                                builder1.create();
+                                builder1.show();
+                                return true;
                         }
                         return false;
                     }

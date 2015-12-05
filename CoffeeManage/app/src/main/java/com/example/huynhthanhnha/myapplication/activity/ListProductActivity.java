@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
 import com.example.huynhthanhnha.myapplication.form.ListPrice;
@@ -35,6 +36,8 @@ public class ListProductActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     Fragment fragment = null;
     ListView mainlist;
+    TextView tvUserName;
+    TextView tvAuth;
     ArrayList<String> formain = new ArrayList<String>();
     DatabaseConnection conn = new DatabaseConnection();
     List<GroupProduct> listGroupProduct = new ArrayList<GroupProduct>();
@@ -43,6 +46,10 @@ public class ListProductActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_product);
+        tvUserName = (TextView) findViewById(R.id.tvUserName);
+        tvAuth = (TextView) findViewById(R.id.tvAuth);
+        tvUserName.setText("Tên: " + Login.getUser().getName().toString());
+        tvAuth.setText("Cấp: " + Login.getUser().getPer().getDetails().toString());
 
         conn.Open();
         listGroupProduct = conn.getListGroupProduct();
