@@ -1,4 +1,5 @@
-﻿package com.example.huynhthanhnha.myapplication.form;
+
+package com.example.huynhthanhnha.myapplication.form;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -377,7 +378,6 @@ public class DatabaseConnection {
         return listProduct;
     }
 
-
     //Get list group product
     public List<GroupProduct> getListGroup() {
         List<GroupProduct> listGroup = new ArrayList<GroupProduct>();
@@ -519,16 +519,16 @@ public class DatabaseConnection {
         return bills.next();
     }
 
-    public Officer getOfficer(){
+    public Officer getOfficer() {
         ObjectSet<Officer> result = db.query(new Predicate<Officer>() {
             public boolean match(Officer officer) {
                 return officer.getUsername().equals(Login.getUser().getUsername());
             }
         });
-        return  result.next();
+        return result.next();
     }
 
-    public void InsertProductForBill(Product product, int unitSales, final int tableID){
+    public void InsertProductForBill(Product product, int unitSales, final int tableID) {
         Officer officer = getOfficer();
         Calendar calendar = Calendar.getInstance();
         Product productCm = getProductByID(product.getProductId());
@@ -759,7 +759,6 @@ public class DatabaseConnection {
         return price;
     }
 
-
     public List<Officer> getListOfficer() {
         List<Officer> list = new ArrayList<Officer>();
         ObjectSet<Officer> result = db.queryByExample(Officer.class);
@@ -850,8 +849,7 @@ public class DatabaseConnection {
         return priceTotal;
     }
 
-
-    public long getPriceTotalOfBill(final Bill bill){
+    public long getPriceTotalOfBill(final Bill bill) {
         long priceTotal = 0;
         long priceOfProduct = 0;
         //Get product details of bill
@@ -862,7 +860,7 @@ public class DatabaseConnection {
         });
 
         //Get price of product
-        for (ProductDetails p : details){
+        for (ProductDetails p : details) {
             priceOfProduct = getPriceProductInCurrentBill(p.getProduct().getProductId(), bill.getCalendar());
             priceTotal += priceOfProduct * p.getUnitSales();
         }
@@ -870,7 +868,7 @@ public class DatabaseConnection {
     }
 
     //Get total price for all bill in statistics
-    public long getPriceAllBill(){
+    public long getPriceAllBill() {
         long priceAll = 0;
         /*
         //List<Bill> billList = getListBill();
@@ -881,7 +879,7 @@ public class DatabaseConnection {
         return priceAll;
     }
 
-    public void deleteProductDetail(final ProductDetails productDetails){
+    public void deleteProductDetail(final ProductDetails productDetails) {
         ProductDetails detailsTemp;
         //Get product details to delete
         ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
@@ -999,7 +997,7 @@ public class DatabaseConnection {
                 return (groupProduct.getGroupProductName().equals(group));
             }
         });
-        for (GroupProduct g: groupProducts) {
+        for (GroupProduct g : groupProducts) {
             gp = g;
         }
         gp.deleteProduct(product1);
@@ -1008,7 +1006,7 @@ public class DatabaseConnection {
         System.out.println("Size after: " + aaa().size());
     }
 
-    public List<Bill> getListBill(){
+    public List<Bill> getListBill() {
         List<Bill> listBill = new ArrayList<Bill>();
         ObjectSet<Bill> result = db.query(new Predicate<Bill>() {
             @Override
@@ -1016,9 +1014,8 @@ public class DatabaseConnection {
                 return bill.isState() == false;
             }
         });
-        return  listBill;
+        return listBill;
     }
-
 
     public List<Product> aaa() {
         List<Product> products = new ArrayList<>();
@@ -1052,262 +1049,9 @@ public class DatabaseConnection {
         db.commit();
     }
 
-
     public void Close() {
         db.close();
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public long getPriceProductInCurrentBill(final int productID, Calendar cal) {
         long price = 0;
@@ -1364,11 +1108,6 @@ public class DatabaseConnection {
         }
         return price;
     }
-
-    public void Close(){
-        db.close();
-    }
-
 
 }
 
