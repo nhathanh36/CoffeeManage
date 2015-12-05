@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        System.out.println(this.getDir("data",0));
         //conn = new DatabaseConnection(this.getFilesDir().toString());
         //startActivity(new Intent(MainActivity.this, HomeOfficerActivity.class));
 
