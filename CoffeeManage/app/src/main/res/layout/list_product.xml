@@ -39,31 +39,10 @@
                     android:layout_height="25dp"
                     android:gravity="center_vertical"
                     android:text="Tổng sản phẩm: 30"
-                    
                     android:textColor="@android:color/white"
                     android:textSize="6pt" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_red_dark"
-        android:baselineAligned="false"
-        android:clickable="false"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvSumProduct"
-            android:layout_width="354dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:gravity="center_vertical"
-            android:text="Tổng sản phẩm: 30"
-            android:textColor="#FFFFFF"
-            android:textSize="10dp" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -99,13 +78,6 @@
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp" />
         </android.support.v4.widget.DrawerLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
-
     </LinearLayout>
 
 </LinearLayout>

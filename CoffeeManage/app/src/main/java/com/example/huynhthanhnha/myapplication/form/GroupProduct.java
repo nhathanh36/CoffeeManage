@@ -1,6 +1,7 @@
 package com.example.huynhthanhnha.myapplication.form;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -69,7 +70,11 @@ public class GroupProduct {
         GroupProductName = groupProductName;
     }
 
-    public void addProduct(Product product){
+    public void addProduct(Product product) {
         this.listProduct.add(product);
+    }
+
+    public void deleteProduct(Product product) {
+        this.listProduct.remove(product);
     }
 }

@@ -43,6 +43,10 @@
         <activity android:name=".activity.OfficerDetailsActivity">
         </activity>
 
+        <activity android:name=".activity.ShowGroupActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
