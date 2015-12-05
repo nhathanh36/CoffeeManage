@@ -1,8 +1,10 @@
 package com.example.huynhthanhnha.myapplication.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
+import com.example.huynhthanhnha.myapplication.activity.ListProductActivity;
 import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
@@ -46,6 +49,7 @@ public class ListProductGroupFragment extends Fragment {
     EditText addName;
     EditText addUnit;
     String strGroup;
+    String group;
     EditText addPrice;
     List<Product> listProduct = new ArrayList<Product>();
 
@@ -53,15 +57,17 @@ public class ListProductGroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         // Get param from ListProductActivity
-        final String group = this.getArguments().getString("groupActivity");
+        group = this.getArguments().getString("groupActivity");
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
         lvProduct = (ListView) rootView.findViewById(R.id.groupListView);
+        TextView tvSum = (TextView) rootView.findViewById(R.id.tvSumProduct);
         btnAddProduct = (Button) rootView.findViewById(R.id.btnAddProduct);
 
         conn.Open();
         listProduct = conn.getListProductGroupByName(group);
         conn.Close();
 
+        tvSum.setText("Tổng số thức uống: " + String.valueOf(listProduct.size()));
         final ListProductAdapter productAdapter = new ListProductAdapter(this.getActivity(), listProduct);
 
         lvProduct.setAdapter(productAdapter);
@@ -96,11 +102,16 @@ public class ListProductGroupFragment extends Fragment {
                                             public void onClick(DialogInterface dialog, int id) {
 
                                                 etPrice = (EditText) dialogView.findViewById(R.id.editPrice);
-                                                long price = Long.valueOf(etPrice.getText().toString());
-
-                                                conn.Open();
-                                                conn.UpdatePrice(product, price);
-                                                conn.Close();
+                                                String price = String.valueOf(etPrice.getText());
+                                                if (String.valueOf(price).equals("")) {
+                                                    Toast.makeText(getActivity(), "Trường giá không được rỗng!!", Toast.LENGTH_SHORT).show();
+                                                } else if (Long.valueOf(price) < 8000) {
+                                                    Toast.makeText(getActivity(), "Giá thức uống không được quá nhỏ!!", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    conn.Open();
+                                                    conn.UpdatePrice(product, Long.valueOf(price));
+                                                    conn.Close();
+                                                }
 
                                                 productAdapter.notifyDataSetChanged();
                                             }
@@ -114,7 +125,32 @@ public class ListProductGroupFragment extends Fragment {
                                 builder.show();
                                 return true;
                             case R.id.itemDelete:
-
+//                                final AlertDialog.Builder builderDelete = new AlertDialog.Builder(getActivity());
+//                                // Get the layout inflater
+//                                LayoutInflater inflaterDelete = getActivity().getLayoutInflater();
+//
+//                                // Inflate and set the layout for the dialog
+//                                // Pass null as the parent view because its going in the dialog layout
+//                                builderDelete
+//                                        .setTitle("Xoá thức uống")
+//                                                // Add action buttons
+//                                        .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int id) {
+//                                                conn.Open();
+//                                                conn.deleteProduct(product, group);
+//                                                conn.Close();
+//                                                Toast.makeText(getActivity(), product.getProductName(), Toast.LENGTH_SHORT).show();
+//                                                productAdapter.notifyDataSetChanged();
+//                                            }
+//                                        })
+//                                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int id) {
+//                                                //LoginDialogFragment.this.getDialog().cancel();
+//                                            }
+//                                        });
+//                                builderDelete.create();
+//                                builderDelete.show();
                                 return true;
                             case R.id.itemEditName:
                                 // Dialog edit name
@@ -189,7 +225,7 @@ public class ListProductGroupFragment extends Fragment {
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
                         // TODO Auto-generated method stub
                         strGroup = String.valueOf(list.get(position));
-                       // Toast.makeText(getActivity(), list.get(position), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(), list.get(position), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -215,12 +251,18 @@ public class ListProductGroupFragment extends Fragment {
 
                                 String strName = addName.getText().toString();
                                 String strUnit = addUnit.getText().toString();
-                                long price = Long.parseLong(addPrice.getText().toString());
-                                conn.Open();
-                                conn.InsertProduct(strGroup, strName, strUnit, price);
-                                conn.Close();
-                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                productAdapter.notifyDataSetChanged();
+                                String price = addPrice.getText().toString();
+                                if (strName.equals("") || strUnit.equals("") || price.equals("")) {
+                                    Toast.makeText(getActivity(), "Các trường nhập không được trống!!", Toast.LENGTH_SHORT).show();
+                                } else if (Long.valueOf(price) < 8000) {
+                                    Toast.makeText(getActivity(), "Giá thức uống không được quá nhỏ!!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    conn.Open();
+                                    conn.InsertProduct(strGroup, strName, strUnit, Long.valueOf(price));
+                                    conn.Close();
+                                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    productAdapter.notifyDataSetChanged();
+                                }
                             }
                         })
                         .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
