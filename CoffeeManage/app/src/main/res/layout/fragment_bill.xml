@@ -16,6 +16,19 @@
             android:textColor="#ffffff"
             android:layout_height="match_parent"
             android:text="HÓA ĐƠN"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_height="wrap_content"
+            android:text="Chọn ngày"
+            android:id="@+id/btnChooseDate"
+            android:textSize="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/text"
+            android:layout_toEndOf="@+id/text" />
+
+        <!--
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="35dp"
@@ -25,6 +38,7 @@
             android:layout_centerVertical="true"
             android:popupTheme="@color/colorPrimary"
             android:popupBackground="#E0E0E0" />
+            -->
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,7 +49,7 @@
         android:background="#3F51B5">
         <TextView
             android:layout_width="wrap_content"
-            android:paddingLeft="5dp"
+            android:paddingLeft="3dp"
             android:paddingTop="8dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
@@ -43,28 +57,28 @@
             android:textSize="10dp"/>
         <TextView
             android:layout_width="wrap_content"
-            android:paddingLeft="45dp"
+            android:paddingLeft="30dp"
             android:paddingTop="8dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Ngày lập"
-            android:textSize="10dp"/>
+            android:textSize="11dp"/>
         <TextView
             android:layout_width="wrap_content"
-            android:paddingLeft="120dp"
+            android:paddingLeft="95dp"
             android:paddingTop="8dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Nhân viên lập"
-            android:textSize="10dp"/>
+            android:textSize="11dp"/>
         <TextView
             android:layout_width="wrap_content"
-            android:paddingLeft="220dp"
+            android:paddingLeft="268dp"
             android:paddingTop="8dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Tổng tiền"
-            android:textSize="10dp"/>
+            android:textSize="11dp"/>
     </RelativeLayout>
 
     <RelativeLayout

@@ -57,7 +57,7 @@ public class StatisticTabsActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         //setupTabIcons();
-
+/*
         System.out.print("Endinit");
 
         List<String> list = new ArrayList<String>();
@@ -65,11 +65,12 @@ public class StatisticTabsActivity extends AppCompatActivity {
         list.add("Theo tháng");
         list.add("Theo năm");
 
-        final Spinner spBill= (Spinner) findViewById(R.id.spinnerBill);
+        //final Spinner spBill= (Spinner) findViewById(R.id.spinnerBill);
 
         ArrayAdapter<String> adp =new ArrayAdapter<String>(StatisticTabsActivity.this, android.R.layout.simple_list_item_1,list);
         adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBill.setAdapter(adp);
+        */
 
 
     }

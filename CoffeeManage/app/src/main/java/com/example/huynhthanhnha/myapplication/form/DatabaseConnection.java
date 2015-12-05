@@ -28,8 +28,8 @@ import java.util.Comparator;
  */
 public class DatabaseConnection {
     //String filePath;
-    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
-    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
+    //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
     ObjectContainer db;
     boolean flag;
 
@@ -176,7 +176,7 @@ public class DatabaseConnection {
         Date date2 = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String dateInString = "15-11-2015";
-        String dateInString1 = "20-10-2014";
+        String dateInString1 = "20-10-2015";
         String dateInString2 = "20-11-2015";
         try {
             date = sdf.parse(dateInString);
@@ -771,6 +771,7 @@ public class DatabaseConnection {
     }
 
     public void UpdatePrice(final Product product, long price) {
+        Product productOld;
         ListPrice lp = new ListPrice();
         DateClass dateClass = new DateClass();
         dateClass.setDate(new Date());
@@ -789,12 +790,14 @@ public class DatabaseConnection {
                 return p.getProductId() == product.getProductId();
             }
         });
-        lp.setProduct(details.next());
+        productOld = details.next();
 
-        // Set list price into DateClass
-        dateClass.addListPrices(lp);
+        lp.setProduct(productOld);    //Set product for list price
+        dateClass.addListPrices(lp);  // Set list price into DateClass
 
-        System.out.println("LISPRICE AFTER SET " + dateClass.getListPrices().iterator().next().getPrice());
+        productOld.addPrice(lp);     //Add new price for product
+
+        //System.out.println("LISPRICE AFTER SET " + dateClass.getListPrices().iterator().next().getPrice());
 
         db.store(lp);
         db.commit();
@@ -870,14 +873,13 @@ public class DatabaseConnection {
     }
 
     //Get total price for all bill in statistics
-    public long getPriceAllBill(){
+    public long getPriceAllBill(final int[] intDate){
         long priceAll = 0;
-        /*
-        //List<Bill> billList = getListBill();
+        List<Bill> billList = getListBill(intDate);
         for(Bill b: billList) {
             priceAll += getPriceTotalOfBill(b);
         }
-        */
+
         return priceAll;
     }
 
@@ -1016,9 +1018,28 @@ public class DatabaseConnection {
                 return bill.isState() == false;
             }
         });
+        for (Bill b: result){
+            listBill.add(b);
+        }
         return  listBill;
     }
 
+    public List<Bill> getListBill(final int[] intDate){
+        List<Bill> listBill = new ArrayList<Bill>();
+        ObjectSet<Bill> result = db.query(new Predicate<Bill>() {
+            @Override
+            public boolean match(Bill bill) {
+                return bill.isState() == false &&
+                        bill.getCalendar().get(Calendar.DAY_OF_MONTH) == intDate[0] &&
+                        bill.getCalendar().get(Calendar.MONTH)+1 == intDate[1] &&
+                        bill.getCalendar().get(Calendar.YEAR) == intDate[2];
+            }
+        });
+        for (Bill b: result){
+            listBill.add(b);
+        }
+        return  listBill;
+    }
 
     public List<Product> aaa() {
         List<Product> products = new ArrayList<>();
@@ -1035,10 +1056,13 @@ public class DatabaseConnection {
         long price = 0;
         Date closetDate = new Date();
         Date dataCompare = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String dateInString =   String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "-" +
                 String.valueOf(cal.get(Calendar.MONTH)+1) + "-" +
-                String.valueOf(cal.get(Calendar.YEAR));
+                String.valueOf(cal.get(Calendar.YEAR)) + " " +
+                String.valueOf(cal.get(Calendar.HOUR)) + ":" +
+                String.valueOf(cal.get(Calendar.MINUTE)) + ":" +
+                String.valueOf(cal.get(Calendar.SECOND));
         try {
             dataCompare  = sdf.parse(dateInString);
         } catch (ParseException e) {
@@ -1059,23 +1083,19 @@ public class DatabaseConnection {
         //Tang dan ASC
         Collections.sort(dates);
 
-        System.out.println("1.DATE COMPARE: " + dataCompare);
-
         boolean flagFind = false;
         int size = dates.size();
         for(int i=size-1; i>=0; i--){
             if (dates.get(i).compareTo(dataCompare) <= 0){
-                System.out.println("2.DATE: " + dates.get(i));
+                //System.out.println("2.DATE: " + dates.get(i));
                 closetDate = dates.get(i);
                 flagFind = true;
                 break;
             }
-            //System.out.println("3.DATE: " + dates.get(i));
         }
 
         if(!flagFind){
             closetDate = dates.get(size-1);
-            System.out.println("3.DATE(LAY NGAY DAU TIEN): " + dates.get(size-1));
         }
 
         for (ListPrice lp: details) {
@@ -1086,6 +1106,15 @@ public class DatabaseConnection {
         }
         return price;
     }
+
+
+
+
+
+
+
+
+
 
     public void Close(){
         db.close();
