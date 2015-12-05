@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--android:background="#B0BEC5"-->
 <RelativeLayout
     android:id="@+id/relativeProductDetails"
     android:layout_width="match_parent"
@@ -11,7 +11,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="400dp"
-        android:background="#B0BEC5"
+        android:background="@drawable/bg_coffee2"
+
         android:layout_height="80dp">
 
         <LinearLayout
@@ -66,6 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="25dp"
                         android:width="120dp"
+                        android:alpha="100"
                         android:layout_height="wrap_content"
                         android:text="Món mới"
                         android:id="@+id/btnMonmoi" />

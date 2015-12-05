@@ -43,9 +43,8 @@
         <activity android:name=".activity.OfficerDetailsActivity">
         </activity>
 
-        <activity android:name=".activity.ShowGroupActivity">
-
-        </activity>
+        <activity android:name=".activity.CalendarActivity"></activity>
+        <activity android:name=".activity.BillActivity"></activity>
 
     </application>
 
