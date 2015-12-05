@@ -38,7 +38,8 @@ public class HomeActivity extends Activity {
         statistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, StatisticTabsActivity.class));
+                //startActivity(new Intent(HomeActivity.this, StatisticTabsActivity.class));
+                startActivity(new Intent(HomeActivity.this, BillActivity.class));
             }
         });
     }

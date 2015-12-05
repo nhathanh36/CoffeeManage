@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.query.Query;
+import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.MyObject;
 
 import java.util.Comparator;
@@ -25,9 +26,9 @@ import java.util.Comparator;
  */
 public class DatabaseConnection {
     //String filePath;
-    static String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
+    String filePath = "/data/data/com.example.huynhthanhnha.myapplication/files/coffee_db.db4o";
     //String filePath = "/data/data/com.example.huynhthanhnha.myapplication/app_data/coffee.db4o";
-    static ObjectContainer db;
+    ObjectContainer db;
     boolean flag;
 
     public DatabaseConnection(){
@@ -147,6 +148,7 @@ public class DatabaseConnection {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         DateClass dateClass = new DateClass(date);
         DateClass dateClass1 = new DateClass(date1);
         DateClass dateClass2 = new DateClass(date2);
@@ -461,7 +463,17 @@ public class DatabaseConnection {
         return bills.next();
     }
 
+    public Officer getOfficer(){
+        ObjectSet<Officer> result = db.query(new Predicate<Officer>() {
+            public boolean match(Officer officer) {
+                return officer.getUsername().equals(Login.getUser().getUsername());
+            }
+        });
+        return  result.next();
+    }
+
     public void InsertProductForBill(Product product, int unitSales, final int tableID){
+        Officer officer = getOfficer();
         Calendar calendar = Calendar.getInstance();
         Product productCm = getProductByID(product.getProductId());
         int idBill = 0;
@@ -478,7 +490,7 @@ public class DatabaseConnection {
             //System.out.println("ID Bill moi trong ham insert: " + idBill);
 
             //Insert bill
-            bill = new Bill(idBill, calendar);
+            Bill billNew = new Bill(idBill, calendar);
 
             //Insert details product
             //Find max product details id
@@ -490,16 +502,19 @@ public class DatabaseConnection {
             //Get table and set for bill
             tb = getTableByID(tableID);
 
-            bill.setTable(tb);                              //Set table for bill
-            bill.setState(true);                            //Set state for bill //true is not pay
-            bill.addListDetailProduct(productDetailsNew);   //Set details product for bill
+            billNew.setTable(tb);                              //Set table for bill
+            billNew.setState(true);                            //Set state for bill //true is not pay
+            billNew.addListDetailProduct(productDetailsNew);   //Set details product for bill
+            billNew.setOfficer(officer);                  //Set officer for bill
+            System.out.println("NAME OF OFFICER" + billNew.getOfficer().getName());
 
-            tb.addBill(bill);                           //Set bill for table
-            productDetailsNew.setBill(bill);            //Set bill for Details product
+            tb.addBill(billNew);                           //Set bill for table
+            productDetailsNew.setBill(billNew);            //Set bill for Details product
             productDetailsNew.setProduct(productCm);      //Set product for product details
+            officer.addBill(billNew);                      //Add bill for officer
 
             db.store(productDetailsNew);
-            db.store(bill);
+            db.store(billNew);
 
             db.commit();
         }
@@ -782,6 +797,34 @@ public class DatabaseConnection {
         return priceTotal;
     }
 
+    public long getPriceTotalOfBill(final Bill bill){
+        long priceTotal = 0;
+        long priceOfProduct = 0;
+        //Get product details of bill
+        ObjectSet<ProductDetails> details = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails dt) {
+                return dt.getBill().getBillID() == bill.getBillID();
+            }
+        });
+
+        //Get price of product
+        for (ProductDetails p : details){
+            priceOfProduct = getPriceProductInCurrentBill(p.getProduct().getProductId(), bill.getCalendar());
+            priceTotal += priceOfProduct * p.getUnitSales();
+        }
+        return priceTotal;
+    }
+
+    //Get total price for all bill in statistics
+    public long getPriceAllBill(){
+        long priceAll = 0;
+        List<Bill> billList = getListBill();
+        for(Bill b: billList) {
+            priceAll += getPriceTotalOfBill(b);
+        }
+        return priceAll;
+    }
+
     public void deleteProductDetail(final ProductDetails productDetails){
         ProductDetails detailsTemp;
         //Get product details to delete
@@ -839,7 +882,6 @@ public class DatabaseConnection {
             for (Product p : dt){
                 if(p.getProductId() > MaxID)
                     MaxID = p.getProductId();
-
             }
         //System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
         return MaxID;
@@ -883,275 +925,106 @@ public class DatabaseConnection {
         return  result.next();
     }
 
+    public List<Bill> getListBill() {
+        List<Bill> listBill = new ArrayList<Bill>();
+        ObjectSet<Bill> results = db.query(new Predicate<Bill>() {
+            @Override
+            public boolean match(Bill bill) {
+                return bill.isState() == false;
+            }
+        });
+        for(Bill b : results) {
+            listBill.add(b);
+        }
+        return listBill;
+    }
+
+    public List<Bill> getListBillByDate(final int day,final int month,final int year) {
+        List<Bill> listBill = new ArrayList<Bill>();
+        ObjectSet<Bill> results = db.query(new Predicate<Bill>() {
+            @Override
+            public boolean match(Bill bill) {
+                return bill.getCalendar().get(Calendar.YEAR) == year &&
+                        bill.getCalendar().get(Calendar.MONTH) == month &&
+                        bill.getCalendar().get(Calendar.DAY_OF_MONTH) == day;
+            }
+        });
+        return listBill;
+    }
+
+
+    public long getPriceProductInCurrentBill(final int productID, Calendar cal) {
+        long price = 0;
+        Date closetDate = new Date();
+        Date dataCompare = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateInString =   String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "-" +
+                                String.valueOf(cal.get(Calendar.MONTH)+1) + "-" +
+                                String.valueOf(cal.get(Calendar.YEAR));
+        try {
+            dataCompare  = sdf.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        final List<Date> dates = new ArrayList<Date>();
+        ObjectSet<ListPrice> details = db.query(new Predicate<ListPrice>() {
+            public boolean match(ListPrice lp) {
+                return lp.getProduct().getProductId() == productID;
+            }
+        });
+
+        for (ListPrice lp: details){
+            dates.add(lp.getDateClass().getDate());
+        }
+
+        //Tang dan ASC
+        Collections.sort(dates);
+
+        System.out.println("1.DATE COMPARE: " + dataCompare);
+
+        boolean flagFind = false;
+        int size = dates.size();
+        for(int i=size-1; i>=0; i--){
+            if (dates.get(i).compareTo(dataCompare) <= 0){
+                System.out.println("2.DATE: " + dates.get(i));
+                closetDate = dates.get(i);
+                flagFind = true;
+                break;
+            }
+            //System.out.println("3.DATE: " + dates.get(i));
+        }
+
+        if(!flagFind){
+            closetDate = dates.get(size-1);
+            System.out.println("3.DATE(LAY NGAY DAU TIEN): " + dates.get(size-1));
+        }
+
+        for (ListPrice lp: details) {
+            if (lp.getDateClass().getDate() == closetDate) {
+                price = lp.getPrice();
+                break;
+            }
+        }
+
+
+ /*
+        for (ListPrice lp: details) {
+            if (lp.getDateClass().getDate() == closetDate) {
+                price = lp.getPrice();
+                break;
+            }
+        }
+*/
+        return price;
+    }
 
     public void Close(){
         db.close();
     }
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

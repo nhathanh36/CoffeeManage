@@ -1,6 +1,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:scrollbarSize="8dp"
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
@@ -11,9 +12,11 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:background="#607D8B"
+            android:layout_height="55dp"
+            android:background="#3b5998"
+            app:tabTextColor="#ffffff"
             app:tabMode="fixed"
+            android:scrollbarSize="8dp"
             app:tabGravity="fill"  />
     </android.support.design.widget.AppBarLayout>
 
@@ -22,4 +25,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="53dp"
+        android:layout_height="30dp">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:id="@+id/spinnerBillSta"
+            android:layout_centerVertical="true"
+            android:popupTheme="@color/colorPrimary"
+            android:popupBackground="#E0E0E0" />
+
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

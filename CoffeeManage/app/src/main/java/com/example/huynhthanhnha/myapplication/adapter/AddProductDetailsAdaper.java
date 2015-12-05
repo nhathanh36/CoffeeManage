@@ -83,7 +83,7 @@ public class AddProductDetailsAdaper extends BaseAdapter {
 
                 relativeAdd.setVisibility(View.GONE);
                 relativeDetails.setVisibility(View.VISIBLE);
-                //createListProduct();
+               //createListProduct();
             }
         });
 

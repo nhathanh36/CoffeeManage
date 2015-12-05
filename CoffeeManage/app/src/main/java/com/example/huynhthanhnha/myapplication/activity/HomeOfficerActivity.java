@@ -35,7 +35,7 @@ public class HomeOfficerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 img.startAnimation(anim);
-                startActivity(new Intent(HomeOfficerActivity.this, StatisticTabsActivity.class));
+                startActivity(new Intent(HomeOfficerActivity.this, CalendarActivity.class));
             }
         });
 

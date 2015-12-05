@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.ListPopupWindow;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -24,8 +23,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import com.example.huynhthanhnha.myapplication.R;
 //import com.example.huynhthanhnha.myapplication.adapter.AddProductDetailsAdaper;
@@ -34,11 +31,9 @@ import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.Product;
 import com.example.huynhthanhnha.myapplication.form.ProductDetails;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 
 /**
  * Created by NguyenThanh on 19/11/2015.
@@ -61,23 +56,29 @@ public class ListTableDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.table_details);
+        //Get id table by extras variable
         IdTable = getIntent().getExtras().getInt("IdTable");
 
-        inputSearch = (EditText) findViewById(R.id.inputSearch);
-        TextView numTable = (TextView) findViewById(R.id.tableNumber);
-        numTable.setText(String.valueOf(IdTable));
-
-        TextView numTable1 = (TextView) findViewById(R.id.tableNumber1);
-        numTable1.setText("Bàn số " + String.valueOf(IdTable));
-
+        //Get object
         listView = (ListView) findViewById(R.id.listProductDetails);
         relativeDetails = (RelativeLayout) findViewById(R.id.relativeProductDetails);
         relativeAdd = (RelativeLayout) findViewById(R.id.relativeAddProduct);
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
+        btnMonmoi = (Button) findViewById(R.id.btnMonmoi);
+        btnThanhToan = (Button) findViewById(R.id.btnThanhtoan);
 
+        //Set text
+        TextView numTableDetail = (TextView) findViewById(R.id.tableNumber1);
+        numTableDetail.setText("Bàn số " + String.valueOf(IdTable));
+        //Set text
+        TextView numTable = (TextView) findViewById(R.id.tableNumber);
+        numTable.setText(String.valueOf(IdTable));
+
+        //Init data
         createListProductGroup();
         createListProduct();
 
-        btnMonmoi = (Button) findViewById(R.id.btnMonmoi);
+        //Handle event clidk New Button
         btnMonmoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +87,7 @@ public class ListTableDetails extends Activity {
             }
         });
 
-
-        btnThanhToan = (Button) findViewById(R.id.btnThanhtoan);
+        //Event bill
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +137,6 @@ public class ListTableDetails extends Activity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        //Toast.makeText(ListTableDetails.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
                         switch (item.getItemId()) {
                             case R.id.popupDelete:
                                 conn.Open();
@@ -153,7 +152,6 @@ public class ListTableDetails extends Activity {
                         return true;
                     }
                 });
-
                 popup.show();//showing popup menu
             }
         });
@@ -264,5 +262,67 @@ public class ListTableDetails extends Activity {
         }
     }
 
+    public class AddProductDetailsAdaper extends BaseAdapter {
+        List<Product> listProductGroup = new ArrayList<Product>();
+        DatabaseConnection conn = new DatabaseConnection();
 
+        int TableID = 1;
+        EditText unitSales;
+        Activity context;
+        RelativeLayout relativeDetails;
+        RelativeLayout relativeAdd;
+
+        public AddProductDetailsAdaper(Activity context, List<Product> listProductGroup, int TableID, RelativeLayout relativeDetails, RelativeLayout relativeAdd) {
+            this.listProductGroup = listProductGroup;
+            this.context = context;
+            this.TableID = TableID;
+            this.relativeAdd = relativeAdd;
+            this.relativeDetails = relativeDetails;
+        }
+
+        @Override
+        public int getCount() {
+            return listProductGroup.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return listProductGroup.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final Product product = listProductGroup.get(position);
+            LayoutInflater inflater = context.getLayoutInflater();
+            final View rowView = inflater.inflate(R.layout.add_product_item, null);
+
+            TextView productName = (TextView) rowView.findViewById(R.id.tvProductName);
+            productName.setText(String.valueOf(product.getProductName()));
+
+            //When user click each item
+            ImageView imgAddProduct = (ImageView) rowView.findViewById(R.id.imgAddProduct);
+            imgAddProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    conn.Open();
+                    unitSales = (EditText) rowView.findViewById(R.id.editSoluong);
+                    if (unitSales.getText().length() != 0 && Integer.valueOf(unitSales.getText().toString()) != 0) {
+                        conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
+                    }
+                    conn.Close();
+
+                    relativeAdd.setVisibility(View.GONE);
+                    relativeDetails.setVisibility(View.VISIBLE);
+                    createListProduct();
+                }
+            });
+
+            return rowView;
+        }
+    }
 }

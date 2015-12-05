@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="32dp"
+        android:id="@+id/tvSTT"
+        android:textColor="#000000"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:text="STT"
+        android:textSize="11dp"/>
+    <TextView
+        android:layout_width="65dp"
+        android:layout_height="32dp"
+        android:id="@+id/tvNgaylap"
+        android:paddingTop="9dp"
+        android:layout_marginLeft="7dp"
+        android:textColor="@android:color/black"
+        android:text="Ngày lập"
+        android:textSize="11dp"
+        android:gravity="left"/>
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="32dp"
+        android:id="@+id/tvNhanvien"
+        android:paddingTop="9dp"
+        android:layout_marginLeft="7dp"
+        android:textColor="@android:color/black"
+        android:text="Nhân viên"
+        android:textSize="11dp"
+        android:gravity="left"/>
+    <TextView
+        android:layout_width="90dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/tvThanhtien"
+        android:gravity="right"
+        android:layout_gravity="right"
+        android:paddingTop="9dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:text="Thành tiền"
+        android:textSize="13dp"/>
+
+</LinearLayout>

@@ -3,7 +3,9 @@ package com.example.huynhthanhnha.myapplication.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import com.example.huynhthanhnha.myapplication.Login;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.R;
+
+import java.util.ArrayList;
 
 import EDU.purdue.cs.bloat.decorate.Main;
 
@@ -58,6 +62,9 @@ public class MainActivity extends Activity {
                 }
             }
         });
+
+        registerForContextMenu(btn);
+        System.out.println("End");
     }
 
 
@@ -66,6 +73,15 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Context Menu");
+        menu.add(0, v.getId(), 0, "Action 1");
+        menu.add(0, v.getId(), 0, "Action 2");
+        menu.add(0, v.getId(), 0, "Action 3");
     }
 
     @Override

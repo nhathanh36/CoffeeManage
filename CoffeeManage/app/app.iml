@@ -98,5 +98,6 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.1" level="project" />
     <orderEntry type="module" module-name="db4o" exported="" />
+    <orderEntry type="module" module-name="chart-1.7.4" exported="" />
   </component>
 </module>
