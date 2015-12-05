@@ -1,33 +1,24 @@
 package com.example.huynhthanhnha.myapplication.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
-import com.example.huynhthanhnha.myapplication.activity.ListProductActivity;
 import com.example.huynhthanhnha.myapplication.adapter.ListProductAdapter;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
@@ -103,6 +94,7 @@ public class ListProductGroupFragment extends Fragment {
 
                                                 etPrice = (EditText) dialogView.findViewById(R.id.editPrice);
                                                 String price = String.valueOf(etPrice.getText());
+
                                                 if (String.valueOf(price).equals("")) {
                                                     Toast.makeText(getActivity(), "Trường giá không được rỗng!!", Toast.LENGTH_SHORT).show();
                                                 } else if (Long.valueOf(price) < 8000) {
@@ -174,7 +166,6 @@ public class ListProductGroupFragment extends Fragment {
                                                 conn.Open();
                                                 conn.UpdateNameProduct(product.getProductId(), newName);
                                                 conn.Close();
-                                                //listProduct.clear();
                                                 productAdapter.notifyDataSetChanged();
                                             }
                                         })
@@ -190,7 +181,7 @@ public class ListProductGroupFragment extends Fragment {
                         return false;
                     }
                 });
-                popupMenu.inflate(R.menu.popup_menu);
+                popupMenu.inflate(R.menu.popup_menu_product);
                 popupMenu.show();
             }
         });

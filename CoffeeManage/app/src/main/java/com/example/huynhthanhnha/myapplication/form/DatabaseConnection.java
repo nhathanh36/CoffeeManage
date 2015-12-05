@@ -972,6 +972,30 @@ public class DatabaseConnection {
         return products;
     }
 
+    public int getMaxGroupID() {
+        int MaxID = 0;
+        ObjectSet<GroupProduct> dt = db.queryByExample(GroupProduct.class);
+        if (dt.size() != 0)
+            for (GroupProduct gp : dt) {
+                if (gp.getGroupID() > MaxID)
+                    MaxID = gp.getGroupID();
+
+            }
+        //System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
+        return MaxID;
+    }
+
+    public void insertGroup(String groupName) {
+        GroupProduct groupProduct;
+        String detail = "Nhóm mới";
+        int id = getMaxGroupID();
+        groupProduct = new GroupProduct(id, groupName, detail);
+
+        db.store(groupProduct);
+        db.commit();
+    }
+
+
     public void Close() {
         db.close();
     }
