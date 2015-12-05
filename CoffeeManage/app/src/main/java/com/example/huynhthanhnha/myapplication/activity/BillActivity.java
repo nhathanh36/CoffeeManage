@@ -72,7 +72,7 @@ public class BillActivity extends Activity {
 
     public void InitBill(){
         conn.Open();
-        listBill = conn.getListBill();
+        //listBill = conn.getListBill();
         priceTotal = conn.getPriceAllBill();
 
         Calendar cal = Calendar.getInstance();

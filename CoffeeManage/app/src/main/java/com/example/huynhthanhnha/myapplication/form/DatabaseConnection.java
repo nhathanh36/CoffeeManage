@@ -1,4 +1,4 @@
-﻿package com.example.huynhthanhnha.myapplication.form;
+package com.example.huynhthanhnha.myapplication.form;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -872,10 +872,12 @@ public class DatabaseConnection {
     //Get total price for all bill in statistics
     public long getPriceAllBill(){
         long priceAll = 0;
-        List<Bill> billList = getListBill();
+        /*
+        //List<Bill> billList = getListBill();
         for(Bill b: billList) {
             priceAll += getPriceTotalOfBill(b);
         }
+        */
         return priceAll;
     }
 
@@ -1006,19 +1008,17 @@ public class DatabaseConnection {
         System.out.println("Size after: " + aaa().size());
     }
 
-
-    public List<Bill> getListBill() {
+    public List<Bill> getListBill(){
         List<Bill> listBill = new ArrayList<Bill>();
-        ObjectSet<Bill> results = db.query(new Predicate<Bill>() {
+        ObjectSet<Bill> result = db.query(new Predicate<Bill>() {
             @Override
             public boolean match(Bill bill) {
                 return bill.isState() == false;
             }
         });
-        for(Bill b : results) {
-            listBill.add(b);
-        }
-        return listBill;
+        return  listBill;
+    }
+
 
     public List<Product> aaa() {
         List<Product> products = new ArrayList<>();
@@ -1029,18 +1029,6 @@ public class DatabaseConnection {
         return products;
     }
 
-    public List<Bill> getListBillByDate(final int day,final int month,final int year) {
-        List<Bill> listBill = new ArrayList<Bill>();
-        ObjectSet<Bill> results = db.query(new Predicate<Bill>() {
-            @Override
-            public boolean match(Bill bill) {
-                return bill.getCalendar().get(Calendar.YEAR) == year &&
-                        bill.getCalendar().get(Calendar.MONTH) == month &&
-                        bill.getCalendar().get(Calendar.DAY_OF_MONTH) == day;
-            }
-        });
-        return listBill;
-    }
 
 
     public long getPriceProductInCurrentBill(final int productID, Calendar cal) {
@@ -1049,8 +1037,8 @@ public class DatabaseConnection {
         Date dataCompare = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String dateInString =   String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "-" +
-                                String.valueOf(cal.get(Calendar.MONTH)+1) + "-" +
-                                String.valueOf(cal.get(Calendar.YEAR));
+                String.valueOf(cal.get(Calendar.MONTH)+1) + "-" +
+                String.valueOf(cal.get(Calendar.YEAR));
         try {
             dataCompare  = sdf.parse(dateInString);
         } catch (ParseException e) {

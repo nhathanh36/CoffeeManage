@@ -41,7 +41,7 @@ public class BillFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         conn.Open();
-        listBill = conn.getListBill();
+        //listBill = conn.getListBill();
         conn.Close();
     }
 
@@ -52,7 +52,7 @@ public class BillFragment extends Fragment{
         View view =  inflater.inflate(R.layout.fragment_bill, container, false);
         listView = (ListView) view.findViewById(R.id.listBill);
         conn.Open();
-        listBill = conn.getListBill();
+        //listBill = conn.getListBill();
         conn.Close();
         adapterBill = new BillAdapter(getActivity(), listBill);
         listView.setAdapter(adapterBill);
@@ -62,7 +62,7 @@ public class BillFragment extends Fragment{
 
     public void InitBill(){
         conn.Open();
-        listBill = conn.getListBill();
+        //listBill = conn.getListBill();
         conn.Close();
         adapterBill = new BillAdapter(getActivity(), listBill);
         listView.setAdapter(adapterBill);
