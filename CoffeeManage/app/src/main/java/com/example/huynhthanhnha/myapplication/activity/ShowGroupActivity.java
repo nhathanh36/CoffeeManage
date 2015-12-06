@@ -121,8 +121,7 @@ public class ShowGroupActivity extends Activity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int id) {
 
-                                                etName = (EditText) dialogView1.findViewById(R.id.editName);
-                                                etName.setHint(group.getGroupProductName().toString());
+                                                etName = (EditText) dialogView1.findViewById(R.id.editNameGroup);
                                                 String newName = etName.getText().toString();
 
                                                 conn.Open();

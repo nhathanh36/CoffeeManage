@@ -39,6 +39,15 @@ public class HomeOfficerActivity extends AppCompatActivity {
             }
         });
 
+        img = (RelativeLayout) findViewById(R.id.listPrice);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img.startAnimation(anim);
+                startActivity(new Intent(HomeOfficerActivity.this, ShowPriceActivity.class));
+            }
+        });
+
 
         linearLayout = (RelativeLayout) findViewById(R.id.linearListTable);
         linearLayout.setOnClickListener(new View.OnClickListener() {

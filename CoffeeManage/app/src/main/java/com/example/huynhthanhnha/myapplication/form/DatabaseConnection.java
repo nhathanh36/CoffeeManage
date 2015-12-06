@@ -1139,7 +1139,6 @@ public class DatabaseConnection {
         db.commit();
     }
 
-
     public List<ProductDetails> getListProductOfBillDetail(final Bill bill) {
         List<ProductDetails> listDetailProduct = new ArrayList<ProductDetails>();
         ObjectSet<ProductDetails> result = db.query(new Predicate<ProductDetails>() {
@@ -1154,27 +1153,15 @@ public class DatabaseConnection {
         return listDetailProduct;
     }
 
+    public List<ListPrice> getAllListPrice() {
+        List<ListPrice> lp = new ArrayList<>();
+        ObjectSet<ListPrice> listPriceObjectSet = db.queryByExample(ListPrice.class);
+        for (ListPrice listPrice: listPriceObjectSet) {
+            lp.add(listPrice);
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return lp;
+    }
 
 
     public void Close(){
