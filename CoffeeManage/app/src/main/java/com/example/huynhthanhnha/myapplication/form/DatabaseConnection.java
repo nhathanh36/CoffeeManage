@@ -1139,6 +1139,16 @@ public class DatabaseConnection {
         db.commit();
     }
 
+    public List<ListPrice> getAllListPrice() {
+        List<ListPrice> lp = new ArrayList<>();
+        ObjectSet<ListPrice> listPriceObjectSet = db.queryByExample(ListPrice.class);
+        for (ListPrice listPrice: listPriceObjectSet) {
+            lp.add(listPrice);
+        }
+
+        return lp;
+    }
+
     public void Close(){
         db.close();
     }
