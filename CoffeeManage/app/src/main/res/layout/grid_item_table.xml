@@ -26,6 +26,15 @@
             android:textColor="@android:color/black"
             android:gravity="center_horizontal"
             android:id="@+id/tvIDTable"/>
-
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="20dp"
+            android:textSize="7pt"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="2dp"
+            android:text="Bàn 1"
+            android:textColor="@android:color/black"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvIDTable1"/>
     </RelativeLayout>
 </LinearLayout>

@@ -68,9 +68,10 @@
                         android:layout_marginLeft="25dp"
                         android:width="120dp"
                         android:alpha="100"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:text="Món mới"
-                        android:id="@+id/btnMonmoi" />
+                        android:id="@+id/btnMonmoi"
+                        android:background="#f4fbf5" />
                 </LinearLayout>
 
             </LinearLayout>

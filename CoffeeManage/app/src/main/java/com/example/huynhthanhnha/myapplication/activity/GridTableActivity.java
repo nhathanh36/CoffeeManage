@@ -123,8 +123,7 @@ public class GridTableActivity extends Activity {
 
         final Spinner sp1= (Spinner) view.findViewById(R.id.spinner);
 
-        ArrayAdapter<String> adp1=new ArrayAdapter<String>(GridTableActivity.this,
-                android.R.layout.simple_list_item_1,list);
+        ArrayAdapter<String> adp1=new ArrayAdapter<String>(GridTableActivity.this, android.R.layout.simple_list_item_1,list);
         adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp1.setAdapter(adp1);
 

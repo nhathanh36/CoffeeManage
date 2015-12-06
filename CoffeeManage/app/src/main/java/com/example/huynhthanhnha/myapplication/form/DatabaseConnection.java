@@ -963,7 +963,7 @@ public class DatabaseConnection {
 
         for (Table tb : results) {
             tableList.add(tb);
-            System.out.println("TABLE CAN MOVE: " + tb.getIdTable());
+            //System.out.println("TABLE CAN MOVE: " + tb.getIdTable());
         }
 
         return tableList;
@@ -1138,6 +1138,44 @@ public class DatabaseConnection {
         db.store(groupProduct);
         db.commit();
     }
+
+
+    public List<ProductDetails> getListProductOfBillDetail(final Bill bill) {
+        List<ProductDetails> listDetailProduct = new ArrayList<ProductDetails>();
+        ObjectSet<ProductDetails> result = db.query(new Predicate<ProductDetails>() {
+            public boolean match(ProductDetails l) {
+                return l.getBill().getBillID() == bill.getBillID();
+            }
+        });
+
+        for (ProductDetails pd : result) {
+            listDetailProduct.add(pd);
+        }
+        return listDetailProduct;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void Close(){
         db.close();

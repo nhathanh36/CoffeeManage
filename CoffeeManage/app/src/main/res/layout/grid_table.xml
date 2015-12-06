@@ -77,23 +77,23 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
         android:layout_weight="0.69">
         <GridView
             android:layout_width="wrap_content"
-            android:layout_height="400dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="330dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="50dp"
             android:id="@+id/gvListTable"
             android:numColumns="4">
         </GridView>
     </LinearLayout>
-    <!--
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="68dp"
+            android:layout_height="60dp"
             android:background="#d8a6a6a6"
             android:layout_gravity="center"
             android:baselineAligned="false"
@@ -105,37 +105,17 @@
                 android:weightSum="1">
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Chuyển"
+                    android:text="Thêm bàn mới"
                     android:id="@+id/button"
                     android:layout_weight="0.06"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp" />
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="Nhập"
-                    android:id="@+id/button2"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.08"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp" />
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="Tách"
-                    android:id="@+id/button3"
-                    android:layout_weight="0.11" />
             </LinearLayout>
 
-    </LinearLayout> -->
+    </LinearLayout>
 
 </LinearLayout>

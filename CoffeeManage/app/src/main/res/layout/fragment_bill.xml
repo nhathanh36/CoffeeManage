@@ -15,14 +15,24 @@
             android:layout_marginLeft="10dp"
             android:textColor="#ffffff"
             android:layout_height="match_parent"
-            android:text="HÓA ĐƠN"/>
-
+            android:text="DANH SÁCH HÓA ĐƠN"/>
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="30dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="190dp"
+            android:textColor="#ffffff"
+            android:textSize="11dp"
+            android:layout_height="match_parent"
+            android:text="Ngày: "/>
         <Button
             android:layout_width="wrap_content"
             android:layout_marginRight="5dp"
-            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_height="30dp"
             android:text="Chọn ngày"
             android:id="@+id/btnChooseDate"
+            android:background="#ffffff"
             android:textSize="10dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/text"

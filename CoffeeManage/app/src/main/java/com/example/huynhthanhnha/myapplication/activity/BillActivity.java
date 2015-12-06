@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,12 +17,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
+import com.example.huynhthanhnha.myapplication.adapter.BillDetailsAdapter;
 import com.example.huynhthanhnha.myapplication.adapter.CalendarAdapter;
 import com.example.huynhthanhnha.myapplication.form.Bill;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
@@ -44,18 +47,17 @@ public class BillActivity extends Activity {
     List<Bill> listBill = new ArrayList<Bill>();
     BillAdapter adapterBill;
     ListView listView;
-    Button btnChooseDate;
-    long priceTotal = 0;
     TextView tvTotal;
+    Button btnChooseDate;
 
+    long priceTotal = 0;
     int[] intDate = new int[3];
 
     AlertDialog.Builder builder;
-
-    public GregorianCalendar month, itemmonth;// calendar instances.
-    public CalendarAdapter adapter;// adapter instance
+    public GregorianCalendar month, itemmonth;
+    public CalendarAdapter adapter;
     public Handler handler;
-    public ArrayList<String> items; // container to store calendar items which
+    public ArrayList<String> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,50 +79,93 @@ public class BillActivity extends Activity {
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder = new AlertDialog.Builder(BillActivity.this);
-                // Get the layout inflater
-                LayoutInflater inflater = BillActivity.this.getLayoutInflater();
-                TextView title = new TextView(BillActivity.this);
-                title.setText("Chọn ngày thống kê?");
-                title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(10, 10, 10, 10);
-                title.setHeight(60);
-                title.setTextSize(18);
-                title.setTextColor(Color.BLUE);
-                View view = inflater.inflate(R.layout.calendar, null);
-                CreateCalendar(view);
-                builder.setView(view)
-                        .setCustomTitle(title)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                            }
-                        });
-                builder.create();
-                builder.show();
-
+                ShowDialogCalendar();
             }
         });
-/*
-        final Spinner spBill= (Spinner) findViewById(R.id.spinnerBill);
 
-        ArrayAdapter<String> adp=new ArrayAdapter<String>(BillActivity.this,
-                android.R.layout.simple_list_item_1,list);
-        adp.setDropDownViewResource(android.R.layout.simple_spinner_item); //simple_spinner_dropdown_item
-        spBill.setAdapter(adp);
-
-        spBill.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Bill bill = (Bill) parent.getItemAtPosition(position);
+                ShowPopupBillDetail(view, bill);
             }
         });
-        */
+    }
+
+    public void ShowDialogCalendar(){
+        builder = new AlertDialog.Builder(BillActivity.this);
+        LayoutInflater inflater = BillActivity.this.getLayoutInflater();
+        TextView title = new TextView(BillActivity.this);
+        title.setText("Chọn ngày thống kê?");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(16);
+        title.setTextColor(Color.BLUE);
+        View view = inflater.inflate(R.layout.calendar, null);
+        CreateCalendar(view);
+        builder.setView(view)
+                .setCustomTitle(title)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
+    public void ShowPopupBillDetail(View view, final Bill bill){
+        PopupMenu popup = new PopupMenu(BillActivity.this, view);
+        popup.getMenuInflater().inflate(R.menu.popup_bill_details, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.popupBillDetail:
+                        ShowDialogBillDetail(bill);
+                        break;
+                }
+                return true;
+            }
+        });
+        popup.show();//showing popup menu
+    }
+
+    public void ShowDialogBillDetail(final Bill bill){
+        builder = new AlertDialog.Builder(BillActivity.this);
+        LayoutInflater inflater = BillActivity.this.getLayoutInflater();
+        TextView title = new TextView(BillActivity.this);
+        title.setText("CHI TIẾT HÓA ĐƠN");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(16);
+        title.setTextColor(Color.BLUE);
+        View view = inflater.inflate(R.layout.detail_product_bill, null);
+
+        CreateBillDetails(view, bill);
+
+        builder.setView(view)
+                .setCustomTitle(title)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
+    private void CreateBillDetails(View view, Bill bill) {
+        List<ProductDetails> productDetailsList = new ArrayList<ProductDetails>();
+        ListView listViewBillDetail = (ListView) view.findViewById(R.id.listViewBillDetail);
+        conn.Open();
+        productDetailsList = conn.getListProductOfBillDetail(bill);
+        conn.Close();
+        BillDetailsAdapter billAdapter = new BillDetailsAdapter(this, productDetailsList);
+        listViewBillDetail.setAdapter(billAdapter);
+
     }
 
     public void CreateCalendar(final View view){
@@ -233,11 +278,9 @@ public class BillActivity extends Activity {
     }
 
     public Runnable calendarUpdater = new Runnable() {
-
         @Override
         public void run() {
             items.clear();
-
             // Print dates of the current week
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
             String itemvalue;
@@ -251,7 +294,6 @@ public class BillActivity extends Activity {
                 items.add("2012-11-30");
                 items.add("2012-11-28");
             }
-
             adapter.setItems(items);
             adapter.notifyDataSetChanged();
         }
@@ -263,6 +305,7 @@ public class BillActivity extends Activity {
         priceTotal = conn.getPriceAllBill(intDate);
         conn.Close();
 
+        btnChooseDate.setText(intDate[0] + "/" + intDate[1] + "/" + intDate[2]);
         tvTotal.setText(String.valueOf(priceTotal) + " VNĐ");
         adapterBill = new BillAdapter(BillActivity.this, listBill);
         listView.setAdapter(adapterBill);
