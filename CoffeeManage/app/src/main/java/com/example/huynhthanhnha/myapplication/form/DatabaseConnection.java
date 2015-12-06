@@ -114,8 +114,8 @@ public class DatabaseConnection {
         Product pd1 = new Product(1, "Cafe đá", "Ly");
         Product pd2 = new Product(2, "Cafe sữa", "Ly");
         Product pd3 = new Product(3, "Cafe nóng", "Tách");
-        Product pd4 = new Product(4, "Nước khoáng Aquafina", "Chai");
-        Product pd5 = new Product(5, "Nước khoáng LaVie", "Chai");
+        Product pd4 = new Product(4, "Nước suối Aquafina", "Chai");
+        Product pd5 = new Product(5, "Nước suối LaVie", "Chai");
         Product pd6 = new Product(6, "Lipton nóng", "Tách");
         Product pd7 = new Product(7, "Lipton đá", "Ly");
         Product pd8 = new Product(8, "Sinh tố bơ", "Ly");
@@ -1155,7 +1155,16 @@ public class DatabaseConnection {
 
     public List<ListPrice> getAllListPrice() {
         List<ListPrice> lp = new ArrayList<>();
-        ObjectSet<ListPrice> listPriceObjectSet = db.queryByExample(ListPrice.class);
+        Comparator<ListPrice> priceComparator = new Comparator<ListPrice>() {
+
+            @Override
+            public int compare(ListPrice t, ListPrice t1) {
+                return t.getProduct().getProductName().compareTo(t1.getProduct().getProductName());
+            }
+        };
+        Query query = db.query().sortBy(priceComparator);
+        query.constrain(ListPrice.class);
+        ObjectSet<ListPrice> listPriceObjectSet = query.execute();
         for (ListPrice listPrice: listPriceObjectSet) {
             lp.add(listPrice);
         }

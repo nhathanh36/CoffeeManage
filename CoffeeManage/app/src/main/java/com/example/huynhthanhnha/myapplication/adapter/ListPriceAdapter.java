@@ -13,6 +13,7 @@ import com.example.huynhthanhnha.myapplication.form.ListPrice;
 import com.example.huynhthanhnha.myapplication.form.Product;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -55,9 +56,14 @@ public class ListPriceAdapter extends BaseAdapter {
         TextView tvProduct = (TextView) rowView.findViewById(R.id.textProduct);
         TextView tvPrice = (TextView) rowView.findViewById(R.id.textPrice);
         TextView tvDate = (TextView) rowView.findViewById(R.id.tvDate);
-        tvProduct.setText(String.valueOf(lp.getProduct().getProductName()));
+        tvProduct.setText(String.valueOf(position+1) + ". " + String.valueOf(lp.getProduct().getProductName()));
         tvPrice.setText(lp.getPrice() + " đ");
-        tvDate.setText(String.valueOf(lp.getDateClass().getDate()));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(lp.getDateClass().getDate());
+        String date = String.valueOf(cal.get(Calendar.DATE));
+        String month = String.valueOf(cal.get(Calendar.MONTH));
+        String year = String.valueOf(cal.get(Calendar.YEAR));
+        tvDate.setText(date + "/" + month + "/" + year);
         return rowView;
     }
 }

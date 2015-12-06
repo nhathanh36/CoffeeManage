@@ -61,12 +61,12 @@ public class ShowPriceActivity extends Activity {
                 final ListPrice price = (ListPrice) parent.getItemAtPosition(position); // get Item in position
 
                 // Dialog show list edit, delete,...
-                PopupMenu popupMenu = new PopupMenu(ShowPriceActivity.this, view);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.itemAddGroup:
+//                PopupMenu popupMenu = new PopupMenu(ShowPriceActivity.this, view);
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()) {
+//                            case R.id.itemAddGroup:
 //                                // Dialog update price
 //                                final AlertDialog.Builder builder = new AlertDialog.Builder(ShowPriceActivity.this);
 //                                // Get the layout inflater
@@ -102,10 +102,10 @@ public class ShowPriceActivity extends Activity {
 //                                builder.create();
 //                                builder.show();
 //                                return true;
-                            case R.id.itemDeleteGroup:
-
-                                return true;
-                            case R.id.itemEditGroup:
+//                            case R.id.itemDeleteGroup:
+//
+//                                return true;
+//                            case R.id.itemEditGroup:
 //                                // Dialog edit name
 //                                final AlertDialog.Builder builder1 = new AlertDialog.Builder(ShowPriceActivity.this);
 //                                // Get the layout inflater
@@ -139,12 +139,12 @@ public class ShowPriceActivity extends Activity {
 //                                builder1.create();
 //                                builder1.show();
 //                                return true;
-                        }
-                        return false;
-                    }
-                });
-                popupMenu.inflate(R.menu.popup_menu_price);
-                popupMenu.show();
+//                        }
+//                        return false;
+//                    }
+//                });
+//                popupMenu.inflate(R.menu.popup_menu_price);
+//                popupMenu.show();
             }
         });
     }
