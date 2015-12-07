@@ -7,7 +7,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="47dp"
         android:background="#B0BEC5"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -19,7 +19,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_keyboard_backspace_black_24dp"
-            android:id="@+id/imageView" />
+            android:id="@+id/imgBackListOfficer" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,16 +27,16 @@
             android:paddingLeft="5dp"
             android:textColor="#000000"
             android:layout_height="wrap_content"
-            android:text="Danh sách nhân viên"
-            android:textSize="14dp"
+            android:text="DANH SÁCH NHÂN VIÊN"
+            android:textSize="12dp"
             android:id="@+id/textView7" />
 
         <EditText
-            android:id="@+id/inputSearch"
+            android:id="@+id/inputSearchOfficer"
             android:layout_width="match_parent"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="0dp"
             android:gravity="center_vertical"
             android:textSize="12dp"
             android:paddingLeft="35dp"
@@ -53,8 +53,7 @@
         android:background="#3F51B5"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="1">
+        android:layout_alignParentStart="true">
         <TextView
             android:layout_width="wrap_content"
             android:paddingLeft="10dp"
@@ -62,29 +61,28 @@
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Tên nhân viên"
-            android:textSize="10dp"/>
+            android:textSize="11dp"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:paddingLeft="70dp"
+            android:layout_width="79dp"
+            android:paddingLeft="45dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="CMND"
-            android:textSize="10dp"
-            android:layout_weight="0.23" />
+            android:textSize="11dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:paddingLeft="20dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Ngày vào làm"
-            android:textSize="10dp"/>
+            android:textSize="11dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:paddingLeft="20dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="G/Tính"
-            android:textSize="10dp"/>
+            android:textSize="11dp"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -118,7 +116,7 @@
                 android:text="Tổng số NV: "
                 android:textColor="#000000"
                 android:textSize="11dp"
-                android:id="@+id/textView" />
+                android:id="@+id/tvSearchOfficer" />
 
             <Button
                 android:layout_width="100dp"

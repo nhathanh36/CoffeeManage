@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="400dp"
         android:layout_height="90dp"
-        android:background="#03A9F4"
+        android:background="#0FA9F4"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -17,8 +17,9 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/tea" />
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/cocktail" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -28,11 +29,11 @@
 
                 <TextView
                     android:layout_width="257dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:gravity="center_vertical"
                     android:text="Danh sách thức uống"
                     android:textColor="#ffffff"
-                    android:textSize="9pt" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:layout_width="261dp"

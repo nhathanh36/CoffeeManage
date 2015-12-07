@@ -109,6 +109,7 @@ public class BillActivity extends Activity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        InitBill();
                     }
                 });
         builder.create();
@@ -232,7 +233,6 @@ public class BillActivity extends Activity {
                 intDate[1] = Integer.parseInt(separatedTime[1]); //Month
                 intDate[2] = Integer.parseInt(separatedTime[0]); //YYear
 
-                InitBill();
                 //System.out.println(separatedTime[0] + "/" + separatedTime[1] + "/" + separatedTime[2]);
                 //showToast(selectedGridDate);
             }

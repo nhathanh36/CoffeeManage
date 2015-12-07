@@ -21,7 +21,8 @@ import com.example.huynhthanhnha.myapplication.R;
 public class HomeOfficerActivity extends AppCompatActivity {
     private Toolbar toolbar;
     RelativeLayout linearLayout;
-    RelativeLayout img;
+    RelativeLayout imgGroup;
+    RelativeLayout imgPrice;
     RelativeLayout product;
     Animation anim;
     @Override
@@ -30,20 +31,20 @@ public class HomeOfficerActivity extends AppCompatActivity {
         setContentView(R.layout.home_officer);
         anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
-        img = (RelativeLayout) findViewById(R.id.demo);
-        img.setOnClickListener(new View.OnClickListener() {
+        imgGroup = (RelativeLayout) findViewById(R.id.demo);
+        imgGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img.startAnimation(anim);
+                imgGroup.startAnimation(anim);
                 startActivity(new Intent(HomeOfficerActivity.this, ShowGroupActivity.class));
             }
         });
 
-        img = (RelativeLayout) findViewById(R.id.listPrice);
-        img.setOnClickListener(new View.OnClickListener() {
+        imgPrice = (RelativeLayout) findViewById(R.id.listPrice);
+        imgPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img.startAnimation(anim);
+                imgPrice.startAnimation(anim);
                 startActivity(new Intent(HomeOfficerActivity.this, ShowPriceActivity.class));
             }
         });

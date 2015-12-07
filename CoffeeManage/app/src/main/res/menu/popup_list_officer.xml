@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popupModifyOfficer"
+        android:visible="true"
+        android:title="Chỉnh sửa thông tin"/>
+    <item
+        android:id="@+id/popupDeleteOfficer"
+        android:visible="true"
+        android:title="Xóa nhân viên"/>
+</menu>
