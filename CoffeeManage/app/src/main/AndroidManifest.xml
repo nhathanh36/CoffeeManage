@@ -49,6 +49,7 @@
         <activity android:name=".activity.ShowGroupActivity"></activity>
 
         <activity android:name=".activity.ShowPriceActivity"></activity>
+        <activity android:name=".activity.ShowDetailPrice"></activity>
 
     </application>
 

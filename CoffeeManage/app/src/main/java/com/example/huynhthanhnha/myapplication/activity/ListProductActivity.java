@@ -76,7 +76,7 @@ public class ListProductActivity extends AppCompatActivity{
                 Bundle bundle = new Bundle();
                 bundle.putString("groupActivity", getGroup);
 
-                System.out.println("GROUP IN getGROUP: " + getGroup);
+                //System.out.println("GROUP IN getGROUP: " + getGroup);
                 fragment = new ListProductGroupFragment();
                 // set param into fragment
                 fragment.setArguments(bundle);

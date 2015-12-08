@@ -12,6 +12,7 @@ public class GroupProduct {
     String GroupProductName;
     String Details;
     Set<Product> listProduct;
+    boolean status = false;
 
     public GroupProduct() {
     }
@@ -76,5 +77,13 @@ public class GroupProduct {
 
     public void deleteProduct(Product product) {
         this.listProduct.remove(product);
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

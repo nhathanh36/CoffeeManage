@@ -445,11 +445,14 @@ public class DatabaseConnection {
                 return t.getGroupProductName().compareTo(t1.getGroupProductName());
             }
         };
-        Query query = db.query().sortBy(groupProductComparator);
-        query.constrain(GroupProduct.class);
-        ObjectSet<GroupProduct> lsGroup = query.execute();//db.queryByExample(GroupProduct.class);
-        for (GroupProduct pd : lsGroup) {
-            listGroup.add(pd);
+        ObjectSet<GroupProduct> lsGroup = db.query(new Predicate<GroupProduct>() {
+            public boolean match(GroupProduct group) {
+                return (group.isStatus() == false);
+            }
+        }, groupProductComparator);
+        for (GroupProduct gp : lsGroup) {
+            listGroup.add(gp);
+            //System.out.println("NAME GR: " +gp.getGroupProductName() + "\t STATUS " + gp.isStatus());
         }
         return listGroup;
     }
@@ -1025,7 +1028,7 @@ public class DatabaseConnection {
             public boolean match(Bill bill) {
                 return bill.isState() == false &&
                         bill.getCalendar().get(Calendar.DAY_OF_MONTH) == intDate[0] &&
-                        bill.getCalendar().get(Calendar.MONTH)+1 == intDate[1] &&
+                        bill.getCalendar().get(Calendar.MONTH) + 1 == intDate[1] &&
                         bill.getCalendar().get(Calendar.YEAR) == intDate[2];
             }
         });
@@ -1162,16 +1165,54 @@ public class DatabaseConnection {
                 return t.getProduct().getProductName().compareTo(t1.getProduct().getProductName());
             }
         };
-        Query query = db.query().sortBy(priceComparator);
-        query.constrain(ListPrice.class);
-        ObjectSet<ListPrice> listPriceObjectSet = query.execute();
-        for (ListPrice listPrice: listPriceObjectSet) {
+        ObjectSet<ListPrice> result = db.query(new Predicate<ListPrice>() {
+            public boolean match(ListPrice lp) {
+                return lp.getPrice() == getPriceOfProduct(lp.getProduct().getProductId());
+            }
+        }, priceComparator);
+        for (ListPrice listPrice: result) {
             lp.add(listPrice);
         }
 
         return lp;
     }
 
+    public List<ListPrice> getListPriceOfProduct(final String productName) {
+        List<ListPrice> lp = new ArrayList<>();
+        Comparator<ListPrice> priceComparator = new Comparator<ListPrice>() {
+
+            @Override
+            public int compare(ListPrice t, ListPrice t1) {
+                return t.getProduct().getProductName().compareTo(t1.getProduct().getProductName());
+            }
+        };
+        ObjectSet<ListPrice> result = db.query(new Predicate<ListPrice>() {
+            public boolean match(ListPrice lp) {
+                return lp.getProduct().getProductName().equals(productName);
+            }
+        }, priceComparator);
+        for (ListPrice listPrice: result) {
+            lp.add(listPrice);
+        }
+
+        return lp;
+    }
+
+    public void deleteGroup(final GroupProduct gp) {
+        ObjectSet<GroupProduct> obsGroup = db.query(new Predicate<GroupProduct>() {
+            @Override
+            public boolean match(GroupProduct groupProduct) {
+                return gp.getGroupProductName().equals(groupProduct.getGroupProductName());
+            }
+        });
+
+        for (GroupProduct delGroup: obsGroup) {
+            delGroup.setStatus(true);
+            db.store(delGroup);
+            db.commit();
+        }
+
+    }
 
     public void Close(){
         db.close();

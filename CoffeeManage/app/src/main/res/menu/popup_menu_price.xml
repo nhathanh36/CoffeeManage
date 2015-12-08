@@ -1,21 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/itemAddGroup"
+        android:id="@+id/itemDetailPrice"
         style="SizeGird"
-        android:title="Thêm nhóm mới"
+        android:title="Chi tiết giá thức uống"
         android:visible="true"
         android:theme="@style/AppTheme"
         android:textSize="4sp"/>
-    <item
-        android:id="@+id/itemDeleteGroup"
-        android:title="Xóa nhóm"
-        android:visible="true"
-        android:textSize="12sp"/>
-    <item
-        android:id="@+id/itemEditGroup"
-        android:title="Chỉnh sửa tên nhóm"
-        android:visible="true"
-        android:textSize="12sp"/>
 
 </menu>
