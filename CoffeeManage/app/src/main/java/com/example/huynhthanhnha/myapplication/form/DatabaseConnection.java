@@ -1214,6 +1214,34 @@ public class DatabaseConnection {
 
     }
 
+    public List<Bill> getBillFromDateToDate(final Calendar startDate, final Calendar endDate){
+        List<Bill> listBill = new ArrayList<Bill>();
+        ObjectSet<Bill> result = db.query(new Predicate<Bill>() {
+            @Override
+            public boolean match(Bill bill) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                return sdf.format(bill.getCalendar().getTime()).compareTo(sdf.format(startDate.getTime())) >= 0 &&
+                        sdf.format(bill.getCalendar().getTime()).compareTo(sdf.format(endDate.getTime())) <= 0;
+            }
+        });
+
+        for(Bill b: result){
+            listBill.add(b);
+            System.out.println("ID BILL COMPARE CALENDAR" + b.getBillID());
+        }
+
+        return listBill;
+    }
+
+
+
+
+
+
+
+
+
+
     public void Close(){
         db.close();
     }
