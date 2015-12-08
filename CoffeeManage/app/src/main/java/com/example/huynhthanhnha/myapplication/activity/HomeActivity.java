@@ -18,6 +18,7 @@ public class HomeActivity extends Activity {
     LinearLayout lnOfficer;
     LinearLayout statistic;
     TextView textViewName;
+    ImageView imgLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,14 @@ public class HomeActivity extends Activity {
             public void onClick(View v) {
                 //startActivity(new Intent(HomeActivity.this, StatisticTabsActivity.class));
                 startActivity(new Intent(HomeActivity.this, BillActivity.class));
+            }
+        });
+
+        imgLogout = (ImageView) findViewById(R.id.imgLogout);
+        imgLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, ChartActivity.class));
             }
         });
     }

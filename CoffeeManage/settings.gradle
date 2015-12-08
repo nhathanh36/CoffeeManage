@@ -1,1 +1,1 @@
-include ':app', ':db4o', ':chart-1.7.4'
+include ':app', ':db4o', ':chart'

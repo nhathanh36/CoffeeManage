@@ -50,6 +50,7 @@
 
         <activity android:name=".activity.ShowPriceActivity"></activity>
         <activity android:name=".activity.ShowDetailPrice"></activity>
+        <activity android:name=".activity.ChartActivity"></activity>
 
     </application>
 
