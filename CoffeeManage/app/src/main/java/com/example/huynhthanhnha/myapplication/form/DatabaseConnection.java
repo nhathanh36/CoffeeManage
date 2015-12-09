@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
 
@@ -1233,9 +1234,51 @@ public class DatabaseConnection {
         return listBill;
     }
 
+    public int getQuanlitySalesOfProduct(final Product product, final Calendar startDate, final Calendar endDate){
+        int sumQuanlity = 0;
+        ObjectSet<ProductDetails> result = db.query(new Predicate<ProductDetails>() {
+            @Override
+            public boolean match(ProductDetails productDetails) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
 
+                System.out.println("CSDL: " + sdf.format(productDetails.getBill().getCalendar().getTime()));
+                System.out.println("Tham so: " + sdf.format(startDate.getTime()));
 
+
+                return sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(startDate.getTime())) >= 0 &&
+                        sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(endDate.getTime())) <= 0 &&
+                        productDetails.getProduct().getProductId() == product.getProductId();
+            }
+        });
+
+        for(ProductDetails pd:result){
+            sumQuanlity += pd.getUnitSales();
+        }
+
+        return sumQuanlity;
+    }
+
+    public int getRevenueSalesOfProduct(final Product product, final Calendar startDate, final Calendar endDate){
+        int sumRevenue = 0;
+        double price = 0;
+        ObjectSet<ProductDetails> result = db.query(new Predicate<ProductDetails>() {
+            @Override
+            public boolean match(ProductDetails productDetails) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                return sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(startDate.getTime())) >= 0 &&
+                        sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(endDate.getTime())) <= 0 &&
+                        productDetails.getProduct().getProductId() == product.getProductId();
+            }
+        });
+
+        for(ProductDetails pd:result){
+            price = getPriceProductInCurrentBill(product.getProductId(), pd.getBill().getCalendar());
+            sumRevenue += price * pd.getUnitSales();
+        }
+
+        return sumRevenue;
+    }
 
 
 

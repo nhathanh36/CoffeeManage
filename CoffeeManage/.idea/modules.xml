@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/chart/chart.iml" filepath="$PROJECT_DIR$/chart/chart.iml" />
       <module fileurl="file://$PROJECT_DIR$/db4o/db4o.iml" filepath="$PROJECT_DIR$/db4o/db4o.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hellocharts-library/hellocharts-library.iml" filepath="$PROJECT_DIR$/hellocharts-library/hellocharts-library.iml" />
     </modules>
   </component>
 </project>
