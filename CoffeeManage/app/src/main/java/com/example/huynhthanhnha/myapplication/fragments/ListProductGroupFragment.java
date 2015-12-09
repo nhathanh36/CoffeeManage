@@ -2,8 +2,10 @@ package com.example.huynhthanhnha.myapplication.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +45,7 @@ public class ListProductGroupFragment extends Fragment {
     String group;
     ListProductAdapter productAdapter;
     EditText addPrice;
+    TextView tvSum;
     List<Product> listProduct = new ArrayList<Product>();
 
     @Override
@@ -52,12 +55,8 @@ public class ListProductGroupFragment extends Fragment {
         group = this.getArguments().getString("groupActivity");
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
         lvProduct = (ListView) rootView.findViewById(R.id.groupListView);
-        TextView tvSum = (TextView) rootView.findViewById(R.id.tvSumProduct);
+        tvSum = (TextView) rootView.findViewById(R.id.tvSumProduct);
         btnAddProduct = (Button) rootView.findViewById(R.id.btnAddProduct);
-
-
-
-        tvSum.setText("Tổng số thức uống: " + String.valueOf(listProduct.size()));
 
         InitListProduct();
         lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,6 +83,7 @@ public class ListProductGroupFragment extends Fragment {
         listProduct = conn.getListProductGroupByName(group);
         conn.Close();
 
+        tvSum.setText("Tổng số thức uống: " + String.valueOf(listProduct.size()));
         productAdapter = new ListProductAdapter(this.getActivity(), listProduct);
         lvProduct.setAdapter(productAdapter);
     }
@@ -118,20 +118,29 @@ public class ListProductGroupFragment extends Fragment {
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        TextView title = new TextView(getActivity());
+        title.setText("CẬP NHẬT GIÁ THỨC UỐNG");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(16);
+        title.setTextColor(Color.BLUE);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.dialog_update_price, null);
         tvProduct = (TextView) dialogView.findViewById(R.id.tvNameProduct);
+        etPrice = (EditText) dialogView.findViewById(R.id.editPrice);
+        conn.Open();
+        etPrice.setText(String.valueOf(conn.getPriceOfProduct(product.getProductId())));
+        conn.Close();
         tvProduct.setText(String.valueOf(product.getProductName()));
-        tvProduct.setTextSize(17);
         builder.setView(dialogView)
-                .setTitle("Cập nhật giá sản phẩm")
+                .setCustomTitle(title)
                         // Add action buttons
                 .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        etPrice = (EditText) dialogView.findViewById(R.id.editPrice);
                         String price = String.valueOf(etPrice.getText());
 
                         if (String.valueOf(price).equals("")) {
@@ -163,17 +172,25 @@ public class ListProductGroupFragment extends Fragment {
         // Get the layout inflater
         LayoutInflater inflater1 = getActivity().getLayoutInflater();
 
+        TextView title = new TextView(getActivity());
+        title.setText("CẬP NHẬT TÊN THỨC UỐNG");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(16);
+        title.setTextColor(Color.BLUE);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView1 = inflater1.inflate(R.layout.dialog_edit_name, null);
+        etName = (EditText) dialogView1.findViewById(R.id.editName);
+        etName.setText(product.getProductName());
         builder1.setView(dialogView1)
-                .setTitle("Cập nhật tên sản phẩm")
+                .setCustomTitle(title)
                         // Add action buttons
                 .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        etName = (EditText) dialogView1.findViewById(R.id.editName);
                         String newName = etName.getText().toString();
 
                         conn.Open();
@@ -195,6 +212,14 @@ public class ListProductGroupFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        TextView title = new TextView(getActivity());
+        title.setText("THÊM THỨC UỐNG");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(16);
+        title.setTextColor(Color.BLUE);
+
         final View rootView = inflater.inflate(R.layout.dialog_add_product, null);
 
         final List<String> list = new ArrayList<String>();
@@ -234,7 +259,7 @@ public class ListProductGroupFragment extends Fragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(rootView)
-                .setTitle("Thêm thức uống")
+                .setCustomTitle(title)
                         // Add action buttons
                 .setPositiveButton("Lưu lại", new DialogInterface.OnClickListener() {
                     @Override

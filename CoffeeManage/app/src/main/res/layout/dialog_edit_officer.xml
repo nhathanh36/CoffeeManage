@@ -75,14 +75,28 @@
             android:text="Giới tính:"
             android:textSize="6pt" />
 
-        <EditText
-            android:id="@+id/editSex"
-            android:layout_width="135dp"
-            android:padding="5dp"
-            android:layout_marginLeft="46dp"
-            android:layout_height="35dp"
-            android:background="@drawable/edit_text"
-            android:hint="Nam, nữ"
-            android:textSize="6pt" />
+        <RadioGroup
+            android:id="@+id/radioSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/editRadioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:checked="false"
+                android:text="Nam" />
+
+            <RadioButton
+                android:id="@+id/editRadioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:text="Nữ" />
+        </RadioGroup>
     </LinearLayout>
 </LinearLayout>

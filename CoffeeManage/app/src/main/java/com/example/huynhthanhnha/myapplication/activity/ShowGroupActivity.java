@@ -192,6 +192,8 @@ public class ShowGroupActivity extends Activity {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView1 = inflater1.inflate(R.layout.dialog_edit_group, null);
+        etName = (EditText) dialogView1.findViewById(R.id.editNameGroup);
+        etName.setText(group.getGroupProductName());
         builder1.setView(dialogView1)
                 .setCustomTitle(titleDialog)
                         // Add action buttons
@@ -199,7 +201,6 @@ public class ShowGroupActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        etName = (EditText) dialogView1.findViewById(R.id.editNameGroup);
                         String newName = etName.getText().toString();
 
                         conn.Open();

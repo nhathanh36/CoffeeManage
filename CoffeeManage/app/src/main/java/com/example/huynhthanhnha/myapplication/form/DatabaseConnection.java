@@ -1,4 +1,4 @@
-﻿package com.example.huynhthanhnha.myapplication.form;
+package com.example.huynhthanhnha.myapplication.form;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -873,10 +873,10 @@ public class DatabaseConnection {
     }
 
     //Get total price for all bill in statistics
-    public long getPriceAllBill(final int[] intDate){
+    public long getPriceAllBill(final int[] intDate) {
         long priceAll = 0;
         List<Bill> billList = getListBill(intDate);
-        for(Bill b: billList) {
+        for (Bill b : billList) {
             priceAll += getPriceTotalOfBill(b);
         }
 
@@ -1021,7 +1021,7 @@ public class DatabaseConnection {
         return listBill;
     }
 
-    public List<Bill> getListBill(final int[] intDate){
+    public List<Bill> getListBill(final int[] intDate) {
         List<Bill> listBill = new ArrayList<Bill>();
         ObjectSet<Bill> result = db.query(new Predicate<Bill>() {
             @Override
@@ -1032,10 +1032,10 @@ public class DatabaseConnection {
                         bill.getCalendar().get(Calendar.YEAR) == intDate[2];
             }
         });
-        for (Bill b: result){
+        for (Bill b : result) {
             listBill.add(b);
         }
-        return  listBill;
+        return listBill;
     }
 
     public List<Product> aaa() {
@@ -1075,14 +1075,14 @@ public class DatabaseConnection {
         Date closetDate = new Date();
         Date dataCompare = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String dateInString =   String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "-" +
-                String.valueOf(cal.get(Calendar.MONTH)+1) + "-" +
+        String dateInString = String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "-" +
+                String.valueOf(cal.get(Calendar.MONTH) + 1) + "-" +
                 String.valueOf(cal.get(Calendar.YEAR)) + " " +
                 String.valueOf(cal.get(Calendar.HOUR)) + ":" +
                 String.valueOf(cal.get(Calendar.MINUTE)) + ":" +
                 String.valueOf(cal.get(Calendar.SECOND));
         try {
-            dataCompare  = sdf.parse(dateInString);
+            dataCompare = sdf.parse(dateInString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -1094,7 +1094,7 @@ public class DatabaseConnection {
             }
         });
 
-        for (ListPrice lp: details){
+        for (ListPrice lp : details) {
             dates.add(lp.getDateClass().getDate());
         }
 
@@ -1103,8 +1103,8 @@ public class DatabaseConnection {
 
         boolean flagFind = false;
         int size = dates.size();
-        for(int i=size-1; i>=0; i--){
-            if (dates.get(i).compareTo(dataCompare) <= 0){
+        for (int i = size - 1; i >= 0; i--) {
+            if (dates.get(i).compareTo(dataCompare) <= 0) {
                 //System.out.println("2.DATE: " + dates.get(i));
                 closetDate = dates.get(i);
                 flagFind = true;
@@ -1112,11 +1112,11 @@ public class DatabaseConnection {
             }
         }
 
-        if(!flagFind){
-            closetDate = dates.get(size-1);
+        if (!flagFind) {
+            closetDate = dates.get(size - 1);
         }
 
-        for (ListPrice lp: details) {
+        for (ListPrice lp : details) {
             if (lp.getDateClass().getDate() == closetDate) {
                 price = lp.getPrice();
                 break;
@@ -1170,7 +1170,7 @@ public class DatabaseConnection {
                 return lp.getPrice() == getPriceOfProduct(lp.getProduct().getProductId());
             }
         }, priceComparator);
-        for (ListPrice listPrice: result) {
+        for (ListPrice listPrice : result) {
             lp.add(listPrice);
         }
 
@@ -1191,7 +1191,7 @@ public class DatabaseConnection {
                 return lp.getProduct().getProductName().equals(productName);
             }
         }, priceComparator);
-        for (ListPrice listPrice: result) {
+        for (ListPrice listPrice : result) {
             lp.add(listPrice);
         }
 
@@ -1206,7 +1206,7 @@ public class DatabaseConnection {
             }
         });
 
-        for (GroupProduct delGroup: obsGroup) {
+        for (GroupProduct delGroup : obsGroup) {
             delGroup.setStatus(true);
             db.store(delGroup);
             db.commit();
@@ -1214,7 +1214,7 @@ public class DatabaseConnection {
 
     }
 
-    public List<Bill> getBillFromDateToDate(final Calendar startDate, final Calendar endDate){
+    public List<Bill> getBillFromDateToDate(final Calendar startDate, final Calendar endDate) {
         List<Bill> listBill = new ArrayList<Bill>();
         ObjectSet<Bill> result = db.query(new Predicate<Bill>() {
             @Override
@@ -1225,7 +1225,7 @@ public class DatabaseConnection {
             }
         });
 
-        for(Bill b: result){
+        for (Bill b : result) {
             listBill.add(b);
             System.out.println("ID BILL COMPARE CALENDAR" + b.getBillID());
         }
@@ -1242,7 +1242,7 @@ public class DatabaseConnection {
             }
         });
 
-        for (Officer o: ojsOff) {
+        for (Officer o : ojsOff) {
             o.setName(strName);
             o.setCMND(strCMND);
             o.setSex(strSex);
@@ -1259,14 +1259,14 @@ public class DatabaseConnection {
             }
         });
 
-        for (Officer o: obsOff) {
+        for (Officer o : obsOff) {
             o.setStatus(true);
             db.store(o);
             db.commit();
         }
     }
 
-    public int getQuanlitySalesOfProduct(final Product product, final Calendar startDate, final Calendar endDate){
+    public int getQuanlitySalesOfProduct(final Product product, final Calendar startDate, final Calendar endDate) {
         int sumQuanlity = 0;
         ObjectSet<ProductDetails> result = db.query(new Predicate<ProductDetails>() {
             @Override
@@ -1284,14 +1284,14 @@ public class DatabaseConnection {
             }
         });
 
-        for(ProductDetails pd:result){
+        for (ProductDetails pd : result) {
             sumQuanlity += pd.getUnitSales();
         }
 
         return sumQuanlity;
     }
 
-    public int getRevenueSalesOfProduct(final Product product, final Calendar startDate, final Calendar endDate){
+    public int getRevenueSalesOfProduct(final Product product, final Calendar startDate, final Calendar endDate) {
         int sumRevenue = 0;
         double price = 0;
         ObjectSet<ProductDetails> result = db.query(new Predicate<ProductDetails>() {
@@ -1304,7 +1304,7 @@ public class DatabaseConnection {
             }
         });
 
-        for(ProductDetails pd:result){
+        for (ProductDetails pd : result) {
             price = getPriceProductInCurrentBill(product.getProductId(), pd.getBill().getCalendar());
             sumRevenue += price * pd.getUnitSales();
         }
@@ -1313,9 +1313,33 @@ public class DatabaseConnection {
     }
 
 
+    public void insertOfficer(String strUsername, String strPass,
+                              String strName, String strCMND, String strDateWork, String strSex) {
+        Permission per = new Permission();
+        Officer officer = new Officer(strUsername, strPass, strName, strCMND, strSex);
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = sdf.parse(strDateWork);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        officer.setWorkDate(date);
 
+        ObjectSet<Permission> result = db.query(new Predicate<Permission>() {
+            @Override
+            public boolean match(Permission permission) {
+                return (permission.getPermissionId() == 2);
+            }
+        });
+        per = result.next();
+        officer.setPer(per);
+        per.addUser(officer);
+        db.store(officer);
+        db.commit();
+    }
 
-    public void Close(){
+    public void Close() {
         db.close();
     }
 

@@ -9,25 +9,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
             android:text="Tên nhân viên:"
+            android:textColor="#000000"
             android:textSize="6pt" />
 
         <EditText
             android:id="@+id/addNameOfficer"
             android:layout_width="135dp"
-            android:padding="5dp"
-            android:layout_marginLeft="10dp"
             android:layout_height="34dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif"
             android:background="@drawable/edit_text"
             android:hint="Nhập tên"
+            android:padding="5dp"
             android:textSize="6pt" />
     </LinearLayout>
 
@@ -36,25 +37,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
             android:text="Username:"
+            android:textColor="#000000"
             android:textSize="6pt" />
 
         <EditText
             android:id="@+id/addUserName"
             android:layout_width="135dp"
-            android:padding="5dp"
-            android:layout_marginLeft="33dp"
+            android:fontFamily="sans-serif"
             android:layout_height="34dp"
+            android:layout_marginLeft="33dp"
             android:background="@drawable/edit_text"
             android:hint="Nhập username"
+            android:padding="5dp"
             android:textSize="6pt" />
     </LinearLayout>
 
@@ -63,25 +65,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
             android:text="Mật khẩu:"
+            android:textColor="#000000"
             android:textSize="6pt" />
 
         <EditText
             android:id="@+id/addPass"
             android:layout_width="135dp"
-            android:padding="5dp"
-            android:layout_marginLeft="38dp"
             android:layout_height="34dp"
+            android:layout_marginLeft="38dp"
             android:background="@drawable/edit_text"
             android:hint="Nhập mật khẩu"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif"
+            android:padding="5dp"
             android:textSize="6pt" />
     </LinearLayout>
 
@@ -89,29 +93,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
             android:text="Ngày vào làm:"
+            android:textColor="#000000"
             android:textSize="6pt" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="30dp"
-            android:text="Chọn ngày"
             android:id="@+id/btnDateWork"
-            android:background="#ffffff"
-            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="sans-serif"
+            android:layout_toEndOf="@+id/text"
             android:layout_toRightOf="@+id/text"
-            android:layout_toEndOf="@+id/text" />
+            android:background="#ffffff"
+            android:text="Chọn ngày"
+            android:textSize="10dp" />
     </LinearLayout>
 
     <!-- Group of product -->
@@ -119,43 +124,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
             android:text="CMND:"
+            android:textColor="#000000"
             android:textSize="6pt" />
 
         <EditText
             android:id="@+id/addCMND"
             android:layout_width="135dp"
-            android:padding="5dp"
-            android:layout_marginLeft="50dp"
             android:layout_height="34dp"
+            android:layout_marginLeft="54dp"
+            android:fontFamily="sans-serif"
             android:background="@drawable/edit_text"
             android:hint="Nhập CMND"
+            android:padding="5dp"
             android:textSize="6pt" />
     </LinearLayout>
 
     <!-- Group of product -->
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:layout_marginBottom="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
             android:text="Giới tính:"
+            android:textColor="#000000"
             android:textSize="6pt" />
 
         <RadioGroup
@@ -164,21 +170,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nam"
-            android:layout_marginLeft="40dp"
-            android:id="@+id/radioMale"
-            android:layout_gravity="center_horizontal"
-            android:checked="true"/>
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:fontFamily="sans-serif"
+                android:checked="false"
+                android:text="Nam" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nữ"
-            android:id="@+id/radioFemale"
-            android:layout_gravity="center_horizontal" />
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:fontFamily="sans-serif"
+                android:text="Nữ" />
         </RadioGroup>
     </LinearLayout>
 

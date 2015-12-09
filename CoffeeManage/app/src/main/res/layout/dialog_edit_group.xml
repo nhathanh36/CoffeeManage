@@ -5,7 +5,8 @@
 
     <!-- Update name of product -->
         <LinearLayout
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -15,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tên mới: "
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:gravity="left"/>
 
             <EditText
@@ -23,6 +24,8 @@
                 android:layout_width="100dp"
                 android:hint="Nhập tên"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text"
+                android:padding="5dp"
                 android:textSize="6pt"
 
                 android:layout_marginLeft="10dp"/>

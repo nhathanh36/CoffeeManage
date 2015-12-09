@@ -1,211 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <!--android:background="#B0BEC5"-->
-<RelativeLayout
-    android:id="@+id/relativeProductDetails"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="400dp"
-        android:background="@drawable/bg_coffee2"
+    <RelativeLayout
+        android:id="@+id/relativeProductDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        android:layout_height="80dp">
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_coffee2"
+
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="75dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/table1" />
+
+                    <TextView
+                        android:id="@+id/tableNumber"
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="39dp"
+                        android:layout_marginTop="23dp"
+                        android:gravity="center_vertical"
+                        android:text="3"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textChitiet"
+                        android:layout_width="257dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:text="CHI TIẾT THỨC UỐNG"
+                        android:textColor="#1B5E20"
+                        android:textSize="17dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tableNumber1"
+                            android:layout_width="70dp"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="Bàn số 3"
+                            android:textColor="#000000"
+                            android:textSize="14dp" />
+
+                        <Button
+                            android:id="@+id/btnMonmoi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="25dp"
+                            android:width="120dp"
+                            android:gravity="center"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/button_mon_moi"
+                            android:text="Món mới" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:background="#3b5998"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textTongsomon"
+                android:layout_width="354dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Tổng số món: 3"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:layout_weight="0.69"
+            android:background="#ffffff">
+
+            <ListView
+                android:id="@+id/listProductDetails"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="75dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/table1"/>
-                <TextView
-                    android:layout_width="20dp"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="39dp"
-                    android:layout_marginTop="23dp"
-                    android:id="@+id/tableNumber"
-                    android:textColor="#000000"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:text="3"/>
-            </RelativeLayout>
-            <LinearLayout
+                android:layout_height="350dp"></ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="460dp"
+            android:background="#ffffff">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/giohang" />
+
+            <Button
+                android:id="@+id/btnThanhtoan"
+                android:layout_width="115dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/button_selector"
+                android:text="Thanh toán"
+                android:textColor="@android:color/white"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/textTong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="257dp"
-                    android:textSize="17dp"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/textChitiet"
-                    android:textColor="#1B5E20"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:text="CHI TIẾT THỨC UỐNG"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="70dp"
-                        android:textSize="14dp"
-                        android:id="@+id/tableNumber1"
-                        android:textColor="#000000"
-                        android:layout_height="30dp"
-                        android:gravity="center_vertical"
-                        android:text="Bàn số 3"/>
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:width="120dp"
-                        android:alpha="100"
-                        android:layout_height="35dp"
-                        android:text="Món mới"
-                        android:id="@+id/btnMonmoi"
-                        android:background="#f4fbf5" />
-                </LinearLayout>
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="25dp"
+                android:gravity="right"
+                android:text="Tổng tiền:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#212121"
+                android:textSize="14dp" />
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvPriceTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:gravity="right"
+                android:text="1530000đ"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#283593"
+                android:textSize="15dp" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="80dp"
-        android:background="#3b5998"
-        android:layout_gravity="center"
-        android:baselineAligned="false">
-        <TextView
-            android:id="@+id/textTongsomon"
-            android:layout_width="354dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:textColor="#ffffff"
-            android:layout_height="match_parent"
-            android:text="Tổng số món: 3"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
-        android:background="#ffffff"
-        android:layout_weight="0.69">
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="350dp"
-            android:id="@+id/listProductDetails">
-        </ListView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_marginTop="460dp"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/giohang"/>
-        <Button
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:text="Thanh toán"
-            android:textSize="11dp"
-            android:id="@+id/btnThanhtoan"
-            android:layout_gravity="bottom" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginLeft="25dp"
-            android:text="Tổng tiền:"
-            android:textColor="#212121"
-            android:textSize="14dp"
-            android:id="@+id/textTong"
-            android:gravity="right"
-            android:layout_gravity="bottom" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginLeft="5dp"
-            android:text="1530000đ"
-            android:textColor="#283593"
-            android:textSize="15dp"
-            android:id="@+id/tvPriceTotal"
-            android:gravity="right"
-            android:layout_gravity="bottom" />
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/relativeAddProduct"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
-            android:orientation="horizontal"
-            android:background="#3b5998"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="#3b5998"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/text"
                 android:layout_width="145dp"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:textColor="#ffffff"
                 android:layout_height="match_parent"
-                android:text="Tên thức uống"/>
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Tên thức uống"
+                android:textColor="#ffffff" />
+
             <EditText
                 android:id="@+id/inputSearch"
                 android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="150dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/edit_text_login"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="150dp"
-                android:textSize="12dp"
+                android:hint="Tìm thức uống"
                 android:paddingLeft="35dp"
                 android:textColor="#000000"
-                android:background="@drawable/edit_text_login"
-                android:layout_height="35dp"
-                android:hint="Tìm thức uống"/>
+                android:textSize="12dp" />
+
             <ImageView
                 android:layout_width="28dp"
-                android:layout_marginTop="12dp"
+                android:layout_height="28dp"
                 android:layout_marginLeft="155dp"
-                android:src="@drawable/search128"
-                android:layout_height="28dp"/>
+                android:layout_marginTop="12dp"
+                android:src="@drawable/search128" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_marginTop="50dp"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:layout_weight="0.69">
+            android:layout_marginTop="50dp"
+            android:layout_weight="0.69"
+            android:background="#ffffff">
+
             <ListView
-                android:layout_marginTop="5dp"
+                android:id="@+id/listProductDetailsForAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="410dp"
-                android:id="@+id/listProductDetailsForAdd">
-            </ListView>
+                android:layout_marginTop="5dp"></ListView>
         </LinearLayout>
     </RelativeLayout>
 

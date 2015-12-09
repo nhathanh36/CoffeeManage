@@ -24,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huynhthanhnha.myapplication.R;
 import com.example.huynhthanhnha.myapplication.adapter.CalendarAdapter;
@@ -40,6 +41,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created by NguyenThanh on 23/11/2015.
  */
@@ -48,6 +51,7 @@ public class OfficerDetailsActivity extends Activity {
     List<Officer> listOfficer = new ArrayList<Officer>();
     ListView listViewOfficer;
     TextView textViewSearch;
+    TextView tvSumOfficer;
     OfficerDetailsAdapter adapter;
     ImageView imgBack;
     Button btnAddOfficer;
@@ -62,12 +66,20 @@ public class OfficerDetailsActivity extends Activity {
 
     RadioGroup radioGrooupSex;
     RadioButton radioBtnSex;
+    RadioButton radioMale;
+    RadioButton radioFemale;
 
     EditText addName;
     EditText addUsername;
     EditText addPass;
     EditText addCMND;
     Button btnDate;
+
+    String saveName = "";
+    String saveUsername = "";
+    String savePass = "";
+    String saveCMND = "";
+    String saveSex = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +96,7 @@ public class OfficerDetailsActivity extends Activity {
         textViewSearch = (TextView) findViewById(R.id.inputSearchOfficer);
         listViewOfficer = (ListView) findViewById(R.id.listViewOfficer);
         btnAddOfficer = (Button) findViewById(R.id.btnAddOfficer);
+        tvSumOfficer = (TextView) findViewById(R.id.tvSumOfficer);
 
         InitListOfficer();
 
@@ -136,6 +149,8 @@ public class OfficerDetailsActivity extends Activity {
         listOfficer = conn.getListOfficer();
         conn.Close();
 
+        tvSumOfficer.setText(String.valueOf(listOfficer.size()));
+
         adapter = new OfficerDetailsAdapter(this, listOfficer);
         listViewOfficer.setAdapter(adapter);
     }
@@ -175,7 +190,8 @@ public class OfficerDetailsActivity extends Activity {
     private void ShowDialogModify(final Officer officer) {
         final EditText editName;
         final EditText editCMND;
-        final EditText editSex;
+        final RadioButton editMale;
+        final RadioButton editFemale;
 
         // Dialog edit name
         final AlertDialog.Builder modifyBuilder = new AlertDialog.Builder(OfficerDetailsActivity.this);
@@ -192,9 +208,17 @@ public class OfficerDetailsActivity extends Activity {
         // Pass null as the parent view because its going in the dialog layout
         final View view = inflater1.inflate(R.layout.dialog_edit_officer, null);
         editName = (EditText) view.findViewById(R.id.editNameOfficer);
+        editName.setText(officer.getName().toString());
         editCMND = (EditText) view.findViewById(R.id.editCMND);
+        editCMND.setText(officer.getCMND().toString());
 
-        editSex = (EditText) view.findViewById(R.id.editSex);
+        editMale = (RadioButton) view.findViewById(R.id.editRadioMale);
+        editFemale = (RadioButton) view.findViewById(R.id.editRadioFemale);
+        if (officer.getSex().equals("Nam")) {
+            editMale.setChecked(true);
+        } else {
+            editFemale.setChecked(true);
+        }
 
         modifyBuilder.setView(view)
                 .setCustomTitle(title)
@@ -204,14 +228,15 @@ public class OfficerDetailsActivity extends Activity {
                     public void onClick(DialogInterface dialog, int id) {
                         String strName;
                         String strCMND;
-                        String strUsername;
-                        String strPass;
-                        String strDate;
                         String strSex;
 
                         strName = editName.getText().toString();
                         strCMND = editCMND.getText().toString();
-                        strSex = editSex.getText().toString();
+                        if (radioMale.isChecked()) {
+                            strSex = "Nam";
+                        } else {
+                            strSex = "Nữ";
+                        }
 
                         conn.Open();
                         conn.updateOfficer(officer, strName, strCMND, strSex);
@@ -279,15 +304,53 @@ public class OfficerDetailsActivity extends Activity {
         final View view = inflater1.inflate(R.layout.dialog_add_officer, null);
         btnDate = (Button) view.findViewById(R.id.btnDateWork);
         radioGrooupSex = (RadioGroup) view.findViewById(R.id.radioSex);
+        radioMale = (RadioButton) view.findViewById(R.id.radioMale);
+        radioFemale = (RadioButton) view.findViewById(R.id.radioFemale);
         addName = (EditText) view.findViewById(R.id.addNameOfficer);
-        // get selected radio button from radioGroup
-        int selectedId = radioGrooupSex.getCheckedRadioButtonId();
-        radioBtnSex = (RadioButton) findViewById(selectedId);
+        addCMND = (EditText) view.findViewById(R.id.addCMND);
+        addUsername = (EditText) view.findViewById(R.id.addUserName);
+        addPass = (EditText) view.findViewById(R.id.addPass);
+
+        addUsername.setText(saveUsername);
+        addPass.setText(savePass);
+        addName.setText(saveName);
+        addCMND.setText(saveCMND);
+
+        if (saveSex.equals("Nam")) {
+            radioMale.setChecked(true);
+        } else {
+            radioFemale.setChecked(true);
+        }
+
+        radioMale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radioMale.setChecked(true);
+            }
+        });
+
+        radioFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radioFemale.setChecked(true);
+            }
+        });
 
         btnDate.setText(intDate[0] + "/" + intDate[1] + "/" + intDate[2]);
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveName = addName.getText().toString();
+                saveUsername = addUsername.getText().toString();
+                savePass = addPass.getText().toString();
+                saveCMND = addCMND.getText().toString();
+
+                if (radioMale.isChecked()) {
+                    saveSex = "Nam";
+                } else {
+                    saveSex = "Nữ";
+                }
+
                 ShowDialogCalendar();
             }
         });
@@ -299,19 +362,34 @@ public class OfficerDetailsActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
+                        String strUsername;
+                        String strPass;
                         String strName;
                         String strCMND;
                         String strDateWork;
                         String strSex;
-//                        conn.Open();
-//                        conn.updateOfficer(officer, strName, strCMND, strSex);
-//                        conn.Close();
-//                        InitListOfficer();
+
+                        strUsername = addUsername.getText().toString();
+                        strPass = addPass.getText().toString();
+                        strName = addName.getText().toString();
+                        strCMND = addCMND.getText().toString();
+                        strDateWork = btnDate.getText().toString();
+
+                        if (radioMale.isChecked()) {
+                            strSex = "Nam";
+                        } else {
+                            strSex = "Nữ";
+                        }
+
+                        conn.Open();
+                        conn.insertOfficer(strUsername, strPass, strName, strCMND, strDateWork, strSex);
+                        conn.Close();
+                        InitListOfficer();
                     }
                 })
                 .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //LoginDialogFragment.this.getDialog().cancel();
+                        dialog.cancel();
                     }
                 });
         addBuilder.create();

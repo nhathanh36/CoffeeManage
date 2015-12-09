@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="400dp"
         android:layout_height="90dp"
-        android:background="#e7a0a0a0">
+        android:background="#e7a0a0a0"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -15,41 +16,42 @@
 
             <ImageView
                 android:layout_width="85dp"
-                android:layout_marginTop="5dp"
                 android:layout_height="85dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/cf1"/>
+                android:layout_marginTop="5dp"
+                android:src="@drawable/cf1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="257dp"
-                    android:textSize="9pt"
-                    android:textColor="#ffffff"
                     android:layout_height="33dp"
                     android:gravity="center_vertical"
-                    android:text="Cafe Quán Phố"/>
+                    android:text="Cafe Quán Phố"
+                    android:textColor="#ffffff"
+                    android:textSize="9pt" />
 
                 <TextView
                     android:id="@+id/tvNameUser"
                     android:layout_width="261dp"
                     android:layout_height="25dp"
-                    android:textSize="7pt"
-                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:text="Tên: Nguyễn Thanh Phi"/>
+                    android:text="Tên: Nguyễn Thanh Phi"
+                    android:textColor="@android:color/black"
+                    android:textSize="7pt" />
 
                 <TextView
+                    android:id="@+id/tvPermission"
                     android:layout_width="261dp"
                     android:layout_height="30dp"
-                    android:textSize="7pt"
-                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:text="Cấp: Nhân viên"
-                    android:id="@+id/tvPermission" />
+                    android:textColor="@android:color/black"
+                    android:textSize="7pt" />
             </LinearLayout>
         </LinearLayout>
 
@@ -57,64 +59,70 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:background="#3b5998"
         android:layout_gravity="center"
+        android:background="#3b5998"
         android:baselineAligned="false"
-        android:clickable="false">
+        android:clickable="false"
+        android:orientation="vertical">
+
         <TextView
-            android:layout_width="354dp"
             android:id="@+id/tvDate"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:textColor="#ffffff"
+            android:layout_width="354dp"
             android:layout_height="match_parent"
-            android:text="Ngày 20/11/2015 8:30 PM"/>
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="Ngày 20/11/2015 8:30 PM"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:layout_weight="0.69">
+        android:layout_weight="0.69"
+        android:background="#ffffff">
+
         <GridView
+            android:id="@+id/gvListTable"
             android:layout_width="wrap_content"
             android:layout_height="330dp"
-            android:layout_marginTop="2dp"
             android:layout_marginBottom="50dp"
-            android:id="@+id/gvListTable"
-            android:numColumns="4">
-        </GridView>
+            android:layout_marginTop="2dp"
+            android:numColumns="4"></GridView>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:background="#d8a6a6a6"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#d8a6a6a6"
-            android:layout_gravity="center"
-            android:baselineAligned="false"
-        android:clickable="false">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:weightSum="1">
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="Thêm bàn mới"
-                    android:id="@+id/button"
-                    android:layout_weight="0.06"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp" />
-            </LinearLayout>
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.06"
+                android:background="@drawable/button_selector"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="Thêm bàn mới"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 

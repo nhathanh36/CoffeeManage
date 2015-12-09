@@ -118,12 +118,26 @@
                 android:textSize="11dp"
                 android:id="@+id/tvSearchOfficer" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSumOfficer"
+                android:text="Tổng số"
+                android:textColor="@android:color/black"
+                android:textSize="11dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"/>
+
             <Button
                 android:layout_width="100dp"
                 android:layout_marginLeft="130dp"
                 android:textSize="11dp"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_height="38dp"
                 android:text="Thêm"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_selector"
                 android:id="@+id/btnAddOfficer" />
         </LinearLayout>
 
