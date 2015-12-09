@@ -1281,8 +1281,34 @@ public class DatabaseConnection {
     }
 
 
+    public void insertNewTable(){
+        int maxTableID = 0;
+        //Get max table
+        ObjectSet<Table> result = db.queryByExample(Table.class);
 
+        for(Table table: result){
+            if(table.getIdTable() > maxTableID){
+                maxTableID = table.getIdTable();
+            }
+        }
+        //Insert table
+        Table table = new Table(maxTableID + 1);
+        db.store(table);
+        db.commit();
+    }
 
+    public void deleteTable(final Table table){
+        ObjectSet<Table> result = db.query(new Predicate<Table>() {
+            @Override
+            public boolean match(Table t) {
+                return t.getIdTable() == table.getIdTable();
+            }
+        });
+        Table oldTable = result.next();
+
+        //db.delete();
+        db.commit();
+    }
 
 
     public void Close(){
