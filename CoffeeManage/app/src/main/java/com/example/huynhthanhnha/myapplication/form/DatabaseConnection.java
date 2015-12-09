@@ -1272,11 +1272,8 @@ public class DatabaseConnection {
             @Override
             public boolean match(ProductDetails productDetails) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-
-                System.out.println("CSDL: " + sdf.format(productDetails.getBill().getCalendar().getTime()));
-                System.out.println("Tham so: " + sdf.format(startDate.getTime()));
-
+                //System.out.println("CSDL: " + sdf.format(productDetails.getBill().getCalendar().getTime()));
+                //System.out.println("Tham so: " + sdf.format(startDate.getTime()));
 
                 return sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(startDate.getTime())) >= 0 &&
                         sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(endDate.getTime())) <= 0 &&

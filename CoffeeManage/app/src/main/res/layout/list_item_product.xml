@@ -6,19 +6,22 @@
 
         <!-- Answer A -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
+            android:paddingLeft="5dp"
             android:layout_height="35dp"
+            android:textColor="#000000"
             android:id="@+id/tvlistProduct"
             android:text="Chưa có thức uống"
             android:textSize="7pt"
-            android:gravity="center"/>
+            android:gravity="left"/>
 
         <!-- Answer B -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:id="@+id/tvPrice"
-            android:layout_marginRight="100dp"
+            android:textColor="#000000"
+            android:layout_marginRight="5dp"
             android:textSize="7pt"
             android:text="Price"
             android:gravity="right"/>
