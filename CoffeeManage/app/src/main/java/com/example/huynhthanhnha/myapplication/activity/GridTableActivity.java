@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
@@ -36,8 +37,10 @@ public class GridTableActivity extends Activity {
     List<Table> listTableMove = new ArrayList<Table>();
     List<Table> listTable = new ArrayList<Table>();
     String date = "";
+    Button btnAddTable;
     TextView tvDate;
     Spinner spinner;
+    ListTableAdapter adapter;
     DatabaseConnection conn = new DatabaseConnection();
     ObjectSet<Table> obsTable;
     TextView nameUser;
@@ -49,6 +52,7 @@ public class GridTableActivity extends Activity {
         setContentView(R.layout.grid_table);
         //System.out.println("External" + this.getDir("data", 0) + "Enviroment: " + Environment.getDataDirectory());
 
+        btnAddTable = (Button)findViewById(R.id.btnAddTable);
         nameUser = (TextView) findViewById(R.id.tvNameUser);
         permission = (TextView) findViewById(R.id.tvPermission);
 
@@ -56,6 +60,12 @@ public class GridTableActivity extends Activity {
 
         createGridTable();
 
+        btnAddTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowDialogAddTable();
+            }
+        });
     }
 
     private void createGridTable() {
@@ -71,8 +81,9 @@ public class GridTableActivity extends Activity {
         conn.Open();
         listTable = conn.getTable();
         conn.Close();
-
-        gridView.setAdapter(new ListTableAdapter(this, listTable));
+        adapter = new ListTableAdapter(this, listTable);
+        gridView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         // Handle when user click on item in grid view
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -162,6 +173,38 @@ public class GridTableActivity extends Activity {
                     }
                 })
                 .setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
+    private void ShowDialogAddTable(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GridTableActivity.this);
+        LayoutInflater inflater = GridTableActivity.this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_confirm, null);
+        TextView title = new TextView(GridTableActivity.this);
+        title.setText("Bạn muốn thêm bàn mới?");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(18);
+        title.setTextColor(Color.BLUE);
+
+        builder.setView(view)
+                //.setTitle("Chọn bàn để chuyển")
+                .setCustomTitle(title)
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        conn.Open();
+                        conn.insertNewTable();
+                        conn.Close();
+                        createGridTable();
+                    }
+                })
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });

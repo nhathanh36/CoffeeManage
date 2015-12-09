@@ -63,7 +63,7 @@ public class ListTableAdapter extends BaseAdapter {
 
         conn.Open();
         if (!conn.checkTableHasExist(table.getIdTable()))
-            img.setImageResource(R.drawable.table2);
+            img.setImageResource(R.drawable.table_active);
         conn.Close();
 
 

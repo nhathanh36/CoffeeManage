@@ -79,7 +79,6 @@ public class ShowPriceActivity extends Activity {
         title.setText("CHI TIẾT GIÁ THỨC UỐNG");
         title.setGravity(Gravity.CENTER_HORIZONTAL);
         title.setPadding(10, 10, 10, 10);
-        title.setHeight(60);
         title.setTextSize(16);
         title.setTextColor(Color.BLUE);
         View view = inflater.inflate(R.layout.list_detail_price, null);

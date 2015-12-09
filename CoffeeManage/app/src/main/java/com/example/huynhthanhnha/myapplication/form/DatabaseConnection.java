@@ -1272,11 +1272,8 @@ public class DatabaseConnection {
             @Override
             public boolean match(ProductDetails productDetails) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-
-                System.out.println("CSDL: " + sdf.format(productDetails.getBill().getCalendar().getTime()));
-                System.out.println("Tham so: " + sdf.format(startDate.getTime()));
-
+                //System.out.println("CSDL: " + sdf.format(productDetails.getBill().getCalendar().getTime()));
+                //System.out.println("Tham so: " + sdf.format(startDate.getTime()));
 
                 return sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(startDate.getTime())) >= 0 &&
                         sdf.format(productDetails.getBill().getCalendar().getTime()).compareTo(sdf.format(endDate.getTime())) <= 0 &&
@@ -1312,7 +1309,6 @@ public class DatabaseConnection {
         return sumRevenue;
     }
 
-
     public void insertOfficer(String strUsername, String strPass,
                               String strName, String strCMND, String strDateWork, String strSex) {
         Permission per = new Permission();
@@ -1325,8 +1321,7 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
         officer.setWorkDate(date);
-
-        ObjectSet<Permission> result = db.query(new Predicate<Permission>() {
+		ObjectSet<Permission> result = db.query(new Predicate<Permission>() {
             @Override
             public boolean match(Permission permission) {
                 return (permission.getPermissionId() == 2);
@@ -1336,6 +1331,35 @@ public class DatabaseConnection {
         officer.setPer(per);
         per.addUser(officer);
         db.store(officer);
+        db.commit();
+    }
+
+    public void insertNewTable(){
+        int maxTableID = 0;
+        //Get max table
+        ObjectSet<Table> result = db.queryByExample(Table.class);
+
+        for(Table table: result){
+            if(table.getIdTable() > maxTableID){
+                maxTableID = table.getIdTable();
+            }
+        }
+        //Insert table
+        Table table = new Table(maxTableID + 1);
+        db.store(table);
+        db.commit();
+    }
+
+    public void deleteTable(final Table table){
+        ObjectSet<Table> result = db.query(new Predicate<Table>() {
+            @Override
+            public boolean match(Table t) {
+                return t.getIdTable() == table.getIdTable();
+            }
+        });
+        Table oldTable = result.next();
+
+        //db.delete();
         db.commit();
     }
 

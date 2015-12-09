@@ -34,26 +34,22 @@
                 android:text="Chào, Nguyễn Thanh Phi"
                 android:textAlignment="center"
                 android:layout_gravity="center|right"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:id="@+id/textShowName"
                 android:layout_weight="0.5" />
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:src="@drawable/logouticon"
                 android:id="@+id/imgLogout" />
-
-
         </LinearLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:paddingBottom="0dp"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
@@ -61,10 +57,10 @@
         android:layout_width="167dp"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/nhanvien"
+            android:src="@drawable/officer"
             android:id="@+id/imgOfficer"
             android:layout_gravity="center_horizontal" />
 
@@ -80,7 +76,31 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/linearReport"
+        android:orientation="vertical"
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/bill_icon"
+            android:id="@+id/imageView1"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:text="Báo cáo hóa đơn"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
         android:id="@+id/linearStatistic"
         android:orientation="vertical"
         android:layout_width="167dp"
@@ -98,12 +118,10 @@
             android:layout_height="20dp"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:text="Thống kê"
-            android:id="@+id/textView3"
+            android:text="Thống kê thức uống"
+            android:id="@+id/textView3v"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

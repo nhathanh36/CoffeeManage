@@ -11,6 +11,10 @@ public class Table {
     int numOfPeople;
     Set<Bill> listBill;
 
+    public Table(int idTable){
+        this.idTable = idTable;
+        this.listBill = new HashSet<Bill>();
+    }
     public Table(int idTable, int numOfPeople) {
         this.idTable = idTable;
         this.numOfPeople = numOfPeople;
