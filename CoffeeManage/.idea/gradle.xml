@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/chart" />
             <option value="$PROJECT_DIR$/db4o" />
+            <option value="$PROJECT_DIR$/hellocharts-library" />
           </set>
         </option>
       </GradleProjectSettings>
