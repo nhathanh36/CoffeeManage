@@ -388,19 +388,6 @@ public class DatabaseConnection {
         return listGroup;
     }
 
-    public List<Product> getListProduct1() {
-        List<Product> listProduct = new ArrayList<Product>();
-        ObjectSet<Product> users = db.query(new Predicate<Product>() {
-            public boolean match(Product product) {
-                return product.getProductId() == 3;
-            }
-        });
-        for (Product pd : listProduct) {
-            listProduct.add(pd);
-        }
-        return listProduct;
-    }
-
     public void InsertProduct(final String groupProductName, String nameOfProduct, String unitOfProduct, long price) {
         Date date = new Date();
         DateClass dateClass = new DateClass(date);
@@ -447,7 +434,7 @@ public class DatabaseConnection {
         };
         ObjectSet<GroupProduct> lsGroup = db.query(new Predicate<GroupProduct>() {
             public boolean match(GroupProduct group) {
-                return (group.isStatus() == false);
+                return (!group.isStatus());
             }
         }, groupProductComparator);
         for (GroupProduct gp : lsGroup) {
@@ -763,7 +750,19 @@ public class DatabaseConnection {
 
     public List<Officer> getListOfficer() {
         List<Officer> list = new ArrayList<Officer>();
-        ObjectSet<Officer> result = db.queryByExample(Officer.class);
+        // Sort by Group name
+        Comparator<Officer> groupProductComparator = new Comparator<Officer>() {
+
+            @Override
+            public int compare(Officer t, Officer t1) {
+                return t.getName().compareTo(t1.getName());
+            }
+        };
+        ObjectSet<Officer> result = db.query(new Predicate<Officer>() {
+            public boolean match(Officer officer) {
+                return (!officer.isStatus());
+            }
+        }, groupProductComparator);
         for (Officer officer : result) {
             list.add(officer);
             //System.out.println("Ten: " + officer.getName() + " CMND: " + officer.getCMND() + " Username" + officer.getPassword());
@@ -1233,14 +1232,37 @@ public class DatabaseConnection {
         return listBill;
     }
 
+    public void updateOfficer(final Officer officer, String strName, String strCMND, String strSex) {
+        ObjectSet<Officer> ojsOff = db.query(new Predicate<Officer>() {
+            @Override
+            public boolean match(Officer off) {
+                return (off.getName().equals(officer.getName()));
+            }
+        });
 
+        for (Officer o: ojsOff) {
+            o.setName(strName);
+            o.setCMND(strCMND);
+            o.setSex(strSex);
+            db.store(o);
+            db.commit();
+        }
+    }
 
+    public void deleteOfficer(final Officer officer) {
+        ObjectSet<Officer> obsOff = db.query(new Predicate<Officer>() {
+            @Override
+            public boolean match(Officer off) {
+                return (off.getName().equals(officer.getName()));
+            }
+        });
 
-
-
-
-
-
+        for (Officer o: obsOff) {
+            o.setStatus(true);
+            db.store(o);
+            db.commit();
+        }
+    }
 
     public void Close(){
         db.close();
