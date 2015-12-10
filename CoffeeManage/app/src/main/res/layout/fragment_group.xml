@@ -5,9 +5,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/groupListView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="350dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:background="@android:color/holo_red_dark"
+        android:background="#F5F5F5"
         android:baselineAligned="false"
         android:clickable="false"
         android:orientation="horizontal">
@@ -18,32 +31,21 @@
             android:layout_marginLeft="8dp"
             android:gravity="center_vertical"
             android:text="Tổng sản phẩm: 30"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="12dp" />
+
         <Button
             android:id="@+id/btnAddProduct"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_marginLeft="10dp"
-            android:background="@android:color/darker_gray"
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_mon_moi"
             android:textStyle="bold"
             android:paddingTop="7dp"
-            android:paddingLeft="15dp"
-            android:gravity="left"
-            android:text="Thêm thức uống"
+            android:layout_marginLeft="50dp"
+            android:text="Thêm"
             android:textColor="@android:color/white"
             android:textSize="5pt" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/groupListView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </ListView>
     </LinearLayout>
 
 </RelativeLayout>

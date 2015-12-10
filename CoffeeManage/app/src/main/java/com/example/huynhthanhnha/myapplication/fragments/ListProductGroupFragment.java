@@ -234,8 +234,8 @@ public class ListProductGroupFragment extends Fragment {
         final Spinner sp1 = (Spinner) rootView.findViewById(R.id.spinner1);
 
         ArrayAdapter<String> adp1 = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, list);
-        adp1.setDropDownViewResource(R.layout.spinner_group);
+                R.layout.spinner_item_group, list);
+        adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp1.setAdapter(adp1);
 
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

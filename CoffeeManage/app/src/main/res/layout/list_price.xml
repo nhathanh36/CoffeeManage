@@ -74,7 +74,7 @@
             android:textSize="11dp"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_marginLeft="55dp"
+            android:layout_marginLeft="35dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Giá thức uống"
@@ -82,7 +82,6 @@
             android:layout_weight="0.23" />
         <TextView
             android:layout_width="wrap_content"
-            android:layout_marginLeft="25dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"
             android:text="Ngày áp dụng"

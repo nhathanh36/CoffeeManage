@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.huynhthanhnha.myapplication.Login;
+import com.example.huynhthanhnha.myapplication.adapter.ListGroupAdapter;
 import com.example.huynhthanhnha.myapplication.form.DatabaseConnection;
 import com.example.huynhthanhnha.myapplication.form.GroupProduct;
 import com.example.huynhthanhnha.myapplication.form.ListPrice;
@@ -60,10 +61,7 @@ public class ListProductActivity extends AppCompatActivity{
         mDrawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
         mDrawerLayout.setDrawerListener(mDrawerListener);
 
-        for (GroupProduct gp: listGroupProduct) {
-            formain.add(String.valueOf(gp.getGroupProductName()));
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, formain);
+        ListGroupAdapter adapter = new ListGroupAdapter(ListProductActivity.this, listGroupProduct);
         mainlist.setAdapter(adapter);
         mDrawerLayout.openDrawer(mainlist);
         mainlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,7 +69,7 @@ public class ListProductActivity extends AppCompatActivity{
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                String getGroup = formain.get(arg2);
+                String getGroup = listGroupProduct.get(arg2).getGroupProductName();
                 // Set param into bundle
                 Bundle bundle = new Bundle();
                 bundle.putString("groupActivity", getGroup);
