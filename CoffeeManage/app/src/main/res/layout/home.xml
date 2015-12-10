@@ -20,10 +20,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="11dp"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_keyboard_backspace_black_24dp"
-                android:id="@+id/imageView" />
+                android:src="@drawable/ic_keyboard_backspace_white_24dp"
+                android:id="@+id/imgBackHome" />
             <TextView
                 android:layout_width="230dp"
                 android:layout_height="46dp"

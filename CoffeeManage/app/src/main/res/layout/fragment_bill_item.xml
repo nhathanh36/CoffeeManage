@@ -14,7 +14,7 @@
         android:text="STT"
         android:textSize="11dp"/>
     <TextView
-        android:layout_width="60dp"
+        android:layout_width="63dp"
         android:layout_height="32dp"
         android:id="@+id/tvNgaylap"
         android:paddingTop="9dp"

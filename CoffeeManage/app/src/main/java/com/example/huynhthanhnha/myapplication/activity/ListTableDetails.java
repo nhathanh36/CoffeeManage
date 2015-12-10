@@ -49,6 +49,7 @@ public class ListTableDetails extends Activity {
     int IdTable;
     Button btnMonmoi;
     Button btnThanhToan;
+    ImageView imgBackTableDetails;
     long Total;
     ListProductDetailsAdapter adapter;
     AddProductDetailsAdaper adapterAdd;
@@ -66,6 +67,7 @@ public class ListTableDetails extends Activity {
         inputSearch = (EditText) findViewById(R.id.inputSearch);
         btnMonmoi = (Button) findViewById(R.id.btnMonmoi);
         btnThanhToan = (Button) findViewById(R.id.btnThanhtoan);
+        imgBackTableDetails = (ImageView) findViewById(R.id.imgBackTableDetails);
 
         //Set text
         TextView numTableDetail = (TextView) findViewById(R.id.tableNumber1);
@@ -174,6 +176,20 @@ public class ListTableDetails extends Activity {
 
             }
         });
+
+        //Back event
+        imgBackTableDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ListTableDetails.this, GridTableActivity.class));
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ListTableDetails.this, GridTableActivity.class));
     }
 
     private void searchItem(String textToSearch) {

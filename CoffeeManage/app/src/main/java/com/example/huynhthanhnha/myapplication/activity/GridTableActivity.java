@@ -68,6 +68,7 @@ public class GridTableActivity extends Activity {
         });
     }
 
+
     private void createGridTable() {
         GridView gridView = (GridView) findViewById(R.id.gvListTable);
         Calendar currentDate = Calendar.getInstance();
@@ -107,6 +108,9 @@ public class GridTableActivity extends Activity {
                             case R.id.popupGridMove:
                                 //Toast.makeText(GridTableActivity.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
                                 ShowDialogMoveTable(tablePosition);
+                                break;
+                            case R.id.popupDeleteTable:
+                                ShowDialogDelete(tablePosition);
                                 break;
                         }
                         return true;
@@ -211,4 +215,42 @@ public class GridTableActivity extends Activity {
         builder.create();
         builder.show();
     }
+
+    private void ShowDialogDelete(final Table tablePosition){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GridTableActivity.this);
+        LayoutInflater inflater = GridTableActivity.this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_confirm, null);
+        TextView title = new TextView(GridTableActivity.this);
+        title.setText("Bạn muốn xóa?");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(18);
+        title.setTextColor(Color.BLUE);
+
+        builder.setView(view)
+                .setCustomTitle(title)
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        conn.Open();
+                        conn.deleteTable(tablePosition);
+                        conn.Close();
+                        createGridTable();
+                    }
+                })
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(GridTableActivity.this, HomeOfficerActivity.class));
+    }
+
 }

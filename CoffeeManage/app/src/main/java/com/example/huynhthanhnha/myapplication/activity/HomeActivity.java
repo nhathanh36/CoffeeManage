@@ -22,6 +22,7 @@ public class HomeActivity extends Activity {
     LinearLayout statistic;
     TextView textViewName;
     ImageView imgLogout;
+    ImageView imgBackHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class HomeActivity extends Activity {
         statistic = (LinearLayout) findViewById(R.id.linearStatistic);
         report = (LinearLayout) findViewById(R.id.linearReport);
         imgLogout = (ImageView) findViewById(R.id.imgLogout);
+        imgBackHome = (ImageView) findViewById(R.id.imgBackHome);
 
         lnOfficer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +62,13 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        imgBackHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
             }
         });
     }

@@ -2,18 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/popupGridEnter"
-        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_control_point_black_24dp"
         android:title="Mở/Xem bàn"/>
     <item
         android:id="@+id/popupGridMove"
-        android:showAsAction="ifRoom|withText"
         android:visible="true"
         android:title="Chuyển bàn">
     </item>
 
     <item
         android:id="@+id/popupGridJoin"
-        android:showAsAction="ifRoom|withText"
         android:visible="true"
         android:title="Gộp bàn"/>
+
+    <item android:icon="@drawable/ic_keyboard_backspace_black_24dp"
+        android:visible="true"
+        android:id="@+id/popupDeleteTable"
+        android:title="Xóa bàn"></item>
 </menu>

@@ -96,15 +96,28 @@
             android:background="#3b5998"
             android:baselineAligned="false"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/imgBackTableDetails"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
 
-            <TextView
-                android:id="@+id/textTongsomon"
-                android:layout_width="354dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="Tổng số món: 3"
-                android:textColor="#ffffff" />
+                <TextView
+                    android:id="@+id/textTongsomon"
+                    android:layout_width="354dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:text="Tổng số món: 3"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

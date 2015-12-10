@@ -75,7 +75,7 @@
             android:textSize="11dp"/>
         <TextView
             android:layout_width="wrap_content"
-            android:paddingLeft="95dp"
+            android:paddingLeft="100dp"
             android:paddingTop="8dp"
             android:textColor="#ffffff"
             android:layout_height="wrap_content"

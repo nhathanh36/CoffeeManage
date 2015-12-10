@@ -341,7 +341,7 @@ public class DatabaseConnection {
         ObjectSet<Table> obsTable = db.queryByExample(Table.class);
         for (Table t : obsTable) {
             listTable.add(t);
-            System.out.println("Id table: " + t.getIdTable());
+            //System.out.println("Id table: " + t.getIdTable());
         }
         return listTable;
     }
@@ -367,12 +367,12 @@ public class DatabaseConnection {
             }
         });
         if (gro.size() == 0) {
-            System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
+            //System.out.println("KHONG THE LAY NHOM HOAC ID NHOM SAI");
         } else
             //Set values for list product
             for (Product pro : gro.next().getListProduct()) {
                 listProduct.add(pro);
-                System.out.println("TEN THUC UONG 1: " + pro.getProductName());
+                //System.out.println("TEN THUC UONG 1: " + pro.getProductName());
             }
 
         return listProduct;
@@ -384,7 +384,7 @@ public class DatabaseConnection {
         ObjectSet<GroupProduct> lsGroup = db.queryByExample(GroupProduct.class);
         for (GroupProduct pd : lsGroup) {
             listGroup.add(pd);
-            System.out.println("Group Name: " + pd.getGroupProductName());
+            //System.out.println("Group Name: " + pd.getGroupProductName());
         }
         return listGroup;
     }
@@ -396,7 +396,7 @@ public class DatabaseConnection {
         int maxID = getMaxProductID();
 
         //Insert product object
-        Product prod = new Product(maxID, nameOfProduct, unitOfProduct);
+        Product prod = new Product(maxID+1, nameOfProduct, unitOfProduct);
 
         //Select group product
         ObjectSet<GroupProduct> gro = db.query(new Predicate<GroupProduct>() {
@@ -477,7 +477,7 @@ public class DatabaseConnection {
             }
         });
         if (bills.size() == 0) {
-            System.out.println("KHONG CO HOA DON!!");
+            //System.out.println("KHONG CO HOA DON!!");
         } else {
             final Bill billTemp = bills.next();
             //System.out.println("Bill id: xxx " + billTemp.getBillID());
@@ -503,7 +503,7 @@ public class DatabaseConnection {
             }
         });
         if (bills.size() != 1) {
-            System.out.println("KHONG CO HOA DON!!");
+            //System.out.println("KHONG CO HOA DON!!");
             return null;
         }
         return bills.next();
@@ -527,10 +527,10 @@ public class DatabaseConnection {
         //Check bill is existed or not
         Bill bill = checkBillExist(tableID);
         if (bill != null) { //Has bill and has list details product
-            System.out.println("InsertProductForBill => UPDATE BILL => TON TAI 1 THUC UONG");
+            //System.out.println("InsertProductForBill => UPDATE BILL => TON TAI 1 THUC UONG");
             insertProductDetailForBill(bill, productCm, unitSales, tableID);
         } else {
-            System.out.println("InsertProductForBill => THEM BILL MOI (CHUA CO THUC UONG NAO)");
+            //System.out.println("InsertProductForBill => THEM BILL MOI (CHUA CO THUC UONG NAO)");
             //Get max bill id
             idBill = getMaxBillID() + 1;
             //System.out.println("ID Bill moi trong ham insert: " + idBill);
@@ -552,7 +552,7 @@ public class DatabaseConnection {
             billNew.setState(true);                            //Set state for bill //true is not pay
             billNew.addListDetailProduct(productDetailsNew);   //Set details product for bill
             billNew.setOfficer(officer);                  //Set officer for bill
-            System.out.println("NAME OF OFFICER" + billNew.getOfficer().getName());
+            //System.out.println("NAME OF OFFICER" + billNew.getOfficer().getName());
 
             tb.addBill(billNew);                           //Set bill for table
             productDetailsNew.setBill(billNew);            //Set bill for Details product
@@ -577,7 +577,7 @@ public class DatabaseConnection {
         });
 
         if (details.size() == 0) {
-            System.out.println("PRODUCT DETAIL KHONG CO GIA TRI TRUNG LAP THUC UONG!!");
+            //System.out.println("PRODUCT DETAIL KHONG CO GIA TRI TRUNG LAP THUC UONG!!");
             int idProductDetail = getMaxProductDetailID() + 1;
             ProductDetails productDetails = new ProductDetails(idProductDetail, numSales);
 
@@ -590,13 +590,13 @@ public class DatabaseConnection {
             db.commit();
         } else {
             productOld = details.next();
-            System.out.println("TRUNG THUC UONG TRONG DETAILS!!");
+            //System.out.println("TRUNG THUC UONG TRONG DETAILS!!");
             //get current Unit of product
             int currentUnit = productOld.getUnitSales();
             //System.out.println("UNIT CURRENT = " + currentUnit);
             //Update unit sales for this product
             productOld.setUnitSales((numSales + currentUnit));
-            System.out.println("AFTER CURRENT = " + (numSales + currentUnit));
+            //System.out.println("AFTER CURRENT = " + (numSales + currentUnit));
             //System.out.println("GET UNIT SALES: " + productOld.getUnitSales());
             db.store(productOld);
             db.commit();
@@ -611,7 +611,7 @@ public class DatabaseConnection {
             }
         });
         if (details.size() == 0) {
-            System.out.println("LAY TABLE KHONG CO GIA TRI!!");
+            //System.out.println("LAY TABLE KHONG CO GIA TRI!!");
             return null;
         }
         return details.next();
@@ -626,7 +626,7 @@ public class DatabaseConnection {
                     MaxIDBill = b.getBillID();
 
             }
-        System.out.println("ID trong ham getIDBill => " + MaxIDBill);
+        //System.out.println("ID trong ham getIDBill => " + MaxIDBill);
         return MaxIDBill;
     }
 
@@ -637,7 +637,7 @@ public class DatabaseConnection {
             }
         });
         if (details.size() == 0) {
-            System.out.println("KHONG CO CHI TIET THUC UONG!!");
+            //System.out.println("KHONG CO CHI TIET THUC UONG!!");
             return null;
         } else
             return details.next();
@@ -697,7 +697,7 @@ public class DatabaseConnection {
                     MaxID = p.getProductDetailID();
 
             }
-        System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
+        //System.out.println("MAX PRODUCT DETAILS ID => " + MaxID);
         return MaxID;
     }
 
@@ -719,7 +719,7 @@ public class DatabaseConnection {
             }
         });
         if (details.size() == 0) {
-            System.out.println("KHONG SELECT DC PRODUCT!!");
+            //System.out.println("KHONG SELECT DC PRODUCT!!");
             return null;
         } else
             return details.next();
@@ -778,10 +778,10 @@ public class DatabaseConnection {
         dateClass.setDate(new Date());
         // Create new object in ListPrice
         lp.setPrice(price);
-        System.out.println("PRICE AFTER SET " + lp.getPrice());
+        //System.out.println("PRICE AFTER SET " + lp.getPrice());
         //System.out.println("/*************************************/");
         lp.setDateClass(dateClass);
-        System.out.println("DATECLASS AFTER SET " + lp.getDateClass().getDate());
+       // System.out.println("DATECLASS AFTER SET " + lp.getDateClass().getDate());
         lp.setDateClass(dateClass);
 
 
@@ -814,35 +814,6 @@ public class DatabaseConnection {
         else return false;
     }
 
-    public long getPriceInCurrentBill(Bill bill, final int proID) {
-        long price = 0;
-        List<Date> listDate = new ArrayList<Date>();
-        //Get date of bill
-        Calendar cal = bill.getCalendar();
-        ObjectSet<ListPrice> result = db.query(new Predicate<ListPrice>() {
-            @Override
-            public boolean match(ListPrice l) {
-                return l.getProduct().getProductId() == proID;
-            }
-        });
-
-        System.out.println("Date before sort: ");
-        //Get price and date of product
-        for (ListPrice lp : result) {
-            listDate.add(lp.getDateClass().getDate());
-            System.out.println("Before" + lp.getDateClass().getDate().toString());
-        }
-
-        //Sort date
-        Collections.sort(listDate);
-        System.out.println("Date after sort: ");
-        for (Date lp : listDate) {
-            System.out.println("After" + lp.getTime());
-        }
-
-
-        return price;
-    }
 
     public long getPriceTotalOfBill(List<ProductDetails> productDetailsList) {
         long priceTotal = 0;
@@ -892,7 +863,7 @@ public class DatabaseConnection {
             }
         });
         detailsTemp = details.next();
-        System.out.println("ID" + detailsTemp.getProductDetailID());
+       //System.out.println("ID" + detailsTemp.getProductDetailID());
         db.delete(detailsTemp);
 
         //Find id bill of product details. If number of product details in this bill is O, delete the bill
@@ -925,9 +896,9 @@ public class DatabaseConnection {
             }
         });
         p = result.next();
-        System.out.println("before Ten san pham: " + p.getProductName());
+        //System.out.println("before Ten san pham: " + p.getProductName());
         p.setProductName(name);
-        System.out.println("after Ten san pham: " + p.getProductName());
+        //System.out.println("after Ten san pham: " + p.getProductName());
 
         db.store(p);
         db.commit();
@@ -994,7 +965,7 @@ public class DatabaseConnection {
         });
 
         product1 = products.next();
-        System.out.println("Name xoa: " + product1.getProductName());
+        //System.out.println("Name xoa: " + product1.getProductName());
         ObjectSet<GroupProduct> groupProducts = db.query(new Predicate<GroupProduct>() {
             @Override
             public boolean match(GroupProduct groupProduct) {
@@ -1007,7 +978,7 @@ public class DatabaseConnection {
         gp.deleteProduct(product1);
         db.delete(product1);
         db.commit();
-        System.out.println("Size after: " + aaa().size());
+        //System.out.println("Size after: " + aaa().size());
     }
 
     public List<Bill> getListBill() {
@@ -1134,9 +1105,9 @@ public class DatabaseConnection {
             }
         });
         groupProduct = result.next();
-        System.out.println("before Ten san pham: " + groupProduct.getGroupProductName());
+        //System.out.println("before Ten san pham: " + groupProduct.getGroupProductName());
         groupProduct.setGroupProductName(name);
-        System.out.println("after Ten san pham: " + groupProduct.getGroupProductName());
+        //System.out.println("after Ten san pham: " + groupProduct.getGroupProductName());
 
         db.store(groupProduct);
         db.commit();
@@ -1359,9 +1330,23 @@ public class DatabaseConnection {
         });
         Table oldTable = result.next();
 
-        //db.delete();
+        db.delete(oldTable);
         db.commit();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void Close() {
         db.close();

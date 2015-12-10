@@ -3,6 +3,7 @@ package com.example.huynhthanhnha.myapplication.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -216,5 +217,11 @@ public class ShowGroupActivity extends Activity {
                 });
         builder1.create();
         builder1.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ShowGroupActivity.this, HomeOfficerActivity.class));
     }
 }

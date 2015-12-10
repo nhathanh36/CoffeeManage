@@ -120,4 +120,10 @@ public class ShowPriceActivity extends Activity {
         popupMenu.inflate(R.menu.popup_menu_price);
         popupMenu.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ShowPriceActivity.this, HomeOfficerActivity.class));
+    }
 }

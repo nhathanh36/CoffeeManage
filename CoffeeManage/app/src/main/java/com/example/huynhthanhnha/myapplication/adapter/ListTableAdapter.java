@@ -56,7 +56,7 @@ public class ListTableAdapter extends BaseAdapter {
         textView.setText("Bàn " + String.valueOf(table.getIdTable()));
 
         TextView textID = (TextView) rowView.findViewById(R.id.tvIDTable);
-        textID.setText(String.valueOf(position + 1));
+        textID.setText(String.valueOf(table.getIdTable()));
 
         ImageView img = (ImageView) rowView.findViewById(R.id.imageTable);
 
