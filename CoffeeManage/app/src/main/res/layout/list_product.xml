@@ -52,8 +52,37 @@
                     android:text="Cấp: Nhân viên"
                     android:textColor="@android:color/black"
                     android:textSize="6pt" />
+
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:background="#E91E63"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="Tên thức uống"
+            android:layout_gravity="center_vertical"
+            android:textSize="13dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="115dp"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:text="Giá thức uống"
+            android:textSize="13dp" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -84,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:background="#BDBDBD"
+                android:background="#EEEEEE"
                 android:choiceMode="singleChoice"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp" />

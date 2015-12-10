@@ -54,7 +54,7 @@ public class ListProductAdapter extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.list_item_product, null);
 
         TextView tvProduct = (TextView) rowView.findViewById(R.id.tvlistProduct);
-        if (product.getProductName().equals("")) {
+        if (product.getProductName().equals(null)) {
             tvProduct.setText("Chưa có thức uống!");
         } else {
             tvProduct.setText(String.valueOf(product.getProductName()));
