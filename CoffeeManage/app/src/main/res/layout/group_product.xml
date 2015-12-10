@@ -5,7 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#3F51B5"
+        android:background="#3b5998"
         android:orientation="vertical">
 
         <LinearLayout
@@ -17,7 +17,7 @@
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/coffee" />
+                android:src="@drawable/group_drink" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
