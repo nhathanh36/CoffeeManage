@@ -116,6 +116,7 @@ public class BillActivity extends Activity {
         builder.show();
     }
 
+
     public void ShowPopupBillDetail(View view, final Bill bill){
         PopupMenu popup = new PopupMenu(BillActivity.this, view);
         popup.getMenuInflater().inflate(R.menu.popup_bill_details, popup.getMenu());

@@ -144,9 +144,9 @@ public class ListProductGroupFragment extends Fragment {
                         String price = String.valueOf(etPrice.getText());
 
                         if (String.valueOf(price).equals("")) {
-                            Toast.makeText(getActivity(), "Trường giá không được rỗng!!", Toast.LENGTH_SHORT).show();
-                        } else if (Long.valueOf(price) < 8000) {
-                            Toast.makeText(getActivity(), "Giá thức uống không được quá nhỏ!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Vui lòng nhập giá thức uống!!", Toast.LENGTH_SHORT).show();
+                        } else if (Long.valueOf(price) < 1000) {
+                            Toast.makeText(getActivity(), "Giá thức uống lớn hơn 1000đ!!", Toast.LENGTH_SHORT).show();
                         } else {
                             conn.Open();
                             conn.UpdatePrice(product, Long.valueOf(price));
@@ -272,9 +272,9 @@ public class ListProductGroupFragment extends Fragment {
                         String strUnit = addUnit.getText().toString();
                         String price = addPrice.getText().toString();
                         if (strName.equals("") || strUnit.equals("") || price.equals("")) {
-                            Toast.makeText(getActivity(), "Các trường nhập không được trống!!", Toast.LENGTH_SHORT).show();
-                        } else if (Long.valueOf(price) < 8000) {
-                            Toast.makeText(getActivity(), "Giá thức uống không được quá nhỏ!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Vui lòng nhập giá thức uống!!", Toast.LENGTH_SHORT).show();
+                        } else if (Long.valueOf(price) < 1000) {
+                            Toast.makeText(getActivity(), "Giá thức uống lớn hơn 1000đ!!", Toast.LENGTH_SHORT).show();
                         } else {
                             conn.Open();
                             conn.InsertProduct(strGroup, strName, strUnit, Long.valueOf(price));
