@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -50,6 +51,7 @@ public class ListTableDetails extends Activity {
     Button btnMonmoi;
     Button btnThanhToan;
     ImageView imgBackTableDetails;
+    RelativeLayout relativeThanhtoan;
     long Total;
     ListProductDetailsAdapter adapter;
     AddProductDetailsAdaper adapterAdd;
@@ -66,8 +68,9 @@ public class ListTableDetails extends Activity {
         relativeAdd = (RelativeLayout) findViewById(R.id.relativeAddProduct);
         inputSearch = (EditText) findViewById(R.id.inputSearch);
         btnMonmoi = (Button) findViewById(R.id.btnMonmoi);
-        btnThanhToan = (Button) findViewById(R.id.btnThanhtoan);
+        //btnThanhToan = (Button) findViewById(R.id.btnThanhtoan);
         imgBackTableDetails = (ImageView) findViewById(R.id.imgBackTableDetails);
+        relativeThanhtoan = (RelativeLayout) findViewById(R.id.linearThanhToan);
 
         //Set text
         TextView numTableDetail = (TextView) findViewById(R.id.tableNumber1);
@@ -89,40 +92,20 @@ public class ListTableDetails extends Activity {
             }
         });
 
+        relativeThanhtoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowDialogThanhToan();
+            }
+        });
         //Event bill
+        /*
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ListTableDetails.this);
-                // Get the layout inflater
-                LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
-                TextView title = new TextView(ListTableDetails.this);
-                title.setText("Bạn muốn thanh toán?");
-                title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(10, 10, 10, 10);
-                title.setHeight(60);
-                title.setTextSize(15);
-                title.setTextColor(Color.BLUE);
-
-                builder.setView(inflater.inflate(R.layout.dialog_confirm, null))
-                        .setCustomTitle(title)
-                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                conn.Open();
-                                conn.updateStateForBill(IdTable);
-                                conn.Close();
-                                createListProduct();
-                            }
-                        })
-                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                            }
-                        });
-                builder.create();
-                builder.show();
+                ShowDialogThanhToan();
             }
-        });
+        });*/
 
         ////////////////////////////////////////////
         //Show popup menu for each item
@@ -184,6 +167,37 @@ public class ListTableDetails extends Activity {
                 startActivity(new Intent(ListTableDetails.this, GridTableActivity.class));
             }
         });
+    }
+
+    private void ShowDialogThanhToan(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ListTableDetails.this);
+        // Get the layout inflater
+        LayoutInflater inflater = ListTableDetails.this.getLayoutInflater();
+        TextView title = new TextView(ListTableDetails.this);
+        title.setText("Bạn muốn thanh toán?");
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        title.setPadding(10, 10, 10, 10);
+        title.setHeight(60);
+        title.setTextSize(15);
+        title.setTextColor(Color.BLUE);
+
+        builder.setView(inflater.inflate(R.layout.dialog_confirm, null))
+                .setCustomTitle(title)
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        conn.Open();
+                        conn.updateStateForBill(IdTable);
+                        conn.Close();
+                        createListProduct();
+                    }
+                })
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 
     @Override
@@ -329,12 +343,16 @@ public class ListTableDetails extends Activity {
                     unitSales = (EditText) rowView.findViewById(R.id.editSoluong);
                     if (unitSales.getText().length() != 0 && Integer.valueOf(unitSales.getText().toString()) != 0) {
                         conn.InsertProductForBill(product, Integer.valueOf(unitSales.getText().toString()), TableID);
+                        relativeAdd.setVisibility(View.GONE);
+                        relativeDetails.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        Toast.makeText(ListTableDetails.this, "Số lượng không hợp lệ!!", Toast.LENGTH_SHORT).show();
                     }
                     conn.Close();
 
-                    relativeAdd.setVisibility(View.GONE);
-                    relativeDetails.setVisibility(View.VISIBLE);
                     createListProduct();
+
                 }
             });
 

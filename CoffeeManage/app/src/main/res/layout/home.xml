@@ -57,8 +57,8 @@
         android:layout_width="167dp"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/officer"
             android:id="@+id/imgOfficer"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
-            android:text="Danh sách nhân viên"
+            android:text="DANH SÁCH NHÂN VIÊN"
             android:textColor="#000000"
             android:layout_centerHorizontal="true"
             android:id="@+id/textView2"
@@ -83,8 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/bill_icon"
             android:id="@+id/imageView1"
             android:layout_gravity="center_horizontal" />
@@ -94,7 +94,7 @@
             android:layout_height="20dp"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:text="Báo cáo hóa đơn"
+            android:text="BÁO CÁO HÓA ĐƠN"
             android:id="@+id/textView3"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
@@ -107,8 +107,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/chart_pie"
             android:id="@+id/imageView2"
             android:layout_gravity="center_horizontal" />
@@ -118,7 +118,7 @@
             android:layout_height="20dp"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:text="Thống kê thức uống"
+            android:text="THỐNG KÊ THỨC UỐNG"
             android:id="@+id/textView3v"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

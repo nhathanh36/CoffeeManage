@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="32dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="140dp"
+        android:layout_height="32dp"
+        android:id="@+id/textProduct"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"
+        android:layout_marginLeft="6dp"
+        android:paddingTop="10dp"
+        android:text="Tên thức uống"
+        android:textSize="10dp"/>
+    <TextView
+        android:layout_width="58dp"
+        android:layout_height="30dp"
+        android:id="@+id/textPrice"
+        android:paddingTop="9dp"
+        android:gravity="right"
+        android:textColor="#B71C1C"
+        android:text="150000đ"
+        android:textSize="11dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:id="@+id/tvDate"
+        android:paddingTop="9dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000000"
+        android:text="05/12/2014"
+        android:textSize="10dp"
+        android:gravity="left"/>
+
+</LinearLayout>

@@ -68,10 +68,11 @@
                     android:src="@drawable/dsthucuong"
                     android:id="@+id/imgListProduct" />
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="85dp"
                     android:textColor="#000000"
+                    android:gravity="center_horizontal"
                     android:textAlignment="center"
                     android:text="Danh sách thức uống"
                     android:id="@+id/a111" />

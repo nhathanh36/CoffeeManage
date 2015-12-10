@@ -45,13 +45,12 @@ public class ListPriceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        DatabaseConnection conn = new DatabaseConnection();
         long price = 0;
         ListPrice lp = listPrice.get(position);
 
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View rowView = inflater.inflate(R.layout.list_item_price, null);
+        View rowView = inflater.inflate(R.layout.list_item_details_price, null);
 
         TextView tvProduct = (TextView) rowView.findViewById(R.id.textProduct);
         TextView tvPrice = (TextView) rowView.findViewById(R.id.textPrice);
